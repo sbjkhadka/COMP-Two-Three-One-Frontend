@@ -26,126 +26,87 @@
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search Recipe</button>
-    </form>
+    <div class="my-2 my-lg-0" *ngIf="loggedInUser">
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{loggedInUser.email}}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a href="#" class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+
   </div>
 </nav>
 
-<!-- Navbar ends here -->
-
-<!-- Carousel starts here -->
-<!--<div class="carousel-container d-flex justify-content-around" >-->
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="z-index: -1">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img class="d-block w-100" style="max-height: 94vh" src="https://images2.minutemediacdn.com/image/upload/c_crop,h_1126,w_2000,x_0,y_181/f_auto,q_auto,w_1100/v1554932288/shape/mentalfloss/12531-istock-637790866.jpg" alt="First slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Caption level-1</h5>
-        <p>Caption level-2</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" style="max-height: 94vh" src="https://images2.minutemediacdn.com/image/upload/c_crop,h_1126,w_2000,x_0,y_181/f_auto,q_auto,w_1100/v1554932288/shape/mentalfloss/12531-istock-637790866.jpg" alt="Second slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Caption level-1</h5>
-        <p>Caption level-2</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img class="d-block w-100" style="max-height: 94vh" src="https://images2.minutemediacdn.com/image/upload/c_crop,h_1126,w_2000,x_0,y_181/f_auto,q_auto,w_1100/v1554932288/shape/mentalfloss/12531-istock-637790866.jpg" alt="Third slide">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Caption level-1</h5>
-        <p>Caption level-2</p>
-      </div>
+<div class="container-fluid" *ngIf="!loggedInUser">
+  <div class="row">
+    <div class="col-md-12 home-header d-flex align-items-center">
+      <span>
+        <span class="app-name">GroList</span> Your best application for planning grocery trip
+      </span>
     </div>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+
+  <div class="row d-flex justify-content-between" style="max-height: 50vh;">
+    <div class="col-md-6 d-flex justify-content-around align-items-center" style="height: 50vh;border-radius: 5px">
+      <img style="border-radius: 5px" src="https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg" height="100%">
+    </div>
+    <div class="col-md-6 pr-10">
+      <app-login-auth (isLoggedIn)="login($event)" class="h-100 w-100"></app-login-auth>
+    </div>
+  </div>
 </div>
-<!--</div>-->
-<!-- Carousel ends here -->
 
-<div style="background-color: lavender">
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid autem beatae consectetur debitis, dolorum ex quae vel? Earum eius eum pariatur, provident reiciendis totam vero. Ad ipsa officiis porro sed.
+<div class="container-fluid" *ngIf="loggedInUser">
+  <div class="row">
+    <div class="col-md-10 home-header d-flex align-items-center">
+        <span class="app-name">Select recipes</span>
+    </div>
+    <div class="col-md-2 d-flex align-items-center">
+      <span class="app-name">Some text at right</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 cards-container d-flex justify-content-between align-items-center flex-wrap align-self-center" style="max-height: 600px;overflow: auto">
+        <div class="card" style="width: 18rem;margin: 20px" *ngFor="let item of items">
+          <img class="card-img-top" src="{{item}}" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Brief description about this item</p>
+          </div>
+        </div>
+      <div class="card" style="width: 18rem;margin: 20px" *ngFor="let item of items">
+        <img class="card-img-top" src="{{item}}" alt="Card image cap">
+        <div class="card-body">
+          <p class="card-text">Brief description about this item</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <span style="cursor: pointer"> + Add your own recipe</span>
+    </div>
+  </div>
 
 
 
 
-  </p>
 </div>
+
+
+
+
+
 
 
 

@@ -5,3 +5,14 @@
   padding: 5px;
 
 }
+
+.home-header {
+  height: 50px;
+}
+.app-name{
+  font-size: larger;
+  font-weight: bold;
+}
+.navbar {
+  z-index: 9999;
+}
