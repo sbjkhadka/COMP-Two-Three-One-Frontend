@@ -1,7 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AuthenticationService} from '../shared-services/authentication.service';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {FirebaseService} from '../shared-services/services/firebase.service';
+import {RecipeServiceService} from '../shared-services/recipe-service.service';
+import {BehaviorSubject} from 'rxjs';
+import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
+import {MatDialog} from '@angular/material/dialog';
+import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 
 @Component({
   selector: 'app-home',
@@ -9,30 +13,32 @@ import {FirebaseService} from '../shared-services/services/firebase.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  loggedInUser: any;
+  bannerImage = 'https://www.himalayastrek.com/wp-content/uploads/2019/08/Newari-food-taste-kathmandu.jpg';
+  loggedInUser;
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
+  loggedInUserRecipes = new BehaviorSubject<any[]>(null);
   constructor(
-    public firebaseService: FirebaseService) {
-    // this.loggedInUser = JSON.parse(localStorage.getItem('user'));
+    public firebaseService: FirebaseService,
+    public recipeServiceService: RecipeServiceService,
+    public activeUserSingletonService: ActiveUserSingletonService,
+    public dialog: MatDialog) {
   }
-
-  items = [
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg',
-    'https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg'
-  ];
 
   ngOnInit(): void {
   }
 
   login(event): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
+    this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    console.log('logged_in_user', this.loggedInUser);
+    this.recipeServiceService.getRecipeByPartyId(this.loggedInUser.uid).subscribe(res => {
+      // remove this once the backend api is ready
+      const filtered = res.filter(recipe => recipe.party_id === this.loggedInUser.uid);
+      this.activeUserSingletonService.activeUserRecipe = filtered; // feeding singleton
+      this.loggedInUserRecipes.next( filtered);
+      console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+    });
   }
 
   register(event): void {
@@ -44,12 +50,30 @@ export class HomeComponent implements OnInit {
   }
 
   logout(): any {
-    alert('alert');
     localStorage.removeItem('user');
     this.loggedInUser = undefined;
 
     this.firebaseService.logout();
   }
 
+  recipeItemClicked(item: any): void {
+    console.log(item.recipe_name);
+    const dialogRef = this.dialog.open(RecipeDetailsComponent,
+      {
+        height: '800px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: item
+        }
+      }
+    );
+    // dialogRef.componentInstance.signUpStatus.subscribe((value) => {
+    //   if (value === true) {
+    //     this.isSignedIn = true;
+    //     this.isLoggedIn.emit(true);
+    //   }
+    // });
+  }
 }
 

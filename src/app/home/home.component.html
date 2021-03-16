@@ -37,11 +37,8 @@
             <a href="#" class="dropdown-item" (click)="logout()">Logout</a>
           </div>
         </li>
-
       </ul>
-
     </div>
-
   </div>
 </nav>
 
@@ -56,7 +53,7 @@
 
   <div class="row d-flex justify-content-between" style="max-height: 50vh;">
     <div class="col-md-6 d-flex justify-content-around align-items-center" style="height: 50vh;border-radius: 5px">
-      <img style="border-radius: 5px" src="https://blogs.biomedcentral.com/on-medicine/wp-content/uploads/sites/6/2019/09/iStock-1131794876.t5d482e40.m800.xtDADj9SvTVFjzuNeGuNUUGY4tm5d6UGU5tkKM0s3iPk-620x342.jpg" height="100%">
+      <img style="border-radius: 5px" src="{{bannerImage | DefaultAvatar: 'https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png'}}" height="100%">
     </div>
     <div class="col-md-6 pr-10">
       <app-login-auth (isLoggedIn)="login($event)" class="h-100 w-100"></app-login-auth>
@@ -73,21 +70,16 @@
       <span class="app-name">Some text at right</span>
     </div>
   </div>
-
+<!--  loggedInUserRecipes-->
   <div class="row">
-    <div class="col-md-12 cards-container d-flex justify-content-between align-items-center flex-wrap align-self-center" style="max-height: 600px;overflow: auto">
-        <div class="card" style="width: 18rem;margin: 20px" *ngFor="let item of items">
-          <img class="card-img-top" src="{{item}}" alt="Card image cap">
-          <div class="card-body">
-            <p class="card-text">Brief description about this item</p>
+    <div class="col-md-12 cards-container d-flex justify-content-between align-items-center flex-wrap align-self-center" style="max-height: 600px;overflow: auto" *ngIf="loggedInUserRecipes.value!=null">
+        <div class="card" style="width: 18rem;margin: 20px" *ngFor="let item of this.loggedInUserRecipes.value">
+          <img class="card-img-top" src="{{item.recipe_photo}}" alt="Card image cap">
+          <div class="card-body d-flex justify-content-between">
+            <span class="card-text">{{item.recipe_name | titlecase }}</span><span class="cursor-pointer" (click)="recipeItemClicked(item)">More</span>
           </div>
         </div>
-      <div class="card" style="width: 18rem;margin: 20px" *ngFor="let item of items">
-        <img class="card-img-top" src="{{item}}" alt="Card image cap">
-        <div class="card-body">
-          <p class="card-text">Brief description about this item</p>
-        </div>
-      </div>
+
 
     </div>
   </div>
@@ -97,10 +89,6 @@
       <span style="cursor: pointer"> + Add your own recipe</span>
     </div>
   </div>
-
-
-
-
 </div>
 
 

@@ -12,6 +12,13 @@ import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import { TestComponent } from './test/test.component';
+import {DefaultAvatarPipe} from './shared-methods/global-pipes';
+import {RecipeServiceService} from './shared-services/recipe-service.service';
+import {HttpClientModule} from '@angular/common/http';
+import {ActiveUserSingletonService} from './shared-services/active-user-singleton.service';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 const routes: Routes = [
@@ -24,7 +31,9 @@ const routes: Routes = [
     HomeComponent,
     RegisterAuthComponent,
     LoginAuthComponent,
-    TestComponent
+    TestComponent,
+    DefaultAvatarPipe,
+    RecipeDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +51,14 @@ const routes: Routes = [
     FormsModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    HttpClientModule,
+    MatIconModule,
+    MatToolbarModule
   ],
   providers: [FirebaseService,
-              AuthenticationService],
+              AuthenticationService,
+              RecipeServiceService,
+              ActiveUserSingletonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 
 @Component({
   selector: 'app-test',
@@ -6,10 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
+  activeUser;
+  activeUserRecipe;
+  constructor(public activeUserSingletonService: ActiveUserSingletonService) {
+    this.activeUser =  this.activeUserSingletonService.activeUser;
+    this.activeUserRecipe = this.activeUserSingletonService.activeUserRecipe;
+  }
 
-  constructor() { }
 
   ngOnInit(): void {
   }
+
+
 
 }
