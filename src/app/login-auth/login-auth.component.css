@@ -1,0 +1,22 @@
+.main-container {
+  border: 1px dotted transparent;
+  padding: 20px;
+  background-color: tomato;
+  border-radius: 5px;
+}
+
+.form-style {
+  background-color: #FFC107;
+  border: 1px solid transparent;
+  padding: 20px;
+  border-radius: 5px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.custom-dialog-container   {
+  padding: 0 !important;
+}
+
+
