@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog) {
   }
 
+  // will use it later
   ngOnInit(): void {
   }
 
