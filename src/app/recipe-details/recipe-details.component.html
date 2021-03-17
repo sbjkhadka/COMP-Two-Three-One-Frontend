@@ -2,7 +2,7 @@
   <div class="row dialog-header">
 
     <mat-toolbar class="d-flex justify-content-between">
-      <span *ngIf="recipeDetail && recipeDetail.recipe_name">{{recipeDetail.recipe_name}}</span>
+      <span *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</span>
       <a id="close-btn" class="cursor-pointer">
         <mat-icon matSuffix (click)="close()">close</mat-icon>
       </a>
@@ -13,11 +13,11 @@
   </div>
   <div class="row dialog-main">
     <div class="col-md-7 d-flex justify-content-around align-items-center">
-      <img *ngIf="recipeDetail &&recipeDetail.recipe_photo" src="{{recipeDetail.recipe_photo}}" height="100%">
+      <img *ngIf="recipeDetail &&recipeDetail.recipePhoto" src="{{recipeDetail.recipePhoto}}" height="100%">
     </div>
     <div class="col-md-5 d-flex flex-column justify-content-around align-items-start"  *ngIf="recipeDetail" style="height: 440px;max-height: 440px; overflow: auto;">
       <div class="w-100 d-flex justify-content-between align-items-center flex-column border-bottom">
-        <span style="font-size: xxx-large;margin-bottom: 20px" *ngIf="recipeDetail && recipeDetail.recipe_name">{{recipeDetail.recipe_name}}</span>
+        <span style="font-size: xxx-large;margin-bottom: 20px" *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</span>
         <small> one liner </small>
       </div>
 
@@ -30,19 +30,9 @@
   </div>
 
   <div class="row dialog-detail">
-    <div class="col-md-12 d-flex justify-content-around align-items-center" style="font-family:Arial,monospace;font-size: large;font-weight: bold;padding: 20px 40px;color: #107896;text-align: justify">
+    <div *ngIf="recipeDetail && recipeDetail.description" class="col-md-12 d-flex justify-content-around align-items-center" style="font-family:Arial,monospace;font-size: large;font-weight: bold;padding: 20px 40px;color: #107896;text-align: justify">
 
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, consectetur,
-      corporis culpa doloribus ea eos error exercitationem inventore laboriosam minima nisi,
-      placeat possimus provident quos similique sint suscipit voluptate voluptatibus?
-
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, consectetur,
-      corporis culpa doloribus ea eos error exercitationem inventore laboriosam minima nisi,
-      placeat possimus provident quos similique sint suscipit voluptate voluptatibus?
-
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, consectetur,
-      corporis culpa doloribus ea eos error exercitationem inventore laboriosam minima nisi,
-      placeat possimus provident quos similique sint suscipit voluptate voluptatibus?
+      {{recipeDetail.description}}
 
     </div>
   </div>
