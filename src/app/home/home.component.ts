@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog) {
   }
 
+  // will use it later
   ngOnInit(): void {
   }
 
@@ -33,10 +34,11 @@ export class HomeComponent implements OnInit {
     this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
     console.log('logged_in_user', this.loggedInUser);
     this.recipeServiceService.getRecipeByPartyId(this.loggedInUser.uid).subscribe(res => {
+      console.log('response', res);
       // remove this once the backend api is ready
-      const filtered = res.filter(recipe => recipe.party_id === this.loggedInUser.uid);
-      this.activeUserSingletonService.activeUserRecipe = filtered; // feeding singleton
-      this.loggedInUserRecipes.next( filtered);
+      // const filtered = res.filter(recipe => recipe.party_id === this.loggedInUser.uid);
+      this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
+      this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
     });
   }
