@@ -1,7 +1,7 @@
 <!-- Navbar starts here -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-warning  sticky">
-  <a class="navbar-brand" href="#">Grocery App</a>
+  <a class="navbar-brand" href="#"><span class="app-name">GroList</span> Your best application for planning grocery trip</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -25,6 +25,7 @@
         </div>
       </li>
 
+
     </ul>
     <div class="my-2 my-lg-0" *ngIf="loggedInUser">
 
@@ -45,16 +46,8 @@
 
 
 <div class="container-fluid" *ngIf="!loggedInUser">
-  <div class="row">
-    <div class="col-md-12 home-header d-flex align-items-center">
-      <span>
-        <span class="app-name">GroList</span> Your best application for planning grocery trip
-      </span>
-    </div>
-  </div>
-
   <div class="row d-flex justify-content-between" style="max-height: 50vh;">
-    <div class="col-md-6 d-flex justify-content-around align-items-center" style="height: 50vh;border-radius: 5px">
+    <div id="bg-test" class="col-md-6 d-flex justify-content-around align-items-center" style="height: 80vh;border-radius: 5px">
       <img style="border-radius: 5px" src="{{bannerImage | DefaultAvatar: 'https://cdn.pixabay.com/photo/2015/03/04/22/35/head-659652_960_720.png'}}" height="100%">
     </div>
     <div class="col-md-6 pr-10">

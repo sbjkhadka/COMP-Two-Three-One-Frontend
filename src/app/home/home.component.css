@@ -19,3 +19,10 @@
 .cursor-pointer {
   cursor: pointer;
 }
+
+#bg-test{
+  width:1%;
+  min-height: 19cm;
+  margin: auto;
+}
+
