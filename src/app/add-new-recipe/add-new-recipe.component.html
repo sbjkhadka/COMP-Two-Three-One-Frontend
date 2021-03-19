@@ -1,0 +1,81 @@
+<div class="container-fluid d-flex flex-column justify-content-around " style="background-color: #FFC107;height: 100%">
+  <div class="row" style="background-color: lavender;height: 160px">
+    <div class="col-md-12 d-flex justify-content-around align-items-center">
+      <h1 class="myclass">{{"New Recipe" | uppercase}}</h1>
+    </div>
+  </div>
+
+  <div class="row" style="background-color: #107896;height: 400px;overflow: auto">
+    <div class="col-md-3">
+      Photo column
+    </div>
+
+    <div class="col-md-9" style="background-color: whitesmoke">
+        <form [formGroup]="recipeForm" class="m-0">
+          <mat-form-field class="col-md-12 pl-0">
+            <input matInput type="text" id="recipe-name" placeholder="Recipe Name" formControlName="recipeName" />
+          </mat-form-field>
+
+          <div formArrayName="recipes" class="m-0 p-0">
+            <div *ngFor="let recipe of recipeForm.get('recipes')['controls']; let i = index" [formGroupName]="i"
+                 class="row d-flex justify-content-around p-0">
+              <mat-form-field class="col-md-4">
+                <input matInput type="text"  formControlName="ingredientName" placeholder="Ingredient Name">
+              </mat-form-field>
+
+              <mat-form-field class="col-md-2">
+                <input matInput type="text" formControlName="quantity" placeholder="Quantity">
+              </mat-form-field>
+
+
+              <mat-form-field class="col-md-2">
+                <mat-select formControlName="unit">
+                  <mat-option value="grams">Grams</mat-option>
+                  <mat-option value="kg">KG</mat-option>
+                  <mat-option value="ml">ml</mat-option>
+                  <mat-option value="liters">Liters</mat-option>
+                  <mat-option value="tbspoon">Table spoon</mat-option>
+                  <mat-option value="teaspoon">Tea spoon</mat-option>
+                  <mat-option value="despoon">Desert Spoon</mat-option>
+
+
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-2">
+                <input matInput type="text" formControlName="calorie" placeholder="Calorie">
+              </mat-form-field>
+
+              <div class="col-md-2">
+                <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
+                 (click)="removeOrClearRecipe(i)"       matTooltip="Remove">
+                  <mat-icon>highlight_off</mat-icon>
+                </button>
+                <button class="float-left" mat-icon-button color="primary" aria-label="Add"
+                        (click)="addRecipeFormGroup()" matTooltip="Add">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </form>
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+  <div class="row" style="background-color: tomato;height: 240px">
+    <div class="col-md-12">
+      <button class="btn btn-primary form-control" (click)="saveRecipe()">Signup</button>
+    </div>
+  </div>
+</div>

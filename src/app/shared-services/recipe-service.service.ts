@@ -16,5 +16,11 @@ export class RecipeServiceService {
     }));
   }
 
+  createRecipe(recipeObject: any): any {
+    return this.http.post<any>(environment.base_url + 'recipe', recipeObject).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
 
 }

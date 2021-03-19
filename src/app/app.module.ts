@@ -19,6 +19,12 @@ import {ActiveUserSingletonService} from './shared-services/active-user-singleto
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { AddNewRecipeComponent } from './add-new-recipe/add-new-recipe.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const routes: Routes = [
@@ -33,7 +39,8 @@ const routes: Routes = [
     LoginAuthComponent,
     TestComponent,
     DefaultAvatarPipe,
-    RecipeDetailsComponent
+    RecipeDetailsComponent,
+    AddNewRecipeComponent
   ],
     imports: [
         BrowserModule,
@@ -54,7 +61,12 @@ const routes: Routes = [
         HttpClientModule,
         MatIconModule,
         MatToolbarModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatSelectModule
     ],
   providers: [FirebaseService,
               AuthenticationService,

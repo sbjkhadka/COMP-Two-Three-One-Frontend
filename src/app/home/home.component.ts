@@ -6,6 +6,7 @@ import {BehaviorSubject} from 'rxjs';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
+import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
 
 @Component({
   selector: 'app-home',
@@ -33,14 +34,7 @@ export class HomeComponent implements OnInit {
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
     this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
     console.log('logged_in_user', this.loggedInUser);
-    this.recipeServiceService.getRecipeByPartyId(this.loggedInUser.uid).subscribe(res => {
-      console.log('response', res);
-      // remove this once the backend api is ready
-      // const filtered = res.filter(recipe => recipe.party_id === this.loggedInUser.uid);
-      this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
-      this.loggedInUserRecipes.next( res.payload);
-      console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
-    });
+    this.getAllRecipes(this.loggedInUser.uid);
   }
 
   register(event): void {
@@ -70,12 +64,33 @@ export class HomeComponent implements OnInit {
         }
       }
     );
-    // dialogRef.componentInstance.signUpStatus.subscribe((value) => {
-    //   if (value === true) {
-    //     this.isSignedIn = true;
-    //     this.isLoggedIn.emit(true);
-    //   }
-    // });
+
+  }
+
+  // tslint:disable-next-line:typedef
+  openAddNewRecipeDialog() {
+    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+      {
+        height: '800px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: 'Hello world'
+        }
+      }
+    ).afterClosed().subscribe(res => {
+      this.getAllRecipes(this.activeUserSingletonService.activeUser);
+    });
+
+  }
+
+  getAllRecipes(loggedInUserId: string): void {
+    this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
+      console.log('response', res);
+      this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
+      this.loggedInUserRecipes.next( res.payload);
+      console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+    });
   }
 }
 
