@@ -1,10 +1,8 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../shared-services/services/firebase.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {LoginAuthComponent} from '../login-auth/login-auth.component';
+import {FormControl, FormGroup} from '@angular/forms';
 
-class DialogData {
-}
 
 @Component({
   selector: 'app-register-auth',
@@ -18,18 +16,38 @@ export class RegisterAuthComponent implements OnInit {
   @Output() signUpStatus: EventEmitter<boolean> = new EventEmitter<boolean>();
   userRegistered;
   registrationFailure = 'Registration failed';
+  public registrationForm: FormGroup;
   constructor(public firebaseService: FirebaseService,
               public dialogRef: MatDialogRef<RegisterAuthComponent>) {
+    this.initializeForm();
   }
 
   ngOnInit(): void {
     this.isSignedIn = localStorage.getItem('user') !== null;
   }
 
+  initializeForm(): void{
+    this.registrationForm = new FormGroup({
+      emailSignup: new FormControl(''),
+      passwordSignup: new FormControl(''),
+      firstNameSignup: new FormControl(''),
+      lastNameSignup: new FormControl(''),
+      roleSignup: new FormControl(1),
+    });
+  }
+
 
   // tslint:disable-next-line:typedef
-  async onSignUp(email: string, password: string) {
-    await this.firebaseService.signup(email, password).then(() => {
+  async onSignUp() {
+    const userDetails = {
+      email: this.registrationForm.value.emailSignup,
+      password: this.registrationForm.value.passwordSignup,
+      firstName: this.registrationForm.value.firstNameSignup,
+      lastName: this.registrationForm.value.lastNameSignup,
+      role: this.registrationForm.value.roleSignup,
+    };
+
+    await this.firebaseService.signUp(userDetails).then(() => {
       this.userRegistered = true;
       this.dialogRef.close();
       this.signUpStatus.emit(true);
@@ -56,7 +74,7 @@ export class RegisterAuthComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   handleLogout(){
-    this.firebaseService.logout();
+    this.firebaseService.logOut();
     this.isLoggedIn.emit(false);
   }
 

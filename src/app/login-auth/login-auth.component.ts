@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../shared-services/services/firebase.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-login-auth',
@@ -12,16 +13,19 @@ export class LoginAuthComponent implements OnInit {
 
   isSignedIn = false;
   @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  public loginForm: FormGroup;
   constructor(public firebaseService: FirebaseService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {
+    this.initializeForm();
+  }
 
   ngOnInit(): void {
   }
 
   // tslint:disable-next-line:typedef
   async onSignIn(email: string, password: string) {
-    console.log('signing in');
-    await this.firebaseService.signin(email, password);
+    await this.firebaseService.signin(this.loginForm.value.email, this.loginForm.value.password);
     if (this.firebaseService.isLoggedIn) {
       this.isSignedIn = true;
       this.isLoggedIn.emit(true);
@@ -42,6 +46,13 @@ export class LoginAuthComponent implements OnInit {
         this.isSignedIn = true;
         this.isLoggedIn.emit(true);
       }
+    });
+  }
+
+  initializeForm(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl('a@b.com'),
+      password: new FormControl('121212')
     });
   }
 

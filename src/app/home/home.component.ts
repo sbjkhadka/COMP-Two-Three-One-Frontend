@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('user');
     this.loggedInUser = undefined;
 
-    this.firebaseService.logout();
+    this.firebaseService.logOut();
   }
 
   recipeItemClicked(item: any): void {
