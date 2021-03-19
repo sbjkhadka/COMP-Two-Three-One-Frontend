@@ -1,7 +1,8 @@
+/*This is css page*/
 .main-container {
   border: 1px dotted transparent;
   padding: 20px;
-  background-color: tomato;
+  background-color: white;
   border-radius: 5px;
 }
 
@@ -18,5 +19,6 @@
 .custom-dialog-container   {
   padding: 0 !important;
 }
+
 
 

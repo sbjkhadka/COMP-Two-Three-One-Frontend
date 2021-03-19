@@ -13,7 +13,7 @@ import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  bannerImage = 'https://www.himalayastrek.com/wp-content/uploads/2019/08/Newari-food-taste-kathmandu.jpg';
+  bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
   loggedInUser;
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('user');
     this.loggedInUser = undefined;
 
-    this.firebaseService.logout();
+    this.firebaseService.logOut();
   }
 
   recipeItemClicked(item: any): void {
