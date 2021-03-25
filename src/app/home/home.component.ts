@@ -32,8 +32,11 @@ export class HomeComponent implements OnInit {
 
   login(event): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
-    this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    // this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid); // feeding singleton
+
     console.log('logged_in_user', this.loggedInUser);
+    this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
     this.getAllRecipes(this.loggedInUser.uid);
   }
 
@@ -79,7 +82,8 @@ export class HomeComponent implements OnInit {
         }
       }
     ).afterClosed().subscribe(res => {
-      this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
     });
 
   }
@@ -87,7 +91,10 @@ export class HomeComponent implements OnInit {
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
       console.log('response', res);
-      this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
+      // this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
+      this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
+
+
       this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
     });

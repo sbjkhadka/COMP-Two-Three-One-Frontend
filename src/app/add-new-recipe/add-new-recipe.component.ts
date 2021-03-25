@@ -52,7 +52,7 @@ export class AddNewRecipeComponent implements OnInit {
 
     const obj  = {
       description: 'lorem ipsum',
-      partyId: this.activeUserSingletonService.activeUser,
+      partyId: this.activeUserSingletonService.activeUser.getValue(),
       price: '10',
       recipeItemList: [],
       recipeName: this.recipeForm.get('recipeName').value,
