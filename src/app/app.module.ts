@@ -25,6 +25,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import { MyRecipeListComponent } from './home/my-recipe-list/my-recipe-list.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,8 @@ const routes: Routes = [
     TestComponent,
     DefaultAvatarPipe,
     RecipeDetailsComponent,
-    AddNewRecipeComponent
+    AddNewRecipeComponent,
+    MyRecipeListComponent
   ],
     imports: [
         BrowserModule,
