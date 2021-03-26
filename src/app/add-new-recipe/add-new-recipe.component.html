@@ -12,6 +12,7 @@
 
     <div class="col-md-9" style="background-color: whitesmoke">
         <form [formGroup]="recipeForm" class="m-0">
+
           <mat-form-field class="col-md-12 pl-0">
             <input matInput type="text" id="recipe-name" placeholder="Recipe Name" formControlName="recipeName" />
           </mat-form-field>
@@ -20,7 +21,18 @@
             <div *ngFor="let recipe of recipeForm.get('recipes')['controls']; let i = index" [formGroupName]="i"
                  class="row d-flex justify-content-around p-0">
               <mat-form-field class="col-md-4">
-                <input matInput type="text"  formControlName="ingredientName" placeholder="Ingredient Name">
+                <input matInput #specialty type="text"  formControlName="ingredientName" placeholder="Ingredient Name" id="specialty-{{i}}" (input)="ingredientNameInputChange$.next(specialty.value)"
+                       [matAutocomplete]="specialtyAutocomplete" (blur)="ingredientSelected($event, i)"/>
+                <mat-autocomplete
+                  #specialtyAutocomplete="matAutocomplete"
+                  [displayWith]="getIngredientDisplayName"
+                  (optionSelected)="ingredientSelected($event, i)"
+
+                >
+
+                  <mat-option *ngFor="let option of filteredOptionsIngredientName | async"
+                              [value]="option.ingredientId">{{option.ingredientName}}</mat-option>
+                </mat-autocomplete>
               </mat-form-field>
 
               <mat-form-field class="col-md-2">

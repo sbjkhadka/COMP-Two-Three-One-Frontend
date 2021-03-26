@@ -22,5 +22,11 @@ export class RecipeServiceService {
     }));
   }
 
+  getAllIngredients(): any {
+    return this.http.get<any>(environment.base_url + 'ingredient/getAll').pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
 
 }

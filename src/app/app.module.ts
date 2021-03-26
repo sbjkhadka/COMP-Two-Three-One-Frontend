@@ -26,11 +26,14 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { MyRecipeListComponent } from './home/my-recipe-list/my-recipe-list.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatAutocomplete} from '@angular/material/autocomplete';
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'}
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'myRecipe', component: MyRecipeListComponent}
 ];
 @NgModule({
   declarations: [
@@ -68,7 +71,8 @@ const routes: Routes = [
         MatInputModule,
         MatButtonModule,
         MatTooltipModule,
-        MatSelectModule
+        MatSelectModule,
+        MatAutocompleteModule,
     ],
   providers: [FirebaseService,
               AuthenticationService,

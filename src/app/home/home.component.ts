@@ -19,15 +19,26 @@ export class HomeComponent implements OnInit {
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
+
   constructor(
     public firebaseService: FirebaseService,
     public recipeServiceService: RecipeServiceService,
     public activeUserSingletonService: ActiveUserSingletonService,
     public dialog: MatDialog) {
+    this.confirmUserLoginAfterPageReload();
   }
 
   // will use it later
   ngOnInit(): void {
+  }
+
+  confirmUserLoginAfterPageReload(): void {
+    this.loggedInUser = JSON.parse(localStorage.getItem('user'));
+    if (this.loggedInUser) {
+      this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid);
+      this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
+      this.getAllRecipes(this.loggedInUser.uid);
+    }
   }
 
   login(event): void{
@@ -70,8 +81,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-  // tslint:disable-next-line:typedef
-  openAddNewRecipeDialog() {
+
+  openAddNewRecipeDialog(): void {
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
@@ -99,5 +110,6 @@ export class HomeComponent implements OnInit {
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
     });
   }
+
 }
 

@@ -1,50 +1,3 @@
-<!-- Navbar starts here -->
-
-<!--<nav class="navbar navbar-expand-lg navbar-light bg-warning  sticky">-->
-<!--  <a class="navbar-brand" href="#"><span class="app-name">GroList</span> Your best application for planning grocery trip</a>-->
-<!--  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"-->
-<!--          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--    <span class="navbar-toggler-icon"></span>-->
-<!--  </button>-->
-
-<!--  <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
-<!--    <ul class="navbar-nav mr-auto">-->
-<!--      <li class="nav-item active">-->
-<!--        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
-<!--      </li>-->
-
-<!--      <li class="nav-item dropdown">-->
-<!--        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--          Options-->
-<!--        </a>-->
-<!--        <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--          <a class="dropdown-item" href="#">Option-1</a>-->
-<!--          <a class="dropdown-item" href="#">Option-2</a>-->
-<!--          <div class="dropdown-divider"></div>-->
-<!--          <a class="dropdown-item" href="#">Option-3</a>-->
-<!--        </div>-->
-<!--      </li>-->
-
-
-<!--    </ul>-->
-<!--    <div class="my-2 my-lg-0" *ngIf="loggedInUser">-->
-
-<!--      <ul class="navbar-nav mr-auto">-->
-<!--        <li class="nav-item dropdown">-->
-<!--          <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-<!--            {{loggedInUser.email}}-->
-<!--          </a>-->
-<!--          <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--            <a href="#" class="dropdown-item" (click)="logout()">Logout</a>-->
-<!--          </div>-->
-<!--        </li>-->
-<!--      </ul>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</nav>-->
-
-
-
 <div class="container-fluid" *ngIf="!loggedInUser">
   <div class="row d-flex justify-content-between" style="max-height: 50vh;">
     <div id="bg-test" class="col-md-6 d-flex justify-content-around align-items-center" style="height: 80vh;border-radius: 5px">
@@ -84,6 +37,7 @@
   <div class="row fixed-bottom bg-warning text-dark">
     <div class="col-md-12">
       <span style="cursor: pointer" (click)="openAddNewRecipeDialog()"> + Add your own recipe</span>
+      <span routerLink="/myRecipe" routerLinkActive="bg-light">My Recipe List</span>
     </div>
   </div>
 </div>

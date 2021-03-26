@@ -18,6 +18,7 @@ export class AppComponent {
 
 
     this.activeUserSingletonService.activeUser.subscribe(user => {
+      console.log('changed', user);
       this.loggedInUser = user;
     });
 

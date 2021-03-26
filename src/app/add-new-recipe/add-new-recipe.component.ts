@@ -3,6 +3,9 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
 import {MatDialogRef} from '@angular/material/dialog';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {startWith} from 'rxjs/operators';
+import * as rxjsOps from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-new-recipe',
@@ -11,18 +14,27 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class AddNewRecipeComponent implements OnInit {
 
+  // Related to autocomplete
+  filteredOptionsIngredientName: Observable<any[]>;
+  public ingredientNameInputChange$: Subject<string> = new Subject<string>();
+
   recipeForm: FormGroup;
+  ingredientNameList = new BehaviorSubject<any[]>([]);
 
   constructor(private formBuilder: FormBuilder,
               private activeUserSingletonService: ActiveUserSingletonService,
               private recipeServiceService: RecipeServiceService,
-              public dialogRef: MatDialogRef<AddNewRecipeComponent>) { }
+              public dialogRef: MatDialogRef<AddNewRecipeComponent>) {
+    this.getIngredientList();
+  }
 
   ngOnInit(): void {
     this.recipeForm = this.formBuilder.group({
       recipeName: new FormControl(''),
       recipes: this.formBuilder.array([this.createFormRow()])
     });
+    console.log('ing_list', this.ingredientNameList);
+    this.initializeAutoCompleteForSpecialty();
   }
 
 
@@ -61,7 +73,6 @@ export class AddNewRecipeComponent implements OnInit {
 
     const recipes = this.recipeForm.get('recipes') as FormArray;
     recipes.controls.forEach(fg => {
-      console.log('fg', fg);
       obj.recipeItemList.push({
         ingredientId: 2,
         itemQuantity: fg.value.quantity
@@ -73,10 +84,35 @@ export class AddNewRecipeComponent implements OnInit {
       console.log('create_recipe_response', res);
       this.dialogRef.close();
     });
-
-
     }
 
+  getIngredientList(): void {
+    this.recipeServiceService.getAllIngredients().subscribe(res => {
+      this.ingredientNameList.next(res.payload);
+    });
+  }
 
+  initializeAutoCompleteForSpecialty(): void {
+    this.filteredOptionsIngredientName = this.ingredientNameInputChange$.pipe(
+      startWith(''),
+      rxjsOps.debounceTime(100),
+      rxjsOps.map((s: string) => this.ingredientNameList.value.filter(specialty => specialty.ingredientName.toLowerCase()
+        .includes(s.toLowerCase())))
+    );
+  }
 
+  getIngredientDisplayName = (ingredientId) => {
+    console.log(this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId));
+    return this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
+      this.ingredientNameList.value[this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId)]
+        .ingredientName : '';
+  }
+
+  ingredientSelected(event, i): void {
+    console.log('event', event);
+    console.log('index', i);
+    const formArray = this.recipeForm.get('recipes') as FormArray;
+    const currentFormGroup = formArray.at(i);
+    console.log('value', (currentFormGroup as FormGroup).controls.ingredientName.value);
+  }
 }
