@@ -28,6 +28,9 @@ import {MatSelectModule} from '@angular/material/select';
 import { MyRecipeListComponent } from './home/my-recipe-list/my-recipe-list.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatAutocomplete} from '@angular/material/autocomplete';
+import { AddNewIngredientComponent } from './home/add-new-ingredient/add-new-ingredient.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 const routes: Routes = [
@@ -45,7 +48,8 @@ const routes: Routes = [
     DefaultAvatarPipe,
     RecipeDetailsComponent,
     AddNewRecipeComponent,
-    MyRecipeListComponent
+    MyRecipeListComponent,
+    AddNewIngredientComponent
   ],
     imports: [
         BrowserModule,
@@ -73,6 +77,8 @@ const routes: Routes = [
         MatTooltipModule,
         MatSelectModule,
         MatAutocompleteModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule
     ],
   providers: [FirebaseService,
               AuthenticationService,

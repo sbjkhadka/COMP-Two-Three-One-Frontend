@@ -2,11 +2,13 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
-import {MatDialogRef} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import * as rxjsOps from 'rxjs/operators';
 import {MatAutocomplete} from '@angular/material/autocomplete';
+import {AddNewIngredientComponent} from '../home/add-new-ingredient/add-new-ingredient.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-new-recipe',
@@ -32,12 +34,17 @@ export class AddNewRecipeComponent implements OnInit {
 
   price = new FormControl(0.5);
 
+  searching = false;
+
   constructor(private formBuilder: FormBuilder,
               private activeUserSingletonService: ActiveUserSingletonService,
               private recipeServiceService: RecipeServiceService,
-              public dialogRef: MatDialogRef<AddNewRecipeComponent>) {
+              public dialogRef: MatDialogRef<AddNewRecipeComponent>,
+              public dialog: MatDialog,
+              private _snackBar: MatSnackBar) {
     this.imgSrc = this.defaultImage;
     this.getIngredientList();
+    dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {
@@ -46,7 +53,7 @@ export class AddNewRecipeComponent implements OnInit {
       recipes: this.formBuilder.array([this.createFormRow()])
     });
     console.log('ing_list', this.ingredientNameList);
-    this.initializeAutoCompleteForSpecialty();
+    this.initializeAutoComplete();
   }
 
 
@@ -109,12 +116,17 @@ export class AddNewRecipeComponent implements OnInit {
     }
 
   getIngredientList(): void {
+    this.searching = true;
     this.recipeServiceService.getAllIngredients().subscribe(res => {
       this.ingredientNameList.next(res.payload);
+      this.searching = false;
+      this.initializeAutoComplete();
+    }, error => {
+      this.searching = false;
     });
   }
 
-  initializeAutoCompleteForSpecialty(): void {
+  initializeAutoComplete(): void {
     this.filteredOptionsIngredientName = this.ingredientNameInputChange$.pipe(
       startWith(''),
       rxjsOps.debounceTime(100),
@@ -142,26 +154,20 @@ export class AddNewRecipeComponent implements OnInit {
       .findIndex(ingredient => ingredient.ingredientId === (currentFormGroup as FormGroup).controls.ingredientName.value);
 
     if (this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0) {
+      (currentFormGroup as FormGroup).controls.calorie
+        .setValue(this.ingredientNameList.value[ingredientIndexInExistingIngredientNameList].calorie);
       (currentFormGroup as FormGroup).controls.unit
         .setValue(this.ingredientNameList
-          .value[ingredientIndexInExistingIngredientNameList].calorie); // change to .unitType after Ayhan does his correction
+          .value[ingredientIndexInExistingIngredientNameList].unitType);
 
 
     }
-    // uncomment/delete below after Ayhan makes his correction
-    // (currentFormGroup as FormGroup).controls.calorie
-    //   .setValue(this.ingredientNameList.value[ingredientIndexInExistingIngredientNameList].calorie);
-    (currentFormGroup as FormGroup).controls.calorie
-      .setValue(10);
-
   }
 
 
 
   quantityChanged(event, i): void {
     const formArray = this.recipeForm.get('recipes') as FormArray;
-    console.log('index', i);
-    console.log('value',  Number(event.target.value));
     const currentFormGroup = formArray.at(i);
 
 
@@ -171,9 +177,7 @@ export class AddNewRecipeComponent implements OnInit {
         .findIndex(ingredient => ingredient.ingredientId === (currentFormGroup as FormGroup).controls.ingredientName.value);
 
     (currentFormGroup as FormGroup).patchValue({
-      // uncomment/ delete after Ayhan's update
-      // calorie: this.ingredientNameList.value[ingredientIndexInExistingIngredientNameList].calorie * event.target.value
-      calorie: 10 * event.target.value
+      calorie: this.ingredientNameList.value[ingredientIndexInExistingIngredientNameList].calorie * event.target.value
     });
 
   }
@@ -196,6 +200,40 @@ export class AddNewRecipeComponent implements OnInit {
     this.price.setValue(Number(this.price.value) - 0.5);
   }
 
+  close(): void {
+    this.dialogRef.close();
+  }
 
+  openAddNewIngredientDialog(): void {
+    const dialogRef = this.dialog.open(AddNewIngredientComponent,
+      {
+        height: '100px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: 'Hello world'
+        }
+      }
+    ).afterClosed().subscribe(res => {
+      if (res === 'done') {
+        this.getIngredientList();
+        this.openSnackBar('Ingredient Added!', '');
+      } else if (res === 'fail') {
+        console.log('failed');
+        this.openSnackBar('Failed', '');
+      } else if (res === 'cancel') {
+        console.log('you cancelled');
+        this.openSnackBar('Cancelled', '');
+      }
+      console.log('Add Status', res);
+    });
+
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 
 }
