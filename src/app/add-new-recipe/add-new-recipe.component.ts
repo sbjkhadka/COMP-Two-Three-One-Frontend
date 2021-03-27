@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
@@ -6,6 +6,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import * as rxjsOps from 'rxjs/operators';
+import {MatAutocomplete} from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-add-new-recipe',
@@ -14,6 +15,9 @@ import * as rxjsOps from 'rxjs/operators';
 })
 export class AddNewRecipeComponent implements OnInit {
 
+  recipeInstruction = new FormControl();
+  imageLink = new FormControl();
+  imgSrc = 'https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Food-Dome-512.png';
   // Related to autocomplete
   filteredOptionsIngredientName: Observable<any[]>;
   public ingredientNameInputChange$: Subject<string> = new Subject<string>();
@@ -41,9 +45,9 @@ export class AddNewRecipeComponent implements OnInit {
   public createFormRow(): FormGroup {
     return new FormGroup({
       ingredientName: new FormControl(''),
-      quantity: new FormControl(''),
-      unit: new FormControl(''),
-      calorie: new FormControl({value: '100', disabled: true})
+      quantity: new FormControl({value: null, disabled: true}),
+      unit: new FormControl({value: null, disabled: true}),
+      calorie: new FormControl({value: null, disabled: true})
     });
   }
 
@@ -103,16 +107,62 @@ export class AddNewRecipeComponent implements OnInit {
 
   getIngredientDisplayName = (ingredientId) => {
     console.log(this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId));
-    return this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
+    const index = this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId);
+    return index >= 0 && this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
       this.ingredientNameList.value[this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId)]
         .ingredientName : '';
   }
 
+
   ingredientSelected(event, i): void {
-    console.log('event', event);
-    console.log('index', i);
     const formArray = this.recipeForm.get('recipes') as FormArray;
     const currentFormGroup = formArray.at(i);
-    console.log('value', (currentFormGroup as FormGroup).controls.ingredientName.value);
+    (currentFormGroup as FormGroup).controls.ingredientName.disable();
+    (currentFormGroup as FormGroup).controls.calorie.disable();
+    (currentFormGroup as FormGroup).controls.quantity.enable();
+    (currentFormGroup as FormGroup).controls.quantity.setValue(1);
+    const ingredientIndexInExistingIngredientNameList =
+      this.ingredientNameList.value
+      .findIndex(ingredient => ingredient.ingredientId === (currentFormGroup as FormGroup).controls.ingredientName.value);
+
+    if (this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0) {
+      (currentFormGroup as FormGroup).controls.unit
+        .setValue(this.ingredientNameList
+          .value[ingredientIndexInExistingIngredientNameList].calorie); // change to .unitType after Ayhan does his correction
+    }
+    // uncomment/delete below after Ayhan makes his correction
+    // (currentFormGroup as FormGroup).controls.calorie
+    //   .setValue(this.ingredientNameList.value[ingredientIndexInExistingIngredientNameList].calorie);
+    (currentFormGroup as FormGroup).controls.calorie
+      .setValue(10);
+
   }
+
+
+
+  quantityChanged(event, i): void {
+    const formArray = this.recipeForm.get('recipes') as FormArray;
+    console.log('index', i);
+    console.log('value',  Number(event.target.value));
+    const currentFormGroup = formArray.at(i);
+    // const existingCalorie =
+
+
+    const ingredientIndexInExistingIngredientNameList =
+      this.ingredientNameList.value
+        .findIndex(ingredient => ingredient.ingredientId === (currentFormGroup as FormGroup).controls.ingredientName.value);
+
+    (currentFormGroup as FormGroup).patchValue({
+      // uncomment/ delete after Ayhan's update
+      // calorie: this.ingredientNameList.value[ingredientIndexInExistingIngredientNameList].calorie * event.target.value
+      calorie: 10 * event.target.value
+    });
+
+  }
+
+  updateImageSource(event): void {
+    this.imgSrc = event.target.value;
+  }
+
+
 }
