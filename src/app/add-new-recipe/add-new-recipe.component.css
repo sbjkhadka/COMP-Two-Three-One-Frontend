@@ -18,3 +18,18 @@ img {
 .font-color-navy {
   color: navy;
 }
+
+/*Related to fancy input type starts*/
+.price input[type="number"] {
+  -moz-appearance: textfield;
+}
+.price input[type="number"]::-webkit-inner-spin-button,
+.price input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.border-2 {
+  border-width:2px !important;
+}
+/*Related to fancy input type ends*/

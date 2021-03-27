@@ -6,13 +6,23 @@
   </div>
 
   <div class="row" style="height: 400px;overflow: auto;">
-    <div class="col-md-3">
-      <img src="{{imgSrc}}">
+    <div class="col-md-3 d-flex flex-column justify-content-between align-items-center">
+      <img src="{{imgSrc}}" (error)="brokenLink()">
+      <div style="width: 50%;align-self: flex-start">
+        <mat-label class="font-color-navy">Price: </mat-label>
+        <div class="d-flex flex-row price border border-2 border-secondary rounded">
+          <mat-icon class="cursor-pointer mr-1 border-right border-2 border-secondary" (click)="increasePrice()">add</mat-icon>
+          <input matInput type="number" min="0.5" step="0.5" [formControl]="price" style="text-align:center;"/>
+          <mat-icon class="cursor-pointer ml-1 border-left border-2 border-secondary" (click)="decreasePrice()">remove</mat-icon>
+        </div>
+      </div>
+
     </div>
 
     <div class="col-md-9" style="background-color: whitesmoke">
         <form [formGroup]="recipeForm" class="m-0">
 
+<!--          <input type="hidden" formControlName="ingredientId">-->
           <mat-form-field class="col-md-12 pl-0">
             <input matInput type="text" id="recipe-name" placeholder="Recipe Name" formControlName="recipeName"/>
           </mat-form-field>
@@ -28,8 +38,10 @@
             <div *ngFor="let recipe of recipeForm.get('recipes')['controls']; let i = index" [formGroupName]="i"
                  class="row d-flex justify-content-around p-0">
               <mat-form-field class="col-md-4">
-                <input matInput #name type="text" formControlName="ingredientName" placeholder="Ingredient Name" id="specialty-{{i}}" (input)="ingredientNameInputChange$.next(name.value)"
-                       [matAutocomplete]="ingredientAutocomplete" />
+                <input matInput #name type="text" formControlName="ingredientName"
+                       placeholder="Ingredient Name" id="specialty-{{i}}" (input)="ingredientNameInputChange$.next(name.value)"
+                       [matAutocomplete]="ingredientAutocomplete"
+                />
 
                 <mat-autocomplete
                   #ingredientAutocomplete="matAutocomplete"
@@ -44,7 +56,7 @@
               </mat-form-field>
 
               <mat-form-field class="col-md-2">
-                <input matInput type="text" formControlName="calorie" placeholder="Calorie">
+                <input matInput type="text" formControlName="calorie" placeholder="Calorie" [readonly]="true">
               </mat-form-field>
 
               <mat-form-field class="col-md-2">
