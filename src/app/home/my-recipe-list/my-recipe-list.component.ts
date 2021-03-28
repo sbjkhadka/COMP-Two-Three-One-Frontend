@@ -13,10 +13,6 @@ import {MyGroceryListComponent} from './my-grocery-list/my-grocery-list.componen
 })
 export class MyRecipeListComponent implements OnInit {
 
-  loggedInUser;
-  recipeList;
-  quantityList = [];
-
   constructor(
     public firebaseService: FirebaseService,
     public recipeServiceService: RecipeServiceService,
@@ -27,6 +23,12 @@ export class MyRecipeListComponent implements OnInit {
     console.log('recipe_list_in_list', this.recipeList);
     this.initializeQuantity();
   }
+
+  loggedInUser;
+  recipeList;
+  quantityList = [];
+
+  isDialogOpened = false;
 
   ngOnInit(): void {
   }
@@ -76,8 +78,6 @@ export class MyRecipeListComponent implements OnInit {
       return 1;
     }
   }
-
-  isDialogOpened = false;
   generateIngredientList(): void {
     const quantity = JSON.parse(localStorage.getItem('quantity'));
     const selectedRecipe = JSON.parse(localStorage.getItem('selectedRecipe'));
@@ -98,6 +98,13 @@ export class MyRecipeListComponent implements OnInit {
     }).afterClosed().subscribe(res => {
       this.isDialogOpened = false;
     });
+  }
+
+  closeMe(item): void {
+    const index = this.recipeList.findIndex(recipe => recipe.recipeId === item.recipeId);
+    this.recipeList.splice(index, 1);
+    localStorage.setItem('selectedRecipe', JSON.stringify(this.recipeList));
+    this.activeUserSingletonService.activeUserSelectedRecipe.next(this.recipeList);
   }
 
 }
