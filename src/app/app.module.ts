@@ -31,6 +31,7 @@ import {MatAutocomplete} from '@angular/material/autocomplete';
 import { AddNewIngredientComponent } from './home/add-new-ingredient/add-new-ingredient.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from './home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 
 
 const routes: Routes = [
@@ -49,7 +50,8 @@ const routes: Routes = [
     RecipeDetailsComponent,
     AddNewRecipeComponent,
     MyRecipeListComponent,
-    AddNewIngredientComponent
+    AddNewIngredientComponent,
+    ConfirmationDialogComponent
   ],
     imports: [
         BrowserModule,

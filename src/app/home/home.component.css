@@ -25,5 +25,12 @@
   min-height: 19cm;
   margin: auto;
 }
+.card-text {
+  font-family: "Candara Light", serif;
+  font-weight: bolder;
+}
+
+
+
 
 

@@ -41,7 +41,7 @@ export class AddNewRecipeComponent implements OnInit {
               private recipeServiceService: RecipeServiceService,
               public dialogRef: MatDialogRef<AddNewRecipeComponent>,
               public dialog: MatDialog,
-              private _snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar) {
     this.imgSrc = this.defaultImage;
     this.getIngredientList();
     dialogRef.disableClose = true;
@@ -231,7 +231,7 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string): void {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 2000,
     });
   }

@@ -34,5 +34,11 @@ export class RecipeServiceService {
     }));
   }
 
+  deleteRecipe(recipeId, userId): any {
+    return this.http.delete<any>(environment.base_url + 'recipe/' + recipeId + '/' + userId).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
 
 }

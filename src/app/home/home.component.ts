@@ -7,6 +7,8 @@ import {ActiveUserSingletonService} from '../shared-services/active-user-singlet
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
+import {ConfirmationDialogComponent} from './generic-dialogs/confirmation-dialog/confirmation-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit {
     public firebaseService: FirebaseService,
     public recipeServiceService: RecipeServiceService,
     public activeUserSingletonService: ActiveUserSingletonService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar) {
     this.confirmUserLoginAfterPageReload();
   }
 
@@ -78,7 +81,6 @@ export class HomeComponent implements OnInit {
         }
       }
     );
-
   }
 
 
@@ -108,6 +110,38 @@ export class HomeComponent implements OnInit {
 
       this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+    });
+  }
+
+  deleteRecipe(item): void {
+    console.log('deleting', item);
+    const deleteRef = this.dialog.open(ConfirmationDialogComponent, {
+      height: '200px',
+      width: '500px',
+      panelClass: 'no-padding-container',
+      data: {
+        itemName: item.recipeName,
+        itemType: 'recipe'
+      }
+    });
+    deleteRef.afterClosed().subscribe(decision => {
+      if (decision) {
+        console.log('deleting', item);
+        this.recipeServiceService.deleteRecipe(item.recipeId, item.partyId).subscribe(res => {
+          console.log('deleted_successfully', res);
+          this.openSnackBar('Deleted successfully', '');
+          this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+        }, error => {
+          console.log('delete_failed', error);
+          this.openSnackBar('Deleted failed', '');
+        });
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 2000,
     });
   }
 
