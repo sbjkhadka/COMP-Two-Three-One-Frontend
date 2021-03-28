@@ -20,9 +20,10 @@
       <span class="app-name">Some text at right</span>
     </div>
   </div>
-<!--  loggedInUserRecipes-->
+
   <div class="row">
-    <div class="col-md-12 cards-container d-flex justify-content-between align-items-center flex-wrap align-self-center" style="max-height: 800px;overflow: auto" *ngIf="loggedInUserRecipes.value!=null">
+    <div class="col-md-12 cards-container d-flex justify-content-between align-items-center flex-wrap align-self-center"
+         style="max-height: 800px;overflow: auto" *ngIf="loggedInUserRecipes.value!=null">
 
       <div class="card bg-warning" style="width: 18rem;margin: 20px;" *ngFor="let item of this.loggedInUserRecipes.value">
           <img class="card-img-top" src="{{item.recipePhoto}}" alt="Card image cap">
@@ -34,7 +35,11 @@
               <span class="cursor-pointer" (click)="recipeItemClicked(item)" matTooltip="View Recipe Details"><mat-icon style="color: navy">open_in_new</mat-icon></span>
             </div>
 
+
           </div>
+        <div class="card-img-overlay h-25 w-100 d-flex justify-content-end align-self-start pt-3 pr-3">
+          <mat-checkbox [checked]="shouldICheck(item)" (change)="recipeAdded($event, item)"></mat-checkbox>
+        </div>
 
         </div>
 

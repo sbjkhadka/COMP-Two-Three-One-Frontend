@@ -33,6 +33,7 @@ export class AppComponent {
     this.activeUserSingletonService.activeUser.next(null);
     this.activeUserSingletonService.activeUserDetails.next(null);
     this.activeUserSingletonService.activeUserRecipe.next(null);
+    this.activeUserSingletonService.activeUserSelectedRecipe.next([]);
     this.firebaseService.logOut();
   }
 }

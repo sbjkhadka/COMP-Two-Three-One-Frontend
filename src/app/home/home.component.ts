@@ -16,11 +16,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
-  loggedInUser;
-  registrationErrorMessage: string;
-  @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
-  loggedInUserRecipes = new BehaviorSubject<any[]>(null);
 
   constructor(
     public firebaseService: FirebaseService,
@@ -30,6 +25,13 @@ export class HomeComponent implements OnInit {
     private snackBar: MatSnackBar) {
     this.confirmUserLoginAfterPageReload();
   }
+  bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
+  loggedInUser;
+  registrationErrorMessage: string;
+  @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
+  loggedInUserRecipes = new BehaviorSubject<any[]>(null);
+
+  selectedRecipes;
 
   // will use it later
   ngOnInit(): void {
@@ -104,12 +106,10 @@ export class HomeComponent implements OnInit {
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
       console.log('response', res);
-      // this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
       this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
-
-
       this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      this.checkLocalStorage();
     });
   }
 
@@ -143,6 +143,39 @@ export class HomeComponent implements OnInit {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
+  }
+
+  recipeAdded(event, item): void {
+    console.log('isChecked', event.checked);
+    console.log('item', item);
+    const currentSelected = this.activeUserSingletonService.activeUserSelectedRecipe.value;
+    console.log('current_list', currentSelected);
+    if (event.checked) {
+      currentSelected.push(item);
+    } else {
+      const index = currentSelected.findIndex(recipe => recipe.recipeId === item.recipeId);
+      currentSelected.splice(index, 1);
+    }
+    this.activeUserSingletonService.activeUserSelectedRecipe.next(currentSelected);
+    localStorage.setItem('selectedRecipe', JSON.stringify(currentSelected));
+    this.selectedRecipes = currentSelected;
+    console.log('now_list', currentSelected);
+  }
+
+  checkLocalStorage(): void {
+    if (localStorage.getItem('selectedRecipe')) {
+      this.selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipe'));
+      this.activeUserSingletonService.activeUserSelectedRecipe.next(this.selectedRecipes);
+    }
+  }
+
+  shouldICheck(item): boolean {
+    if (JSON.parse(localStorage.getItem('selectedRecipe'))) {
+      const index = JSON.parse(localStorage.getItem('selectedRecipe')).findIndex(recipe => recipe.recipeId === item.recipeId);
+      return index >= 0;
+    } else {
+      return false;
+    }
   }
 
 }

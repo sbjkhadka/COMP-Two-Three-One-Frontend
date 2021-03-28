@@ -32,6 +32,8 @@ import { AddNewIngredientComponent } from './home/add-new-ingredient/add-new-ing
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from './home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MyGroceryListComponent } from './home/my-recipe-list/my-grocery-list/my-grocery-list.component';
 
 
 const routes: Routes = [
@@ -51,7 +53,8 @@ const routes: Routes = [
     AddNewRecipeComponent,
     MyRecipeListComponent,
     AddNewIngredientComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    MyGroceryListComponent,
   ],
     imports: [
         BrowserModule,
@@ -80,7 +83,8 @@ const routes: Routes = [
         MatSelectModule,
         MatAutocompleteModule,
         MatProgressSpinnerModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatCheckboxModule
     ],
   providers: [FirebaseService,
               AuthenticationService,
