@@ -13,12 +13,10 @@
 
 <div class="container-fluid" *ngIf="loggedInUser">
   <div class="row">
-    <div class="col-md-10 home-header d-flex align-items-center">
-        <span class="app-name">Select recipes</span>
+    <div class="col-md-12 home-header d-flex align-items-center justify-content-around">
+        <span class="app-name font-color-navy">Select recipes</span>
     </div>
-    <div class="col-md-2 d-flex align-items-center">
-      <span class="app-name">Some text at right</span>
-    </div>
+
   </div>
 
   <div class="row">
@@ -47,9 +45,9 @@
   </div>
 
   <div class="row fixed-bottom bg-warning text-dark">
-    <div class="col-md-12">
-      <span style="cursor: pointer" (click)="openAddNewRecipeDialog()"> + Add your own recipe</span>
-      <span routerLink="/myRecipe" routerLinkActive="bg-light">My Recipe List</span>
+    <div class="col-md-12 d-flex justify-content-between">
+      <span class="pl-2 font-weight-bold" style="cursor: pointer" (click)="openAddNewRecipeDialog()"> + Add your own recipe</span>
+<!--      <span routerLink="/myRecipe" routerLinkActive="bg-light">My Recipe List</span>-->
     </div>
   </div>
 </div>
