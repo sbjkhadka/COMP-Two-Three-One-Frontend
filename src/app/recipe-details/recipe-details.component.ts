@@ -14,6 +14,7 @@ export class RecipeDetailsComponent implements OnInit {
               public dialogRef: MatDialogRef<RecipeDetailsComponent>) {
     console.log('inside component:', data.selectedRecipe);
     this.recipeDetail = data.selectedRecipe;
+    dialogRef.disableClose = true;
   }
 
   ngOnInit(): void {

@@ -25,11 +25,23 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import { MyRecipeListComponent } from './home/my-recipe-list/my-recipe-list.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatAutocomplete} from '@angular/material/autocomplete';
+import { AddNewIngredientComponent } from './home/add-new-ingredient/add-new-ingredient.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import { ConfirmationDialogComponent } from './home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MyGroceryListComponent } from './home/my-recipe-list/my-grocery-list/my-grocery-list.component';
+import {NgxPrintModule} from 'ngx-print';
+import { PrintMyGroceryComponent } from './home/my-recipe-list/my-grocery-list/print-my-grocery/print-my-grocery.component';
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'}
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'myRecipe', component: MyRecipeListComponent}
 ];
 @NgModule({
   declarations: [
@@ -40,7 +52,12 @@ const routes: Routes = [
     TestComponent,
     DefaultAvatarPipe,
     RecipeDetailsComponent,
-    AddNewRecipeComponent
+    AddNewRecipeComponent,
+    MyRecipeListComponent,
+    AddNewIngredientComponent,
+    ConfirmationDialogComponent,
+    MyGroceryListComponent,
+    PrintMyGroceryComponent,
   ],
     imports: [
         BrowserModule,
@@ -66,7 +83,12 @@ const routes: Routes = [
         MatInputModule,
         MatButtonModule,
         MatTooltipModule,
-        MatSelectModule
+        MatSelectModule,
+        MatAutocompleteModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        MatCheckboxModule,
+        NgxPrintModule
     ],
   providers: [FirebaseService,
               AuthenticationService,

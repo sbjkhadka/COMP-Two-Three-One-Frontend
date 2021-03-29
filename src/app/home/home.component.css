@@ -25,4 +25,18 @@
   min-height: 19cm;
   margin: auto;
 }
+.card-text {
+  font-family: "Candara Light", serif;
+  font-weight: bolder;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  background-color: white;
+  border: 1px solid #0cbd65;
+}
+.font-color-navy {
+  color: navy;
+}
+
+
 

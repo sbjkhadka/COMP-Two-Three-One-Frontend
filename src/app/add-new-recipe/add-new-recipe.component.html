@@ -1,50 +1,87 @@
-<div class="container-fluid d-flex flex-column justify-content-around " style="background-color: #FFC107;height: 100%">
-  <div class="row" style="background-color: lavender;height: 160px">
-    <div class="col-md-12 d-flex justify-content-around align-items-center">
-      <h1 class="myclass">{{"New Recipe" | uppercase}}</h1>
+<div class="container-fluid d-flex flex-column justify-content-around " style="height: 100%;background-color: whitesmoke">
+  <div class="row" style="height: 100px">
+    <div class="col-md-12 d-flex justify-content-between align-items-center" style="background-color: #FFC107">
+      <span></span>
+      <h1 class="myClass font-color-navy">{{"New Recipe" | uppercase}}</h1>
+      <a id="close-btn" class="cursor-pointer align-self-start mt-3">
+        <mat-icon matSuffix (click)="close()">close</mat-icon>
+      </a>
     </div>
   </div>
 
-  <div class="row" style="background-color: #107896;height: 400px;overflow: auto">
-    <div class="col-md-3">
-      Photo column
+  <div class="row" style="height: 400px;overflow: auto;">
+    <div class="col-md-3 d-flex flex-column justify-content-between align-items-center pt-2">
+      <img src="{{imgSrc}}" (error)="brokenLink()">
+      <div style="width: 50%;align-self: flex-start">
+        <mat-label class="font-color-navy">Price: </mat-label>
+        <div class="d-flex flex-row price border border-2 border-secondary rounded">
+          <mat-icon class="cursor-pointer mr-1 border-right border-2 border-secondary" (click)="increasePrice()">add</mat-icon>
+          <input matInput type="number" min="0.5" step="0.5" [formControl]="price" style="text-align:center;"/>
+          <mat-icon class="cursor-pointer ml-1 border-left border-2 border-secondary" (click)="decreasePrice()">remove</mat-icon>
+        </div>
+      </div>
+
     </div>
 
     <div class="col-md-9" style="background-color: whitesmoke">
-        <form [formGroup]="recipeForm" class="m-0">
+        <form [formGroup]="recipeForm" class="m-0 pt-2">
+
           <mat-form-field class="col-md-12 pl-0">
-            <input matInput type="text" id="recipe-name" placeholder="Recipe Name" formControlName="recipeName" />
+            <input matInput type="text" id="recipe-name" placeholder="Recipe Name" formControlName="recipeName"/>
           </mat-form-field>
 
+          <div class="col-md-12 pl-0 d-flex justify-content-between align-items-center">
+            <span class="font-color-navy">Add Ingredients</span>
+            <span class="icon cursor-pointer" matTooltip="Create New Ingredient" (click)="openAddNewIngredientDialog()"><mat-icon [inline]="true" style="color: navy">fiber_new</mat-icon></span>
+          </div>
+
           <div formArrayName="recipes" class="m-0 p-0">
+
+
             <div *ngFor="let recipe of recipeForm.get('recipes')['controls']; let i = index" [formGroupName]="i"
                  class="row d-flex justify-content-around p-0">
               <mat-form-field class="col-md-4">
-                <input matInput type="text"  formControlName="ingredientName" placeholder="Ingredient Name">
+                <input matInput #name type="text" formControlName="ingredientName"
+                       placeholder="Ingredient Name" id="specialty-{{i}}" (input)="ingredientNameInputChange$.next(name.value)"
+                       [matAutocomplete]="ingredientAutocomplete"
+                />
+                <mat-spinner *ngIf="searching"></mat-spinner>
+
+                <mat-autocomplete
+                  #ingredientAutocomplete="matAutocomplete"
+                  [displayWith]="getIngredientDisplayName"
+                  (optionSelected)="ingredientSelected($event, i)"
+
+                >
+                  <!--                  (optionSelected)="ingredientSelected($event, i)"-->
+                  <mat-option *ngFor="let option of filteredOptionsIngredientName | async"
+                              [value]="option.ingredientId">{{option.ingredientName}}</mat-option>
+                </mat-autocomplete>
               </mat-form-field>
 
               <mat-form-field class="col-md-2">
-                <input matInput type="text" formControlName="quantity" placeholder="Quantity">
+                <input matInput type="text" formControlName="calorie" placeholder="Calorie" [readonly]="true">
+              </mat-form-field>
+
+              <mat-form-field class="col-md-2">
+                <input matInput type="number" min="1" formControlName="quantity" placeholder="Quantity" (change)="quantityChanged($event, i)"/>
               </mat-form-field>
 
 
               <mat-form-field class="col-md-2">
-                <mat-select formControlName="unit">
+                <mat-select formControlName="unit" placeholder="Unit">
                   <mat-option value="grams">Grams</mat-option>
                   <mat-option value="kg">KG</mat-option>
                   <mat-option value="ml">ml</mat-option>
-                  <mat-option value="liters">Liters</mat-option>
-                  <mat-option value="tbspoon">Table spoon</mat-option>
-                  <mat-option value="teaspoon">Tea spoon</mat-option>
-                  <mat-option value="despoon">Desert Spoon</mat-option>
-
-
+                  <mat-option value="liter">Liters</mat-option>
+                  <mat-option value="tbsp">Table spoon</mat-option>
+                  <mat-option value="tsp">Tea spoon</mat-option>
+                  <mat-option value="dessertspoon ">Dessert Spoon</mat-option>
+                  <mat-option value="piece">Piece</mat-option>
                 </mat-select>
               </mat-form-field>
 
-              <mat-form-field class="col-md-2">
-                <input matInput type="text" formControlName="calorie" placeholder="Calorie">
-              </mat-form-field>
+
 
               <div class="col-md-2">
                 <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
@@ -60,21 +97,20 @@
 
           </div>
         </form>
-
-
-
-
-
-
-
-
-
-
     </div>
   </div>
 
-  <div class="row" style="background-color: tomato;height: 240px">
-    <div class="col-md-12">
+  <div class="row" style="height: 300px;">
+    <div class="col-md-12 d-flex flex-column justify-content-around align-items-end">
+
+      <div style="width:100%;height: 15%;" matTooltip="Past/Type image link">
+        <mat-label class="font-color-navy">Image Link</mat-label>
+        <input type="text" [formControl]="imageLink" class="border-box-text-field" (blur)="updateImageSource($event)"/>
+      </div>
+      <div style="width: 100%;height: 40%;" matTooltip="Past/Type cooking instructions">
+        <mat-label class="font-color-navy">Instructions</mat-label>
+      <textarea [formControl]="recipeInstruction" class="border-box-text-field"></textarea>
+      </div>
       <button class="btn btn-primary form-control" (click)="saveRecipe()">Add Recipe</button>
     </div>
   </div>

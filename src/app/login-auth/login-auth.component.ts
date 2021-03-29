@@ -52,7 +52,7 @@ export class LoginAuthComponent implements OnInit {
   initializeForm(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('a@b.com'),
-      password: new FormControl('121212')
+      password: new FormControl('<1234567890>')
     });
   }
 

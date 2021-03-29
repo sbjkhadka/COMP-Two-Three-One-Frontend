@@ -22,5 +22,23 @@ export class RecipeServiceService {
     }));
   }
 
+  getAllIngredients(): any {
+    return this.http.get<any>(environment.base_url + 'ingredient/getAll').pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  createIngredient(ingredientObject: any): any {
+    return this.http.post<any>(environment.base_url + 'ingredient', ingredientObject).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  deleteRecipe(recipeId, userId): any {
+    return this.http.delete<any>(environment.base_url + 'recipe/' + recipeId + '/' + userId).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
 
 }

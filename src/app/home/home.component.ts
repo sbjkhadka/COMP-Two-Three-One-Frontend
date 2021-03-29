@@ -7,6 +7,8 @@ import {ActiveUserSingletonService} from '../shared-services/active-user-singlet
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
+import {ConfirmationDialogComponent} from './generic-dialogs/confirmation-dialog/confirmation-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -14,26 +16,43 @@ import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  constructor(
+    public firebaseService: FirebaseService,
+    public recipeServiceService: RecipeServiceService,
+    public activeUserSingletonService: ActiveUserSingletonService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar) {
+    this.confirmUserLoginAfterPageReload();
+  }
   bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
   loggedInUser;
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
-  constructor(
-    public firebaseService: FirebaseService,
-    public recipeServiceService: RecipeServiceService,
-    public activeUserSingletonService: ActiveUserSingletonService,
-    public dialog: MatDialog) {
-  }
+
+  selectedRecipes;
 
   // will use it later
   ngOnInit(): void {
   }
 
+  confirmUserLoginAfterPageReload(): void {
+    this.loggedInUser = JSON.parse(localStorage.getItem('user'));
+    if (this.loggedInUser) {
+      this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid);
+      this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
+      this.getAllRecipes(this.loggedInUser.uid);
+    }
+  }
+
   login(event): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
-    this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    // this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid); // feeding singleton
+
     console.log('logged_in_user', this.loggedInUser);
+    this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
     this.getAllRecipes(this.loggedInUser.uid);
   }
 
@@ -64,11 +83,9 @@ export class HomeComponent implements OnInit {
         }
       }
     );
-
   }
 
-  // tslint:disable-next-line:typedef
-  openAddNewRecipeDialog() {
+  editRecipe(item: any): void {
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
@@ -79,7 +96,25 @@ export class HomeComponent implements OnInit {
         }
       }
     ).afterClosed().subscribe(res => {
-      this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+    });
+  }
+
+
+  openAddNewRecipeDialog(): void {
+    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+      {
+        height: '800px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: 'Hello world'
+        }
+      }
+    ).afterClosed().subscribe(res => {
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
     });
 
   }
@@ -87,10 +122,77 @@ export class HomeComponent implements OnInit {
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
       console.log('response', res);
-      this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
+      this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      this.checkLocalStorage();
     });
   }
+
+  deleteRecipe(item): void {
+    console.log('deleting', item);
+    const deleteRef = this.dialog.open(ConfirmationDialogComponent, {
+      height: '200px',
+      width: '500px',
+      panelClass: 'no-padding-container',
+      data: {
+        itemName: item.recipeName,
+        itemType: 'recipe'
+      }
+    });
+    deleteRef.afterClosed().subscribe(decision => {
+      if (decision) {
+        console.log('deleting', item);
+        this.recipeServiceService.deleteRecipe(item.recipeId, item.partyId).subscribe(res => {
+          console.log('deleted_successfully', res);
+          this.openSnackBar('Deleted successfully', '');
+          this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+        }, error => {
+          console.log('delete_failed', error);
+          this.openSnackBar('Deleted failed', '');
+        });
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  recipeAdded(event, item): void {
+    console.log('isChecked', event.checked);
+    console.log('item', item);
+    const currentSelected = this.activeUserSingletonService.activeUserSelectedRecipe.value;
+    console.log('current_list', currentSelected);
+    if (event.checked) {
+      currentSelected.push(item);
+    } else {
+      const index = currentSelected.findIndex(recipe => recipe.recipeId === item.recipeId);
+      currentSelected.splice(index, 1);
+    }
+    this.activeUserSingletonService.activeUserSelectedRecipe.next(currentSelected);
+    localStorage.setItem('selectedRecipe', JSON.stringify(currentSelected));
+    this.selectedRecipes = currentSelected;
+    console.log('now_list', currentSelected);
+  }
+
+  checkLocalStorage(): void {
+    if (localStorage.getItem('selectedRecipe')) {
+      this.selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipe'));
+      this.activeUserSingletonService.activeUserSelectedRecipe.next(this.selectedRecipes);
+    }
+  }
+
+  shouldICheck(item): boolean {
+    if (JSON.parse(localStorage.getItem('selectedRecipe'))) {
+      const index = JSON.parse(localStorage.getItem('selectedRecipe')).findIndex(recipe => recipe.recipeId === item.recipeId);
+      return index >= 0;
+    } else {
+      return false;
+    }
+  }
+
 }
 
