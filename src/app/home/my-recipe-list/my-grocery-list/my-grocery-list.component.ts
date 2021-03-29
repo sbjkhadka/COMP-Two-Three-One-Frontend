@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {element} from 'protractor';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-my-grocery-list',
@@ -8,6 +9,7 @@ import {element} from 'protractor';
   styleUrls: ['./my-grocery-list.component.css']
 })
 export class MyGroceryListComponent implements OnInit {
+  groceryList$ = new BehaviorSubject<any>(null);
   constructor(@Inject(MAT_DIALOG_DATA) data,
               public dialogRef: MatDialogRef<MyGroceryListComponent>) {
     this.finalRecipeList = data.finalRecipeList;
@@ -66,6 +68,7 @@ export class MyGroceryListComponent implements OnInit {
 
    }
    console.log('final_object', this.printObj);
+   this.groceryList$.next(this.printObj);
   }
 
 

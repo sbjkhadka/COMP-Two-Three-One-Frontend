@@ -34,6 +34,8 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { ConfirmationDialogComponent } from './home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MyGroceryListComponent } from './home/my-recipe-list/my-grocery-list/my-grocery-list.component';
+import {NgxPrintModule} from 'ngx-print';
+import { PrintMyGroceryComponent } from './home/my-recipe-list/my-grocery-list/print-my-grocery/print-my-grocery.component';
 
 
 const routes: Routes = [
@@ -55,6 +57,7 @@ const routes: Routes = [
     AddNewIngredientComponent,
     ConfirmationDialogComponent,
     MyGroceryListComponent,
+    PrintMyGroceryComponent,
   ],
     imports: [
         BrowserModule,
@@ -84,7 +87,8 @@ const routes: Routes = [
         MatAutocompleteModule,
         MatProgressSpinnerModule,
         MatSnackBarModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        NgxPrintModule
     ],
   providers: [FirebaseService,
               AuthenticationService,
