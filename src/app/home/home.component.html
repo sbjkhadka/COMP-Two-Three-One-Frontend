@@ -29,7 +29,7 @@
             <span class="card-text" style="color: navy">{{item.recipeName | titlecase }}</span>
             <div class="w-45 d-flex justify-content-between pr-1">
               <span class="cursor-pointer" (click)="deleteRecipe(item)" matTooltip="Delete this Recipe"><mat-icon style="color: red">delete</mat-icon></span>
-              <span class="cursor-pointer" (click)="recipeItemClicked(item)" matTooltip="Edit this Recipe"><mat-icon style="color: navy">edit</mat-icon></span>
+              <span class="cursor-pointer" (click)="editRecipe(item)" matTooltip="Edit this Recipe"><mat-icon style="color: navy">edit</mat-icon></span>
               <span class="cursor-pointer" (click)="recipeItemClicked(item)" matTooltip="View Recipe Details"><mat-icon style="color: navy">open_in_new</mat-icon></span>
             </div>
 

@@ -34,12 +34,12 @@ export class MyRecipeListComponent implements OnInit {
   }
 
   initializeQuantity(): void {
-    console.log(this.recipeList);
-    console.log('qty_list', JSON.parse(localStorage.getItem('quantity')));
-    this.quantityList = JSON.parse(localStorage.getItem('quantity'));
-    if (this.quantityList && this.quantityList.length > 0) {
-      console.log('quantity_list_exists', this.quantityList);
-    } else {
+    // console.log(this.recipeList);
+    // console.log('qty_list', JSON.parse(localStorage.getItem('quantity')));
+    // this.quantityList = JSON.parse(localStorage.getItem('quantity'));
+    // if (this.quantityList && this.quantityList.length > 0) {
+    //   console.log('quantity_list_exists', this.quantityList);
+    // } else {
       this.quantityList = [];
       for (let i = 0; i < this.recipeList.length; i++) {
         this.quantityList.push({
@@ -48,7 +48,7 @@ export class MyRecipeListComponent implements OnInit {
         });
       }
       localStorage.setItem('quantity', JSON.stringify(this.quantityList));
-    }
+    // }
 
   }
 
@@ -60,11 +60,7 @@ export class MyRecipeListComponent implements OnInit {
     }
   }
 
-  quantityChanged(event, item): void {
-    const index = this.quantityList.findIndex(list => list.recipeId === item.recipeId);
-    this.quantityList[index].quantity = event.target.value;
-    localStorage.setItem('quantity', JSON.stringify(this.quantityList));
-  }
+
 
   pleaseGiveMeQuantity(item): number {
     if (this.quantityList && this.quantityList.length > 0) {
@@ -83,9 +79,10 @@ export class MyRecipeListComponent implements OnInit {
     const selectedRecipe = JSON.parse(localStorage.getItem('selectedRecipe'));
 
     for (let i = 0; i < selectedRecipe.length; i++) {
-      const index = this.quantityList.findIndex(list => list.recipeId === selectedRecipe[i].recipeId);
-      selectedRecipe[i].quantity = this.quantityList[index].quantity;
+      const index = quantity.findIndex(list => list.recipeId === selectedRecipe[i].recipeId);
+      selectedRecipe[i].quantity = quantity[index].quantity;
     }
+
 
     this.isDialogOpened = true;
     this.dialog.open(MyGroceryListComponent, {
@@ -93,18 +90,30 @@ export class MyRecipeListComponent implements OnInit {
       width: '60vw',
       panelClass: 'no-padding-container',
       data: {
-        finalRecipeList: selectedRecipe
+        finalRecipeList: selectedRecipe,
       }
     }).afterClosed().subscribe(res => {
       this.isDialogOpened = false;
     });
   }
 
+  quantityChanged(event, item): void {
+    const index = this.quantityList.findIndex(list => list.recipeId === item.recipeId);
+    this.quantityList[index].quantity = event.target.value;
+    localStorage.setItem('quantity', JSON.stringify(this.quantityList));
+  }
+
   closeMe(item): void {
+    // Update Recipe Collection
     const index = this.recipeList.findIndex(recipe => recipe.recipeId === item.recipeId);
     this.recipeList.splice(index, 1);
     localStorage.setItem('selectedRecipe', JSON.stringify(this.recipeList));
     this.activeUserSingletonService.activeUserSelectedRecipe.next(this.recipeList);
+
+    // Update Quantity Collection
+    const index1 = this.quantityList.findIndex(list => list.recipeId === item.recipeId);
+    this.quantityList.splice(index1, 1);
+    localStorage.setItem('quantity', JSON.stringify(this.quantityList));
   }
 
 }

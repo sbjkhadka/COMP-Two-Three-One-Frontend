@@ -30,6 +30,8 @@ export class AppComponent {
 
   logout(): any {
     localStorage.removeItem('user');
+    localStorage.removeItem('selectedRecipe');
+    localStorage.removeItem('quantity');
     this.activeUserSingletonService.activeUser.next(null);
     this.activeUserSingletonService.activeUserDetails.next(null);
     this.activeUserSingletonService.activeUserRecipe.next(null);

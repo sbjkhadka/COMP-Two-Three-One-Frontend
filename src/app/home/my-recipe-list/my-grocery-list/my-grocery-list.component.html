@@ -17,10 +17,10 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of consolidatedList; let i = index">
+      <tr *ngFor="let item of printObj; let i = index">
         <th scope="row">{{i+1}}</th>
-        <td>{{item.ingredientId}}</td>
-        <td>{{item.itemQuantity}}</td>
+        <td>{{item.ingredientName}}</td>
+        <td>{{item.quantity}} {{item.unit}}</td>
       </tr>
 
       </tbody>

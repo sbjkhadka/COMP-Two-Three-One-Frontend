@@ -85,6 +85,22 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  editRecipe(item: any): void {
+    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+      {
+        height: '800px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: 'Hello world'
+        }
+      }
+    ).afterClosed().subscribe(res => {
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+    });
+  }
+
 
   openAddNewRecipeDialog(): void {
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
