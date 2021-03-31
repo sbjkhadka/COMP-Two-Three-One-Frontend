@@ -2,12 +2,17 @@
   <div class="row" style="height: 100px">
     <div class="col-md-12 d-flex justify-content-between align-items-center" style="background-color: #FFC107">
       <span></span>
-      <h1 class="myClass font-color-navy">{{"New Recipe" | uppercase}}</h1>
+      <h1 class="myClass font-color-navy" [hidden]="getIsEditing()">{{"New Recipe" | uppercase}}</h1>
+      <h1 class="myClass font-color-navy" [hidden]="!getIsEditing()">{{"Edit Recipe" | uppercase}}</h1>
       <a id="close-btn" class="cursor-pointer align-self-start mt-3">
         <mat-icon matSuffix (click)="close()">close</mat-icon>
       </a>
     </div>
   </div>
+
+  <mat-toolbar class="d-flex justify-content-between">
+    <span *ngIf="recipeItem && recipeItem.recipeName">{{recipeItem.recipeName}} 222</span>
+  </mat-toolbar>
 
   <div class="row" style="height: 400px;overflow: auto;">
     <div class="col-md-3 d-flex flex-column justify-content-between align-items-center pt-2">
@@ -27,6 +32,7 @@
         <form [formGroup]="recipeForm" class="m-0 pt-2">
 
           <mat-form-field class="col-md-12 pl-0">
+
             <input matInput type="text" id="recipe-name" placeholder="Recipe Name" formControlName="recipeName"/>
           </mat-form-field>
 
@@ -111,7 +117,8 @@
         <mat-label class="font-color-navy">Instructions</mat-label>
       <textarea [formControl]="recipeInstruction" class="border-box-text-field"></textarea>
       </div>
-      <button class="btn btn-primary form-control" (click)="saveRecipe()">Add Recipe</button>
+      <button class="btn btn-primary form-control" id="saveButton" [hidden]="getIsEditing()" (click)="saveRecipe()">Add Recipe</button>
+      <button class="btn btn-primary form-control" id="editButton" [hidden]="!getIsEditing()" (click)="editRecipe()">Edit Recipe</button>
     </div>
   </div>
 </div>

@@ -72,7 +72,7 @@ export class HomeComponent implements OnInit {
   }
 
   recipeItemClicked(item: any): void {
-    console.log(item.recipe_name);
+    console.log('item.recipe_name' + item.recipe_name);
     const dialogRef = this.dialog.open(RecipeDetailsComponent,
       {
         height: '800px',
@@ -86,13 +86,15 @@ export class HomeComponent implements OnInit {
   }
 
   editRecipe(item: any): void {
+    console.log('item.recipe_name:' + item.recipeName);
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
         width: '1000px',
         panelClass: 'no-padding-container',
         data: {
-          selectedRecipe: 'Hello world'
+          selectedRecipe: item,
+          isEditing: true
         }
       }
     ).afterClosed().subscribe(res => {
@@ -109,7 +111,8 @@ export class HomeComponent implements OnInit {
         width: '1000px',
         panelClass: 'no-padding-container',
         data: {
-          selectedRecipe: 'Hello world'
+          selectedRecipe: null,
+          isEditing: false
         }
       }
     ).afterClosed().subscribe(res => {
