@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
   adminUserRecipes = new BehaviorSubject<any[]>(null);
   adminId = '7QLBlGd9zogFQLbiZnkfkina6Fp1';
-  displayingStockRecipes = false;
+  displayingStockRecipes = true;
 
   selectedRecipes;
 
