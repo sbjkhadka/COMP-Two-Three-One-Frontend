@@ -36,6 +36,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MyGroceryListComponent } from './home/my-recipe-list/my-grocery-list/my-grocery-list.component';
 import {NgxPrintModule} from 'ngx-print';
 import { PrintMyGroceryComponent } from './home/my-recipe-list/my-grocery-list/print-my-grocery/print-my-grocery.component';
+import {MatSlideToggle} from '@angular/material/slide-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 const routes: Routes = [
@@ -88,7 +90,8 @@ const routes: Routes = [
         MatProgressSpinnerModule,
         MatSnackBarModule,
         MatCheckboxModule,
-        NgxPrintModule
+        NgxPrintModule,
+        MatSlideToggleModule
     ],
   providers: [FirebaseService,
               AuthenticationService,

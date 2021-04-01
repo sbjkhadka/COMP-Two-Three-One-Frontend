@@ -33,7 +33,7 @@ export class MyGroceryListComponent implements OnInit {
    for (let i = 0; i < finalList.length; i++) {
      let overallQty = 1;
      for (let j = 0; j < finalList[i].recipeItemList.length; j++) {
-        overallQty *= (Number(finalList[i].recipeItemList[j].itemQuantity) * Number(finalList[i].quantity));
+        overallQty = (Number(finalList[i].recipeItemList[j].itemQuantity) * Number(finalList[i].quantity));
         finalList[i].recipeItemList[j].itemQuantity = overallQty;
         tempList.push(finalList[i].recipeItemList[j]);
       }
