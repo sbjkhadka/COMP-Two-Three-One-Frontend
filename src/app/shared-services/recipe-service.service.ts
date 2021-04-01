@@ -45,7 +45,7 @@ export class RecipeServiceService {
     console.log('recipe obj', recipeObject);
     const params = new HttpParams()
       .set('recipeId', recipeId);
-    return this.http.put<any>(environment.base_url + 'recipe/updateRecipe', recipeId, recipeObject).pipe(catchError(error => {
+    return this.http.put<any>(environment.base_url + 'recipe/updateRecipe', recipeObject, {params}).pipe(catchError(error => {
       return throwError(error);
     }));
   }

@@ -10,10 +10,6 @@
     </div>
   </div>
 
-  <mat-toolbar class="d-flex justify-content-between">
-    <span *ngIf="recipeItem && recipeItem.recipeName">{{recipeItem.recipeName}} 222</span>
-  </mat-toolbar>
-
   <div class="row" style="height: 400px;overflow: auto;">
     <div class="col-md-3 d-flex flex-column justify-content-between align-items-center pt-2">
       <img src="{{imgSrc}}" (error)="brokenLink()">

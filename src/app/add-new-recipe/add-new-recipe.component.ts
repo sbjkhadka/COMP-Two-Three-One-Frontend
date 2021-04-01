@@ -67,12 +67,12 @@ export class AddNewRecipeComponent implements OnInit {
       this.recipeInstruction.setValue(this.recipeItem.description);
       this.imageLink.setValue(this.recipeItem.recipePhoto);
       this.price.setValue(this.recipeItem.price);
-
+      this.imgSrc = this.recipeItem.recipePhoto;
+      this.imageValidFlag = true;
       const count = this.recipeItem.recipeItemList.length;
 
       for (let i = 1; i < count; i++) {
 
-        console.log('ingredient name:' + this.recipeItem.recipeItemList[i].ingredientName);
         (this.recipeForm.get('recipes') as FormArray).push(
           new FormGroup({
               ingredientName: new FormControl({value: this.recipeItem.recipeItemList[i].ingredientName, disabled: false}),
@@ -126,6 +126,8 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   editRecipe(): void {
+    console.log('instructions1', this.recipeInstruction.value);
+    console.log('image_link1', this.imageLink.value);
     const obj = {
       description: this.recipeInstruction.value,
       partyId: this.activeUserSingletonService.activeUser.getValue(),
@@ -219,7 +221,7 @@ export class AddNewRecipeComponent implements OnInit {
     return index >= 0 && this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
       this.ingredientNameList.value[this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId)]
         .ingredientName : '';
-  };
+  }
 
 
   ingredientSelected(event, i): void {
