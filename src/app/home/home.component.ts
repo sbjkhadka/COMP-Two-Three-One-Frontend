@@ -30,6 +30,9 @@ export class HomeComponent implements OnInit {
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
+  adminUserRecipes = new BehaviorSubject<any[]>(null);
+  adminId = '7QLBlGd9zogFQLbiZnkfkina6Fp1';
+  displayingStockRecipes = true;
 
   selectedRecipes;
 
@@ -72,7 +75,7 @@ export class HomeComponent implements OnInit {
   }
 
   recipeItemClicked(item: any): void {
-    console.log(item.recipe_name);
+    console.log('item.recipe_name' + item.recipe_name);
     const dialogRef = this.dialog.open(RecipeDetailsComponent,
       {
         height: '800px',
@@ -86,13 +89,15 @@ export class HomeComponent implements OnInit {
   }
 
   editRecipe(item: any): void {
+    console.log('item.recipe_name:' + item.recipeName);
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
         width: '1000px',
         panelClass: 'no-padding-container',
         data: {
-          selectedRecipe: 'Hello world'
+          selectedRecipe: item,
+          isEditing: true
         }
       }
     ).afterClosed().subscribe(res => {
@@ -109,7 +114,8 @@ export class HomeComponent implements OnInit {
         width: '1000px',
         panelClass: 'no-padding-container',
         data: {
-          selectedRecipe: 'Hello world'
+          selectedRecipe: null,
+          isEditing: false
         }
       }
     ).afterClosed().subscribe(res => {
@@ -125,6 +131,13 @@ export class HomeComponent implements OnInit {
       this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      this.checkLocalStorage();
+    });
+    this.recipeServiceService.getRecipeByPartyId(this.adminId).subscribe(res => {
+      console.log('response', res);
+      this.activeUserSingletonService.adminUserRecipe.next(res.payload); // feeding singleton
+      this.adminUserRecipes.next( res.payload);
+      console.log('logged_in_user_recipes_inside', this.adminUserRecipes);
       this.checkLocalStorage();
     });
   }

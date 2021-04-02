@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
@@ -17,6 +17,7 @@ export class RecipeServiceService {
   }
 
   createRecipe(recipeObject: any): any {
+    console.log('create', recipeObject);
     return this.http.post<any>(environment.base_url + 'recipe', recipeObject).pipe(catchError(error => {
       return throwError(error);
     }));
@@ -40,5 +41,12 @@ export class RecipeServiceService {
     }));
   }
 
-
+  updateRecipe(recipeId, recipeObject): any {
+    console.log('recipe obj', recipeObject);
+    const params = new HttpParams()
+      .set('recipeId', recipeId);
+    return this.http.put<any>(environment.base_url + 'recipe/updateRecipe', recipeObject, {params}).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 }
