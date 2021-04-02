@@ -1,16 +1,32 @@
 import {Pipe, PipeTransform} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {error} from '@angular/compiler/src/util';
+
+// import isImageURL from 'image-url-validator';
 
 @Pipe({
   name: 'DefaultAvatar'
 })
 export class DefaultAvatarPipe implements PipeTransform{
-  transform(value: string, fallback: string) {
+constructor(private http: HttpClient) {
+}
+
+  transform(url: string, fallbackUrl: string) {
+  // return this.http.get(url).map(res => url).catch(error => fallbackUrl);
+    // return this.http.get(url).pipe(error => return url);
+
+  // }
     let image = '';
-    if (value) {
-      image = value;
+    const img = new Image();
+    img.src = url;
+
+    if (url) {
+      image = url;
     } else {
-      image = fallback;
+      image = fallbackUrl;
     }
     return image;
   }
+
+
 }

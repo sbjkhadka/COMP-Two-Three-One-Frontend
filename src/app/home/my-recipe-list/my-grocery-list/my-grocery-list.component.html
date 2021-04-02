@@ -1,0 +1,42 @@
+
+<div class="container-fluid h-100 d-flex flex-column" *ngIf="finalRecipeList">
+  <div class="d-flex justify-content-between pt-3">
+    <h1>Grocery List</h1>
+    <mat-icon class="cursor-pointer" (click)="close()">close</mat-icon>
+  </div>
+
+  <div class="d-flex justify-content-end pr-3">
+    <button class="invisible-button" printSectionId ="print-my-grocery-please" ngxPrint [useExistingCss]="true"><mat-icon class="cursor-pointer" >print</mat-icon></button>
+  </div>
+
+  <div class="flex-grow-1 bg-light overflow-auto pt-3 pl-3" *ngIf="consolidatedList">
+<!--    <span *ngFor="let item of consolidatedList">{{item.recipeName}} </span>-->
+
+    <table class="table table-sm">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Ingredient Name</th>
+        <th scope="col">Quantity</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of printObj; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.ingredientName}}</td>
+        <td>{{item.quantity}} {{item.unit}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+
+<app-print-my-grocery
+  style="display: none"
+  id="print-my-grocery-please"
+  [groceryList]="groceryList$"
+></app-print-my-grocery>

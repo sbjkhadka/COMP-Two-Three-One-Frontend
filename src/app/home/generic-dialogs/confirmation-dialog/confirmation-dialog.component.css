@@ -1,0 +1,15 @@
+#dialog-container{
+  text-align: center;
+}
+.red-underline{
+  margin: 0 auto;
+  border-bottom: 3px solid red;
+  width: 60px;
+}
+.titleText{
+  text-align: center;
+  font-weight: bold;
+}
+mat-icon {
+  cursor: pointer;
+}

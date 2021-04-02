@@ -1,0 +1,18 @@
+.header, .header-space{
+  height: 150px;
+}
+.footer, .footer-space{
+  height: 50px;
+}
+.header {
+  position: fixed;
+  top: 0;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+}
+
+@page {
+  margin: 2mm
+}

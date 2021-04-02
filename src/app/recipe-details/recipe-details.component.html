@@ -18,11 +18,11 @@
     <div class="col-md-5 d-flex flex-column justify-content-around align-items-start"  *ngIf="recipeDetail" style="height: 440px;max-height: 440px; overflow: auto;">
       <div class="w-100 d-flex justify-content-between align-items-center flex-column border-bottom">
         <span style="font-size: xxx-large;margin-bottom: 20px" *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</span>
-        <small> one liner </small>
+        <small style="font-family: 'Arial Black',serif"> ${{recipeDetail.price}} </small>
       </div>
 
       <div class="d-flex justify-content-around w-100">
-        <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer bg-success button-span"><mat-icon>add</mat-icon>Add</span>
+        <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer bg-warning button-span"><mat-icon>add</mat-icon>Add</span>
         <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer button-span"><mat-icon>save</mat-icon>Text</span>
       </div>
 

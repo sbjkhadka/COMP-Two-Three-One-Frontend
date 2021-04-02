@@ -6,6 +6,9 @@ import {BehaviorSubject} from 'rxjs';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
+import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
+import {ConfirmationDialogComponent} from './generic-dialogs/confirmation-dialog/confirmation-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -13,34 +16,47 @@ import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  constructor(
+    public firebaseService: FirebaseService,
+    public recipeServiceService: RecipeServiceService,
+    public activeUserSingletonService: ActiveUserSingletonService,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar) {
+    this.confirmUserLoginAfterPageReload();
+  }
   bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
   loggedInUser;
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
-  constructor(
-    public firebaseService: FirebaseService,
-    public recipeServiceService: RecipeServiceService,
-    public activeUserSingletonService: ActiveUserSingletonService,
-    public dialog: MatDialog) {
-  }
+  adminUserRecipes = new BehaviorSubject<any[]>(null);
+  adminId = '7QLBlGd9zogFQLbiZnkfkina6Fp1';
+  displayingStockRecipes = true;
+
+  selectedRecipes;
 
   // will use it later
   ngOnInit(): void {
   }
 
+  confirmUserLoginAfterPageReload(): void {
+    this.loggedInUser = JSON.parse(localStorage.getItem('user'));
+    if (this.loggedInUser) {
+      this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid);
+      this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
+      this.getAllRecipes(this.loggedInUser.uid);
+    }
+  }
+
   login(event): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
-    this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    // this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
+    this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid); // feeding singleton
+
     console.log('logged_in_user', this.loggedInUser);
-    this.recipeServiceService.getRecipeByPartyId(this.loggedInUser.uid).subscribe(res => {
-      console.log('response', res);
-      // remove this once the backend api is ready
-      // const filtered = res.filter(recipe => recipe.party_id === this.loggedInUser.uid);
-      this.activeUserSingletonService.activeUserRecipe = res.payload; // feeding singleton
-      this.loggedInUserRecipes.next( res.payload);
-      console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
-    });
+    this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
+    this.getAllRecipes(this.loggedInUser.uid);
   }
 
   register(event): void {
@@ -55,11 +71,11 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('user');
     this.loggedInUser = undefined;
 
-    this.firebaseService.logout();
+    this.firebaseService.logOut();
   }
 
   recipeItemClicked(item: any): void {
-    console.log(item.recipe_name);
+    console.log('item.recipe_name' + item.recipe_name);
     const dialogRef = this.dialog.open(RecipeDetailsComponent,
       {
         height: '800px',
@@ -70,12 +86,126 @@ export class HomeComponent implements OnInit {
         }
       }
     );
-    // dialogRef.componentInstance.signUpStatus.subscribe((value) => {
-    //   if (value === true) {
-    //     this.isSignedIn = true;
-    //     this.isLoggedIn.emit(true);
-    //   }
-    // });
   }
+
+  editRecipe(item: any): void {
+    console.log('item.recipe_name:' + item.recipeName);
+    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+      {
+        height: '800px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: item,
+          isEditing: true
+        }
+      }
+    ).afterClosed().subscribe(res => {
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+    });
+  }
+
+
+  openAddNewRecipeDialog(): void {
+    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+      {
+        height: '800px',
+        width: '1000px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: null,
+          isEditing: false
+        }
+      }
+    ).afterClosed().subscribe(res => {
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+    });
+
+  }
+
+  getAllRecipes(loggedInUserId: string): void {
+    this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
+      console.log('response', res);
+      this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
+      this.loggedInUserRecipes.next( res.payload);
+      console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      this.checkLocalStorage();
+    });
+    this.recipeServiceService.getRecipeByPartyId(this.adminId).subscribe(res => {
+      console.log('response', res);
+      this.activeUserSingletonService.adminUserRecipe.next(res.payload); // feeding singleton
+      this.adminUserRecipes.next( res.payload);
+      console.log('logged_in_user_recipes_inside', this.adminUserRecipes);
+      this.checkLocalStorage();
+    });
+  }
+
+  deleteRecipe(item): void {
+    console.log('deleting', item);
+    const deleteRef = this.dialog.open(ConfirmationDialogComponent, {
+      height: '200px',
+      width: '500px',
+      panelClass: 'no-padding-container',
+      data: {
+        itemName: item.recipeName,
+        itemType: 'recipe'
+      }
+    });
+    deleteRef.afterClosed().subscribe(decision => {
+      if (decision) {
+        console.log('deleting', item);
+        this.recipeServiceService.deleteRecipe(item.recipeId, item.partyId).subscribe(res => {
+          console.log('deleted_successfully', res);
+          this.openSnackBar('Deleted successfully', '');
+          this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+        }, error => {
+          console.log('delete_failed', error);
+          this.openSnackBar('Deleted failed', '');
+        });
+      }
+    });
+  }
+
+  openSnackBar(message: string, action: string): void {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
+  recipeAdded(event, item): void {
+    console.log('isChecked', event.checked);
+    console.log('item', item);
+    const currentSelected = this.activeUserSingletonService.activeUserSelectedRecipe.value;
+    console.log('current_list', currentSelected);
+    if (event.checked) {
+      currentSelected.push(item);
+    } else {
+      const index = currentSelected.findIndex(recipe => recipe.recipeId === item.recipeId);
+      currentSelected.splice(index, 1);
+    }
+    this.activeUserSingletonService.activeUserSelectedRecipe.next(currentSelected);
+    localStorage.setItem('selectedRecipe', JSON.stringify(currentSelected));
+    this.selectedRecipes = currentSelected;
+    console.log('now_list', currentSelected);
+  }
+
+  checkLocalStorage(): void {
+    if (localStorage.getItem('selectedRecipe')) {
+      this.selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipe'));
+      this.activeUserSingletonService.activeUserSelectedRecipe.next(this.selectedRecipes);
+    }
+  }
+
+  shouldICheck(item): boolean {
+    if (JSON.parse(localStorage.getItem('selectedRecipe'))) {
+      const index = JSON.parse(localStorage.getItem('selectedRecipe')).findIndex(recipe => recipe.recipeId === item.recipeId);
+      return index >= 0;
+    } else {
+      return false;
+    }
+  }
+
 }
 

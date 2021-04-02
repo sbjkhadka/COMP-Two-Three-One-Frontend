@@ -5,3 +5,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .no-padding-container .mat-dialog-container {
   padding: 0 !important;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
