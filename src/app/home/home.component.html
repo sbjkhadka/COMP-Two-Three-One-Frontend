@@ -13,7 +13,7 @@
 
 
 <div class="container-fluid" *ngIf="loggedInUser">
-  <div style="align: right">
+  <div class="d-flex justify-content-end mt-1" *ngIf="stockRecipeToggleButtonStatus">
     <mat-slide-toggle [(ngModel)]="displayingStockRecipes" style="align-self: flex-end">Include stock recipes</mat-slide-toggle>
   </div>
     <div class="row">
@@ -44,31 +44,13 @@
         </div>
         </div>
 
-      <div *ngIf="displayingStockRecipes">
-        <div class="card bg-warning" style="width: 18rem;margin: 20px;" *ngFor="let item of this.adminUserRecipes.value">
-          <img class="card-img-top" src="{{item.recipePhoto}}" alt="Card image cap">
-          <div class="card-body d-flex justify-content-between pr-0 border">
-            <span class="card-text" style="color: navy">{{item.recipeName | titlecase }}</span>
-            <div class="w-45 d-flex justify-content-between pr-1">
-              <span class="cursor-pointer" (click)="recipeItemClicked(item)" matTooltip="View Recipe Details"><mat-icon style="color: navy">open_in_new</mat-icon></span>
-            </div>
-
-
-          </div>
-          <div class="card-img-overlay h-25 w-100 d-flex justify-content-end align-self-start pt-3 pr-3">
-            <mat-checkbox [checked]="shouldICheck(item)" (change)="recipeAdded($event, item)"></mat-checkbox>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </div>
 
   <div class="row fixed-bottom bg-warning text-dark">
     <div class="col-md-12 d-flex justify-content-between">
       <span class="pl-2 font-weight-bold" style="cursor: pointer" (click)="openAddNewRecipeDialog()"> + Add your own recipe</span>
-<!--      <span routerLink="/myRecipe" routerLinkActive="bg-light">My Recipe List</span>-->
+
     </div>
   </div>
 </div>
