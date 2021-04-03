@@ -30,11 +30,13 @@ export class HomeComponent implements OnInit {
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
-  adminUserRecipes = new BehaviorSubject<any[]>(null);
-  adminId = '7QLBlGd9zogFQLbiZnkfkina6Fp1';
   displayingStockRecipes = true;
-
   selectedRecipes;
+  stockRecipeToggleButtonStatus = true;
+
+  myRecipe: any[];
+
+  stockRecipe: any[];
 
   // will use it later
   ngOnInit(): void {
@@ -51,7 +53,6 @@ export class HomeComponent implements OnInit {
 
   login(event): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
-    // this.activeUserSingletonService.activeUser = this.loggedInUser.uid; // feeding singleton
     this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid); // feeding singleton
 
     console.log('logged_in_user', this.loggedInUser);
@@ -103,6 +104,7 @@ export class HomeComponent implements OnInit {
     ).afterClosed().subscribe(res => {
       // this.getAllRecipes(this.activeUserSingletonService.activeUser);
       this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+      // this.addStockRecipe();
     });
   }
 
@@ -121,25 +123,56 @@ export class HomeComponent implements OnInit {
     ).afterClosed().subscribe(res => {
       // this.getAllRecipes(this.activeUserSingletonService.activeUser);
       this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+      // this.addStockRecipe();
     });
 
   }
-
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
       console.log('response', res);
-      this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
-      this.loggedInUserRecipes.next( res.payload);
+      this.myRecipe = res.payload;
+      // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
+      // this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      if (this.loggedInUserRecipes && this.loggedInUserRecipes.value && this.loggedInUserRecipes.value.length > 0 &&
+        this.loggedInUserRecipes.value[0].roleName.toLowerCase() === 'chef') {
+        this.stockRecipeToggleButtonStatus = true;
+      }
       this.checkLocalStorage();
     });
-    this.recipeServiceService.getRecipeByPartyId(this.adminId).subscribe(res => {
-      console.log('response', res);
-      this.activeUserSingletonService.adminUserRecipe.next(res.payload); // feeding singleton
-      this.adminUserRecipes.next( res.payload);
-      console.log('logged_in_user_recipes_inside', this.adminUserRecipes);
-      this.checkLocalStorage();
+
+    this.addStockRecipe();
+
+  }
+  addStockRecipe(): void {
+    this.recipeServiceService.getAllStockRecipe().subscribe(res => {
+      console.log('stock_recipes', res.payload);
+      this.stockRecipe = res.payload;
+      if (this.displayingStockRecipes === true) {
+        this.showHideStockRecipe(true);
+      }
+
     });
+  }
+
+  stockDisplayToggled(event): void {
+    console.log('event', event.checked);
+    this.showHideStockRecipe(event.checked);
+  }
+
+  showHideStockRecipe(show: boolean): void {
+    const myRec = this.myRecipe.slice();
+    const stockRec = this.stockRecipe.slice();
+    if (show === true) {
+      const finalRec = myRec.concat(stockRec);
+      this.activeUserSingletonService.activeUserRecipe.next(finalRec); // feeding singleton
+      this.loggedInUserRecipes.next( finalRec);
+      this.displayingStockRecipes = true;
+    } else {
+      this.activeUserSingletonService.activeUserRecipe.next(myRec); // feeding singleton
+      this.loggedInUserRecipes.next(myRec);
+      this.displayingStockRecipes = false;
+    }
   }
 
   deleteRecipe(item): void {
@@ -206,6 +239,8 @@ export class HomeComponent implements OnInit {
       return false;
     }
   }
+
+
 
 }
 

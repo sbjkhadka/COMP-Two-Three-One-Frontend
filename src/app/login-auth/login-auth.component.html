@@ -8,11 +8,11 @@
 
     <div class="form-group">
       <label for="password">Password</label>
-      <input type="password" #password id="password" class="form-control" formControlName="password"/>
+      <input type="password" id="password" class="form-control" formControlName="password"/>
     </div>
 
 
-  <button class="btn btn-primary form-control" (click)="onSignIn(email.value, password.value)">Login</button>
+  <button class="btn btn-primary form-control" (click)="onSignIn()">Login</button>
   </form>
   <span>Not a member yet?</span><span (click)="openRegistrationDialog()" class="cursor-pointer"> Register now</span>
 </div>

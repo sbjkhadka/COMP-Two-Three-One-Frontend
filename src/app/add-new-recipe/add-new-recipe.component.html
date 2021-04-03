@@ -55,7 +55,7 @@
                   (optionSelected)="ingredientSelected($event, i)"
 
                 >
-                  <!--                  (optionSelected)="ingredientSelected($event, i)"-->
+
                   <mat-option *ngFor="let option of filteredOptionsIngredientName | async"
                               [value]="option.ingredientId">{{option.ingredientName}}</mat-option>
                 </mat-autocomplete>
