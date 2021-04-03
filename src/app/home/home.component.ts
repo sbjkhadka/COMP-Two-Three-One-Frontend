@@ -135,6 +135,16 @@ export class HomeComponent implements OnInit {
       this.checkLocalStorage();
     });
 
+    this.recipeServiceService.getAllStockRecipe().subscribe(res => {
+      console.log('stock_recipes', res.payload);
+      const activeUserRecipe = this.activeUserSingletonService.activeUserRecipe.value;
+      res.payload.forEach(recipe => {
+        activeUserRecipe.push(recipe);
+      });
+      this.activeUserSingletonService.activeUserRecipe.next(activeUserRecipe); // feeding singleton
+      console.log('active_user_recipe', this.activeUserSingletonService.activeUserRecipe.value);
+    });
+
   }
 
   deleteRecipe(item): void {
