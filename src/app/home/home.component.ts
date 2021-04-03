@@ -30,11 +30,9 @@ export class HomeComponent implements OnInit {
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
-  adminUserRecipes = new BehaviorSubject<any[]>(null);
-  adminId = '7QLBlGd9zogFQLbiZnkfkina6Fp1';
   displayingStockRecipes = true;
-
   selectedRecipes;
+  stockRecipeToggleButtonStatus = false;
 
   // will use it later
   ngOnInit(): void {
@@ -124,22 +122,19 @@ export class HomeComponent implements OnInit {
     });
 
   }
-
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
       console.log('response', res);
       this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      if (this.loggedInUserRecipes && this.loggedInUserRecipes.value && this.loggedInUserRecipes.value.length > 0 &&
+        this.loggedInUserRecipes.value[0].roleName.toLowerCase() === 'chef') {
+        this.stockRecipeToggleButtonStatus = true;
+      }
       this.checkLocalStorage();
     });
-    this.recipeServiceService.getRecipeByPartyId(this.adminId).subscribe(res => {
-      console.log('response', res);
-      this.activeUserSingletonService.adminUserRecipe.next(res.payload); // feeding singleton
-      this.adminUserRecipes.next( res.payload);
-      console.log('logged_in_user_recipes_inside', this.adminUserRecipes);
-      this.checkLocalStorage();
-    });
+
   }
 
   deleteRecipe(item): void {
