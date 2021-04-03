@@ -49,6 +49,7 @@ export class AddNewRecipeComponent implements OnInit {
     dialogRef.disableClose = true;
     this.recipeItem = data.selectedRecipe;
     this.isEditing = data.isEditing;
+    console.log('selected', this.recipeItem);
   }
 
   ngOnInit(): void {
@@ -70,7 +71,7 @@ export class AddNewRecipeComponent implements OnInit {
       this.imgSrc = this.recipeItem.recipePhoto;
       this.imageValidFlag = true;
       const count = this.recipeItem.recipeItemList.length;
-
+// if(this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0) {}
       for (let i = 1; i < count; i++) {
 
         (this.recipeForm.get('recipes') as FormArray).push(
@@ -89,9 +90,9 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   public createFormRowForEdit(): FormGroup {
-    console.log('item: ' + this.recipeItem.recipeItemList[0].ingredientName);
+    console.log('item: ' + this.recipeItem.recipeItemList[0].ingredientId);
     return new FormGroup({
-      ingredientName: new FormControl({value: this.recipeItem.recipeItemList[0].ingredientName, disabled: false}),
+      ingredientName: new FormControl({value: this.recipeItem.recipeItemList[0].ingredientId, disabled: false}),
       quantity: new FormControl({value: this.recipeItem.recipeItemList[0].itemQuantity, disabled: false}),
       unit: new FormControl({value: this.recipeItem.recipeItemList[0].unitType, disabled: false}),
       calorie: new FormControl({value: this.recipeItem.recipeItemList[0].calorie, disabled: false})
@@ -198,6 +199,7 @@ export class AddNewRecipeComponent implements OnInit {
   getIngredientList(): void {
     this.searching = true;
     this.recipeServiceService.getAllIngredients().subscribe(res => {
+      console.log('ingredient_name_list_loaded', res.payload);
       this.ingredientNameList.next(res.payload);
       this.searching = false;
       this.initializeAutoComplete();
@@ -216,7 +218,8 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   getIngredientDisplayName = (ingredientId) => {
-    console.log(this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId));
+    console.log('displaying' + ingredientId, this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId));
+    console.log('Ing_name_list', this.ingredientNameList.value);
     const index = this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId);
     return index >= 0 && this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
       this.ingredientNameList.value[this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId)]
