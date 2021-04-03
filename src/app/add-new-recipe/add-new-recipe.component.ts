@@ -53,6 +53,10 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.prepareRow();
+  }
+
+  public prepareRow(): void {
     if (!this.isEditing) {
       this.recipeForm = this.formBuilder.group({
         recipeName: new FormControl(''),
@@ -71,12 +75,12 @@ export class AddNewRecipeComponent implements OnInit {
       this.imgSrc = this.recipeItem.recipePhoto;
       this.imageValidFlag = true;
       const count = this.recipeItem.recipeItemList.length;
-// if(this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0) {}
+
       for (let i = 1; i < count; i++) {
 
         (this.recipeForm.get('recipes') as FormArray).push(
           new FormGroup({
-              ingredientName: new FormControl({value: this.recipeItem.recipeItemList[i].ingredientName, disabled: false}),
+              ingredientName: new FormControl({value: this.recipeItem.recipeItemList[i].ingredientId, disabled: false}),
               quantity: new FormControl({value: this.recipeItem.recipeItemList[i].itemQuantity, disabled: false}),
               unit: new FormControl({value: this.recipeItem.recipeItemList[i].unitType, disabled: false}),
               calorie: new FormControl({value: this.recipeItem.recipeItemList[i].calorie, disabled: false})
@@ -203,6 +207,7 @@ export class AddNewRecipeComponent implements OnInit {
       this.ingredientNameList.next(res.payload);
       this.searching = false;
       this.initializeAutoComplete();
+      this.prepareRow();
     }, error => {
       this.searching = false;
     });
