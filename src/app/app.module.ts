@@ -38,12 +38,18 @@ import {NgxPrintModule} from 'ngx-print';
 import { PrintMyGroceryComponent } from './home/my-recipe-list/my-grocery-list/print-my-grocery/print-my-grocery.component';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { CalorieCheckerComponent } from './calorie-checker/calorie-checker.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'myRecipe', component: MyRecipeListComponent}
+  {path: 'myRecipe', component: MyRecipeListComponent},
+  {path: 'calorieChecker', component: CalorieCheckerComponent}
 ];
 @NgModule({
   declarations: [
@@ -60,6 +66,7 @@ const routes: Routes = [
     ConfirmationDialogComponent,
     MyGroceryListComponent,
     PrintMyGroceryComponent,
+    CalorieCheckerComponent,
   ],
     imports: [
         BrowserModule,
@@ -91,7 +98,11 @@ const routes: Routes = [
         MatSnackBarModule,
         MatCheckboxModule,
         NgxPrintModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatDatepickerModule,
+        MatButtonToggleModule,
+        MatNativeDateModule,
+        MatRadioModule
     ],
   providers: [FirebaseService,
               AuthenticationService,

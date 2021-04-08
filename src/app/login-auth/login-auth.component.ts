@@ -24,7 +24,7 @@ export class LoginAuthComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  async onSignIn(email: string, password: string) {
+  async onSignIn() {
     await this.firebaseService.signin(this.loginForm.value.email, this.loginForm.value.password);
     if (this.firebaseService.isLoggedIn) {
       this.isSignedIn = true;

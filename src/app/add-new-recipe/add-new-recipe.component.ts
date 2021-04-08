@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import * as rxjsOps from 'rxjs/operators';
@@ -23,6 +23,7 @@ export class AddNewRecipeComponent implements OnInit {
   defaultImage = 'https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Food-Dome-512.png';
   imgSrc;
   imageValidFlag = false;
+  isEditing = false;
   errorImage = 'https://upload.wikimedia.org/wikipedia/commons/0/0a/No-image-available.png';
 
   // Related to autocomplete
@@ -35,8 +36,9 @@ export class AddNewRecipeComponent implements OnInit {
   price = new FormControl(0.5);
 
   searching = false;
+  recipeItem = null;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(@Inject(MAT_DIALOG_DATA) data, private formBuilder: FormBuilder,
               private activeUserSingletonService: ActiveUserSingletonService,
               private recipeServiceService: RecipeServiceService,
               public dialogRef: MatDialogRef<AddNewRecipeComponent>,
@@ -45,17 +47,61 @@ export class AddNewRecipeComponent implements OnInit {
     this.imgSrc = this.defaultImage;
     this.getIngredientList();
     dialogRef.disableClose = true;
+    this.recipeItem = data.selectedRecipe;
+    this.isEditing = data.isEditing;
+    console.log('selected', this.recipeItem);
   }
 
   ngOnInit(): void {
-    this.recipeForm = this.formBuilder.group({
-      recipeName: new FormControl(''),
-      recipes: this.formBuilder.array([this.createFormRow()])
-    });
+    this.prepareRow();
+  }
+
+  public prepareRow(): void {
+    if (!this.isEditing) {
+      this.recipeForm = this.formBuilder.group({
+        recipeName: new FormControl(''),
+        recipes: this.formBuilder.array([this.createFormRow()])
+      });
+    } else {
+      this.recipeForm = this.formBuilder.group({
+        recipeName: new FormControl(''),
+        recipes: this.formBuilder.array([this.createFormRowForEdit()])
+      });
+
+      this.recipeForm.get('recipeName').setValue(this.recipeItem.recipeName);
+      this.recipeInstruction.setValue(this.recipeItem.description);
+      this.imageLink.setValue(this.recipeItem.recipePhoto);
+      this.price.setValue(this.recipeItem.price);
+      this.imgSrc = this.recipeItem.recipePhoto;
+      this.imageValidFlag = true;
+      const count = this.recipeItem.recipeItemList.length;
+
+      for (let i = 1; i < count; i++) {
+
+        (this.recipeForm.get('recipes') as FormArray).push(
+          new FormGroup({
+              ingredientName: new FormControl({value: this.recipeItem.recipeItemList[i].ingredientId, disabled: false}),
+              quantity: new FormControl({value: this.recipeItem.recipeItemList[i].itemQuantity, disabled: false}),
+              unit: new FormControl({value: this.recipeItem.recipeItemList[i].unitType, disabled: false}),
+              calorie: new FormControl({value: this.recipeItem.recipeItemList[i].calorie, disabled: false})
+            }
+          ));
+      }
+    }
+
     console.log('ing_list', this.ingredientNameList);
     this.initializeAutoComplete();
   }
 
+  public createFormRowForEdit(): FormGroup {
+    console.log('item: ' + this.recipeItem.recipeItemList[0].ingredientId);
+    return new FormGroup({
+      ingredientName: new FormControl({value: this.recipeItem.recipeItemList[0].ingredientId, disabled: false}),
+      quantity: new FormControl({value: this.recipeItem.recipeItemList[0].itemQuantity, disabled: false}),
+      unit: new FormControl({value: this.recipeItem.recipeItemList[0].unitType, disabled: false}),
+      calorie: new FormControl({value: this.recipeItem.recipeItemList[0].calorie, disabled: false})
+    });
+  }
 
   public createFormRow(): FormGroup {
     return new FormGroup({
@@ -80,11 +126,14 @@ export class AddNewRecipeComponent implements OnInit {
     }
   }
 
-  saveRecipe(): void {
-    console.log('instructions', this.recipeInstruction.value);
-    console.log('image_link', this.imageLink.value);
+  getIsEditing(): boolean {
+    return this.isEditing;
+  }
 
-    const obj  = {
+  editRecipe(): void {
+    console.log('instructions1', this.recipeInstruction.value);
+    console.log('image_link1', this.imageLink.value);
+    const obj = {
       description: this.recipeInstruction.value,
       partyId: this.activeUserSingletonService.activeUser.getValue(),
       price: this.price.value,
@@ -93,8 +142,35 @@ export class AddNewRecipeComponent implements OnInit {
       recipePhoto: this.imageValidFlag === true ? this.imgSrc : this.defaultImage
     };
 
+    const recipes = this.recipeForm.get('recipes') as FormArray;
 
+    recipes.controls.forEach(fg => {
+      console.log('fg', fg.value.ingredientName);
+      obj.recipeItemList.push({
+        ingredientId: fg.value.ingredientName,
+        itemQuantity: fg.value.quantity
+      });
+    });
+    console.log('in side is editing:' + this.recipeItem.recipeId);
+    console.log('obj:' + obj.recipeName);
+    this.recipeServiceService.updateRecipe(this.recipeItem.recipeId, obj).subscribe(res => {
+      console.log('update_recipe_response', res);
+      this.dialogRef.close();
+    });
+  }
 
+  saveRecipe(): void {
+    console.log('instructions', this.recipeInstruction.value);
+    console.log('image_link', this.imageLink.value);
+
+    const obj = {
+      description: this.recipeInstruction.value,
+      partyId: this.activeUserSingletonService.activeUser.getValue(),
+      price: this.price.value,
+      recipeItemList: [],
+      recipeName: this.recipeForm.get('recipeName').value,
+      recipePhoto: this.imageValidFlag === true ? this.imgSrc : this.defaultImage
+    };
     const recipes = this.recipeForm.get('recipes') as FormArray;
 
     recipes.controls.forEach(fg => {
@@ -104,23 +180,34 @@ export class AddNewRecipeComponent implements OnInit {
         itemQuantity: fg.value.quantity
       });
     });
-
-
-
     console.log('final obj', obj);
     this.recipeServiceService.createRecipe(obj).subscribe(res => {
       console.log('create_recipe_response', res);
       this.dialogRef.close();
     });
-
-    }
+    // if (this.isEditing) {
+    //   console.log('in side is editing:' + this.recipeItem.recipeId);
+    //   console.log('obj:' + obj.recipeName);
+    //   this.recipeServiceService.updateRecipe(this.recipeItem.recipeId, obj).subscribe(res => {
+    //     console.log('update_recipe_response', res);
+    //     this.dialogRef.close();
+    //   });
+    // } else {
+    //   console.log('final obj', obj);
+    //   this.recipeServiceService.createRecipe(obj).subscribe(res => {
+    //     console.log('create_recipe_response', res);
+    //     this.dialogRef.close();
+    //   });
+  }
 
   getIngredientList(): void {
     this.searching = true;
     this.recipeServiceService.getAllIngredients().subscribe(res => {
+      console.log('ingredient_name_list_loaded', res.payload);
       this.ingredientNameList.next(res.payload);
       this.searching = false;
       this.initializeAutoComplete();
+      this.prepareRow();
     }, error => {
       this.searching = false;
     });
@@ -136,13 +223,13 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   getIngredientDisplayName = (ingredientId) => {
-    console.log(this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId));
+    console.log('displaying' + ingredientId, this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId));
+    console.log('Ing_name_list', this.ingredientNameList.value);
     const index = this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId);
     return index >= 0 && this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
       this.ingredientNameList.value[this.ingredientNameList.value.findIndex(item => item.ingredientId === ingredientId)]
         .ingredientName : '';
   }
-
 
 
   ingredientSelected(event, i): void {
@@ -151,7 +238,7 @@ export class AddNewRecipeComponent implements OnInit {
     (currentFormGroup as FormGroup).controls.quantity.setValue(1);
     const ingredientIndexInExistingIngredientNameList =
       this.ingredientNameList.value
-      .findIndex(ingredient => ingredient.ingredientId === (currentFormGroup as FormGroup).controls.ingredientName.value);
+        .findIndex(ingredient => ingredient.ingredientId === (currentFormGroup as FormGroup).controls.ingredientName.value);
 
     if (this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0) {
       (currentFormGroup as FormGroup).controls.calorie
@@ -165,11 +252,9 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
 
-
   quantityChanged(event, i): void {
     const formArray = this.recipeForm.get('recipes') as FormArray;
     const currentFormGroup = formArray.at(i);
-
 
 
     const ingredientIndexInExistingIngredientNameList =
@@ -196,8 +281,13 @@ export class AddNewRecipeComponent implements OnInit {
   increasePrice(): void {
     this.price.setValue(Number(this.price.value) + 0.5);
   }
+
   decreasePrice(): void {
-    this.price.setValue(Number(this.price.value) - 0.5);
+    if (this.price.value <= 0) {
+      this.price.setValue(0);
+    } else {
+      this.price.setValue(Number(this.price.value) - 0.5);
+    }
   }
 
   close(): void {
