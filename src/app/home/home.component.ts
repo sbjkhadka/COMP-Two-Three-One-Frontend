@@ -32,8 +32,7 @@ export class HomeComponent implements OnInit {
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
   displayingStockRecipes = true;
   selectedRecipes;
-  stockRecipeToggleButtonStatus = true;
-
+  stockRecipeToggleButtonStatus = false;
   myRecipe: any[];
 
   stockRecipe: any[];
@@ -58,6 +57,7 @@ export class HomeComponent implements OnInit {
     console.log('logged_in_user', this.loggedInUser);
     this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
     this.getAllRecipes(this.loggedInUser.uid);
+    this.checkIfChef();
   }
 
   register(event): void {
@@ -86,7 +86,11 @@ export class HomeComponent implements OnInit {
           selectedRecipe: item
         }
       }
-    );
+    ).afterClosed().subscribe(res => {
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
+      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+      // this.addStockRecipe();
+    });
   }
 
   editRecipe(item: any): void {
@@ -137,13 +141,23 @@ export class HomeComponent implements OnInit {
       if (this.loggedInUserRecipes && this.loggedInUserRecipes.value && this.loggedInUserRecipes.value.length > 0 &&
         this.loggedInUserRecipes.value[0].roleName.toLowerCase() === 'chef') {
         this.stockRecipeToggleButtonStatus = true;
+        console.log('Displaying Recipe Toggle');
       }
+      this.checkIfChef();
       this.checkLocalStorage();
     });
 
     this.addStockRecipe();
 
   }
+
+  checkIfChef(): void {
+    if (this.loggedInUserRecipes && this.loggedInUserRecipes.value && this.loggedInUserRecipes.value.length > 0 &&
+      this.loggedInUserRecipes.value[0].roleName.toLowerCase() === 'chef') {
+      this.stockRecipeToggleButtonStatus = true;
+    }
+  }
+
   addStockRecipe(): void {
     this.recipeServiceService.getAllStockRecipe().subscribe(res => {
       console.log('stock_recipes', res.payload);

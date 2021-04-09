@@ -113,6 +113,15 @@ export class RecipeServiceService {
     }));
   }
 
+  /*
+  getUserRole(userId): any {
+    let allUsers = this.http.get<any>(environment.base_url + 'party/getAllMembers').pipe(catchError(error => {
+      return throwError(error);
+    }));
+    let user = allUsers.filter(x => x.payload.partyId == userId);
+  }
+  */
+
   updateRecipe(recipeId, recipeObject): any {
     console.log('recipe obj', recipeObject);
     const params = new HttpParams()
