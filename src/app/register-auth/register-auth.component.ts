@@ -2,6 +2,7 @@ import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../shared-services/services/firebase.service';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {FormControl, FormGroup} from '@angular/forms';
+import {RecipeServiceService} from '../shared-services/recipe-service.service';
 
 
 @Component({
@@ -10,6 +11,13 @@ import {FormControl, FormGroup} from '@angular/forms';
   styleUrls: ['./register-auth.component.css']
 })
 export class RegisterAuthComponent implements OnInit {
+  constructor(public firebaseService: FirebaseService,
+              public dialogRef: MatDialogRef<RegisterAuthComponent>,
+              public recipeServiceService: RecipeServiceService) {
+    this.getAllRoles();
+    this.initializeForm();
+
+  }
 
   isSignedIn = false;
   @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -17,10 +25,8 @@ export class RegisterAuthComponent implements OnInit {
   userRegistered;
   registrationFailure = 'Registration failed';
   public registrationForm: FormGroup;
-  constructor(public firebaseService: FirebaseService,
-              public dialogRef: MatDialogRef<RegisterAuthComponent>) {
-    this.initializeForm();
-  }
+
+  roles = [];
 
   ngOnInit(): void {
     this.isSignedIn = localStorage.getItem('user') !== null;
@@ -78,8 +84,16 @@ export class RegisterAuthComponent implements OnInit {
     this.isLoggedIn.emit(false);
   }
 
-  close(){
+  close() {
     this.dialogRef.close();
+  }
+
+    // modify this
+  getAllRoles() {
+    this.recipeServiceService.getAllRoles().subscribe(res => {
+      console.log('roles', res.payload);
+      this.roles = res.payload;
+    });
   }
 
 }

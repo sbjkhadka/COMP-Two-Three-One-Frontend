@@ -121,4 +121,11 @@ export class RecipeServiceService {
       return throwError(error);
     }));
   }
+
+  // Change this api
+  getAllRoles(): any {
+    return this.http.get<any>(environment.base_url + 'party/getAllMembers').pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 }

@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
   displayingStockRecipes = true;
   selectedRecipes;
-  stockRecipeToggleButtonStatus = true;
+  stockRecipeToggleButtonStatus = false;
 
   myRecipe: any[];
 
@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit {
 
   // will use it later
   ngOnInit(): void {
+    this.updateToggleButton();
   }
 
   confirmUserLoginAfterPageReload(): void {
@@ -129,26 +130,42 @@ export class HomeComponent implements OnInit {
   }
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
-      console.log('response', res);
+      console.log('response _ my', res);
       this.myRecipe = res.payload;
       // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       // this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
-      if (this.loggedInUserRecipes && this.loggedInUserRecipes.value && this.loggedInUserRecipes.value.length > 0 &&
-        this.loggedInUserRecipes.value[0].roleName.toLowerCase() === 'chef') {
-        this.stockRecipeToggleButtonStatus = true;
-      }
+      this.loggedInUserRecipes.next(res.payload);
+
+      this.updateToggleButton();
       this.checkLocalStorage();
     });
 
     this.addStockRecipe();
 
   }
+
+  // tslint:disable-next-line:typedef
+  updateToggleButton(): void {
+    this.loggedInUserRecipes.subscribe(val => {
+      console.log('val', val);
+      if (val && val.length > 0) {
+        if (val[0].roleName.toLowerCase() === 'chef') {
+          this.stockRecipeToggleButtonStatus = true;
+          console.log('chef');
+        } else {
+          console.log('not chef');
+        }
+      }
+
+    });
+  }
   addStockRecipe(): void {
     this.recipeServiceService.getAllStockRecipe().subscribe(res => {
-      console.log('stock_recipes', res.payload);
+      console.log('stock_recipes____________-', res.payload);
       this.stockRecipe = res.payload;
       if (this.displayingStockRecipes === true) {
+        console.log('showing/hiding');
         this.showHideStockRecipe(true);
       }
 
@@ -163,12 +180,23 @@ export class HomeComponent implements OnInit {
   showHideStockRecipe(show: boolean): void {
     const myRec = this.myRecipe.slice();
     const stockRec = this.stockRecipe.slice();
+    console.log('my', myRec);
+    console.log('stock', stockRec);
     if (show === true) {
-      const finalRec = myRec.concat(stockRec);
+      const finalRec =  [];
+      myRec.map(rec => {
+        finalRec.push(rec);
+      });
+      stockRec.map(rec => {
+        finalRec.push(rec);
+      });
+      console.log('true');
       this.activeUserSingletonService.activeUserRecipe.next(finalRec); // feeding singleton
       this.loggedInUserRecipes.next( finalRec);
+      console.log('true', finalRec);
       this.displayingStockRecipes = true;
     } else {
+      console.log('false');
       this.activeUserSingletonService.activeUserRecipe.next(myRec); // feeding singleton
       this.loggedInUserRecipes.next(myRec);
       this.displayingStockRecipes = false;
