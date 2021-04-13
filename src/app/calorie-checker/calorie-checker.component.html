@@ -94,7 +94,7 @@
       </form>
     </div>
     <div class="col-md-12 d-flex justify-content-around">
-      <h1>Your daily intake should be {{calories || '_______________'}} calories</h1>
+      <h1>Your daily intake should be {{(calories | number)  || '_______________'}} calories</h1>
     </div>
 
   </div>

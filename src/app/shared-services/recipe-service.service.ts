@@ -83,7 +83,7 @@ export class RecipeServiceService {
   }
 
   getAllStockRecipe(): any {
-    return this.http.get<any>('https://raw.githubusercontent.com/sbjkhadka/test-repo/master/stock').pipe(catchError(error => {
+    return this.http.get<any>('https://raw.githubusercontent.com/sbjkhadka/test-repo/master/admin_recipeV2.json').pipe(catchError(error => {
       return throwError(error);
     }));
   }

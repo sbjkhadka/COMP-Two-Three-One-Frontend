@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {FirebaseService} from '../shared-services/services/firebase.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, forkJoin} from 'rxjs';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
@@ -35,11 +35,12 @@ export class HomeComponent implements OnInit {
   selectedRecipes;
   stockRecipeToggleButtonStatus = false;
 
-  myRecipe: any[];
+  myRecipe = new BehaviorSubject<any[]>([]);
 
-  stockRecipe: any[];
+  stockRecipe = [];
   users = new BehaviorSubject<any[]>([]);
-currentUser;
+  // currentUser = new BehaviorSubject<any>(null);
+  currentUser;
 
   // will use it later
   ngOnInit(): void {
@@ -66,10 +67,14 @@ currentUser;
       console.log('LOGGED_IN_USERS', this.loggedInUser);
       const user = res.find(element => element.partyId === this.loggedInUser.uid);
       if (user) {
-        this.currentUser = user;
+        console.log('USERRRRRRRRR', user);
+        // this.currentUser.next(user);
         this.activeUserSingletonService.activeUserDetailsFromDB.next(user);
       }
       console.log('USER', user);
+    });
+    this.activeUserSingletonService.activeUserDetailsFromDB.subscribe(value => {
+      this.currentUser = value;
     });
   }
 
@@ -153,7 +158,7 @@ currentUser;
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
       console.log('response _ my', res);
-      this.myRecipe = res.payload;
+      this.myRecipe.next(res.payload);
       // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       // this.loggedInUserRecipes.next( res.payload);
       console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
@@ -184,26 +189,30 @@ currentUser;
   }
   addStockRecipe(): void {
     this.recipeServiceService.getAllStockRecipe().subscribe(res => {
-      console.log('stock_recipes____________-', res.payload);
       this.stockRecipe = res.payload;
       if (this.displayingStockRecipes === true) {
-        console.log('showing/hiding');
-        this.showHideStockRecipe(true);
+        this.getMyRecipeAndStockRecipe(true);
+      } else {
+        this.getMyRecipeAndStockRecipe(false);
       }
-
     });
   }
 
   stockDisplayToggled(event): void {
-    console.log('event', event.checked);
-    this.showHideStockRecipe(event.checked);
+    this.getMyRecipeAndStockRecipe(event.checked);
   }
 
-  showHideStockRecipe(show: boolean): void {
-    const myRec = this.myRecipe.slice();
-    const stockRec = this.stockRecipe.slice();
-    console.log('my', myRec);
-    console.log('stock', stockRec);
+  getMyRecipeAndStockRecipe(event?): void {
+    let myRec;
+    let stockRec;
+    this.myRecipe.subscribe(val => {
+      myRec = val;
+      stockRec = this.stockRecipe;
+      this.showHideStockRecipe(event, myRec, stockRec);
+    });
+  }
+
+  showHideStockRecipe(show: boolean, myRec?, stockRec?): void {
     if (show === true) {
       const finalRec =  [];
       myRec.map(rec => {
@@ -212,13 +221,10 @@ currentUser;
       stockRec.map(rec => {
         finalRec.push(rec);
       });
-      console.log('true');
       this.activeUserSingletonService.activeUserRecipe.next(finalRec); // feeding singleton
       this.loggedInUserRecipes.next( finalRec);
-      console.log('true', finalRec);
       this.displayingStockRecipes = true;
     } else {
-      console.log('false');
       this.activeUserSingletonService.activeUserRecipe.next(myRec); // feeding singleton
       this.loggedInUserRecipes.next(myRec);
       this.displayingStockRecipes = false;
