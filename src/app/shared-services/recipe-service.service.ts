@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -124,6 +124,12 @@ export class RecipeServiceService {
 
   // Change this api
   getAllRoles(): any {
+    return this.http.get<any>(environment.base_url + 'party/getAllMembers').pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  getAllUsers(): Observable<any> {
     return this.http.get<any>(environment.base_url + 'party/getAllMembers').pipe(catchError(error => {
       return throwError(error);
     }));

@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar) {
     this.confirmUserLoginAfterPageReload();
+    this.getListOfUsers();
   }
   bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
   loggedInUser;
@@ -37,10 +38,18 @@ export class HomeComponent implements OnInit {
   myRecipe: any[];
 
   stockRecipe: any[];
+  users = new BehaviorSubject<any[]>([]);
+currentUser;
 
   // will use it later
   ngOnInit(): void {
     this.updateToggleButton();
+  }
+  getListOfUsers(): void {
+    this.recipeServiceService.getAllRoles().subscribe(res => {
+      console.log('users', res.payload);
+      this.users.next(res.payload);
+    });
   }
 
   confirmUserLoginAfterPageReload(): void {
@@ -51,6 +60,18 @@ export class HomeComponent implements OnInit {
       this.getAllRecipes(this.loggedInUser.uid);
     }
   }
+  checkTrainer(): void {
+    this.users.subscribe(res => {
+      console.log('LIST OF USERS', res);
+      console.log('LOGGED_IN_USERS', this.loggedInUser);
+      const user = res.find(element => element.partyId === this.loggedInUser.uid);
+      if (user) {
+        this.currentUser = user;
+        this.activeUserSingletonService.activeUserDetailsFromDB.next(user);
+      }
+      console.log('USER', user);
+    });
+  }
 
   login(event): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
@@ -58,6 +79,7 @@ export class HomeComponent implements OnInit {
 
     console.log('logged_in_user', this.loggedInUser);
     this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
+    this.checkTrainer();
     this.getAllRecipes(this.loggedInUser.uid);
   }
 
@@ -266,6 +288,10 @@ export class HomeComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  getLoggedInDetail(event): void {
+    console.log('EVENT', event);
   }
 
 

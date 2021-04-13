@@ -13,6 +13,7 @@ export class AppComponent {
 
   loggedInUser;
   loggedInUserDetails;
+  loggedInUserDetailsDB;
   constructor(public activeUserSingletonService: ActiveUserSingletonService,
               public firebaseService: FirebaseService) {
 
@@ -24,6 +25,11 @@ export class AppComponent {
 
     this.activeUserSingletonService.activeUserDetails.subscribe(userDetails => {
       this.loggedInUserDetails = userDetails;
+      console.log('LOGGED_IN_USER_DETAILS', this.loggedInUserDetails);
+    });
+    this.activeUserSingletonService.activeUserDetailsFromDB.subscribe(activeUserFromDB => {
+      console.log('FROM_DB', activeUserFromDB);
+      this.loggedInUserDetailsDB = activeUserFromDB;
     });
 
   }
