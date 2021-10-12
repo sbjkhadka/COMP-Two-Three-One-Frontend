@@ -203,13 +203,17 @@ export class HomeComponent implements OnInit {
   }
 
   getMyRecipeAndStockRecipe(event?): void {
-    let myRec;
-    let stockRec;
-    this.myRecipe.subscribe(val => {
-      myRec = val;
-      stockRec = this.stockRecipe;
-      this.showHideStockRecipe(event, myRec, stockRec);
-    });
+    setTimeout(() => {
+      let myRec;
+      let stockRec;
+      this.myRecipe.subscribe(val => {
+        console.log('VALUE', val);
+        myRec = val;
+        stockRec = this.stockRecipe;
+        this.showHideStockRecipe(event, myRec, stockRec);
+      });
+    }, 1000);
+
   }
 
   showHideStockRecipe(show: boolean, myRec?, stockRec?): void {

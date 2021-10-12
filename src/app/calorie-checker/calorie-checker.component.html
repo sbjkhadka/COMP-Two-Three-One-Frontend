@@ -15,14 +15,14 @@
 
           <div class="col-md-6">
             <mat-form-field class="w-100">
-              <input matInput type="text" formControlName="goalWeight" placeholder="Goal Weight">
+              <input matInput type="text" formControlName="goalWeight" placeholder="Goal Weight (kg)">
               <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.goalWeight.errors">This field is required</small>
             </mat-form-field>
           </div>
 
           <div class="col-md-6">
             <mat-form-field class="w-100">
-              <input matInput type="number" formControlName="currentWeight" placeholder="Current Weight">
+              <input matInput type="number" formControlName="currentWeight" placeholder="Current Weight (kg)">
               <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.currentWeight.errors">This field is required</small>
             </mat-form-field>
           </div>
@@ -57,7 +57,7 @@
         <div class="row">
           <div class="col-md-12">
             <mat-form-field class="w-100">
-              <input matInput type="number" formControlName="age" placeholder="Age">
+              <input matInput type="number" formControlName="bodyFat" placeholder="Body Fat">
               <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.age.errors">This field is required</small>
             </mat-form-field>
           </div>
@@ -88,16 +88,120 @@
 
 
 
-        <button mat-raised-button class="w-100" type="submit" (click)="calculateCalorie()">Calculate</button>&nbsp;
+        <button mat-raised-button class="w-100" type="submit" (click)="calculateRequirement()">Calculate</button>&nbsp;
 
 
       </form>
     </div>
     <div class="col-md-12 d-flex justify-content-around">
-      <h1>Your daily intake should be {{(calories | number)  || '_______________'}} calories</h1>
+      <h1>Your daily intake should be {{calories || '_______________'}} calories</h1>
     </div>
 
   </div>
 
 
 </div>
+
+<!--<div class="d-flex justify-content-around h-75 container-fluid mt-5">-->
+
+<!--  <div class="row border p-5 w-75">-->
+<!--    <div class="col-md-12 d-flex justify-content-around">-->
+<!--      <h1>Calorie Checker</h1>-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+<!--      <img src="assets/icons/normalNewFemale.gif" *ngIf="this.calorieForm.controls.gender.value === 'female'">-->
+<!--      <img src="assets/icons/normalNewMale.gif" *ngIf="this.calorieForm.controls.gender.value === 'male'">-->
+<!--    </div>-->
+<!--    <div class="col-md-6 d-flex align-items-center">-->
+<!--      <form [formGroup]="calorieForm" class="container-fluid border border-warning rounded w-100 bg-warning p-3">-->
+
+<!--        <div class="row">-->
+
+<!--          <div class="col-md-6">-->
+<!--            <mat-form-field class="w-100">-->
+<!--              <input matInput type="text" formControlName="goalWeight" placeholder="Goal Weight">-->
+<!--              <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.goalWeight.errors">This field is required</small>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+
+<!--          <div class="col-md-6">-->
+<!--            <mat-form-field class="w-100">-->
+<!--              <input matInput type="number" formControlName="currentWeight" placeholder="Current Weight">-->
+<!--              <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.currentWeight.errors">This field is required</small>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row">-->
+<!--          <div class="col-md-12">-->
+<!--            <mat-form-field class="w-100">-->
+<!--              <input title="date" matInput [matDatepicker]="goalDatePicker" appMaskDate formControlName="goalDate" placeholder="Goal Date">-->
+<!--              <mat-datepicker-toggle matSuffix [for]="goalDatePicker"></mat-datepicker-toggle>-->
+<!--              <mat-datepicker #goalDatePicker></mat-datepicker>-->
+<!--              <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.goalDate.errors">This field is required</small>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row">-->
+<!--          <div class="col-md-12">-->
+<!--            &lt;!&ndash;      <mat-form-field>&ndash;&gt;-->
+<!--            &lt;!&ndash;        <input matInput type="text" formControlName="gender" placeholder="Gender">&ndash;&gt;-->
+<!--            <mat-radio-group formControlName="gender" class="w-100">-->
+<!--              <mat-radio-button class="w-50" value="male">Male</mat-radio-button>-->
+<!--              <mat-radio-button class="w-50" value="female">Female</mat-radio-button>-->
+<!--            </mat-radio-group>-->
+<!--            &lt;!&ndash;      </mat-form-field>&ndash;&gt;-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row">-->
+<!--          <div class="col-md-12">-->
+<!--            <mat-form-field class="w-100">-->
+<!--              <input matInput type="number" formControlName="age" placeholder="Age">-->
+<!--              <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.age.errors">This field is required</small>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="row">-->
+<!--          <div class="col-md-6">-->
+<!--            <mat-form-field class="w-100">-->
+<!--              <input matInput type="number" formControlName="height" placeholder="Height in CM">-->
+<!--              <small style="color: red" *ngIf="submitted === true && this.calorieForm.controls.height.errors">This field is required</small>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+
+<!--          <div class="col-md-6">-->
+<!--            <mat-form-field class="w-100">-->
+<!--              <mat-select formControlName="exerciseLevel" placeholder="Activity Level">-->
+<!--                <mat-option value="active">Active</mat-option>-->
+<!--                <mat-option value="moderate">Moderate</mat-option>-->
+<!--                <mat-option value="lazy">Lazy Bone</mat-option>-->
+<!--              </mat-select>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+<!--        </div>-->
+
+
+
+
+
+
+<!--        <button mat-raised-button class="w-100" type="submit" (click)="calculateCalorie()">Calculate</button>&nbsp;-->
+
+
+<!--      </form>-->
+<!--    </div>-->
+<!--    <div class="col-md-12 d-flex justify-content-around">-->
+<!--      <h1>Your daily intake should be {{(calories | number)  || '_______________'}} calories</h1>-->
+<!--    </div>-->
+
+<!--  </div>-->
+
+
+<!--</div>-->
