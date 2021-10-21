@@ -1,0 +1,42 @@
+<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center dialog-container">
+  <div class="d-flex justify-content-between w-100 pr-10">
+    <span></span>
+    <h2 >Sign Up </h2>
+    <span class="cross-style" (click)="close()">&#10006;</span>
+  </div>
+  <form class="form-style w-75 mr-5 ml-5" [formGroup]="registrationForm">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" class="form-control" formControlName="firstNameSignup" />
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" class="form-control" formControlName="lastNameSignup"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" class="form-control" formControlName="emailSignup"/>
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select class="form-control" formControlName="roleSignup" id="role">
+<!--        <option *ngFor="let role of roles" >{{}}</option>-->
+        <option value="1">Chef</option>
+        <option value="2">Admin</option>
+        <option value="3">Nutritionist</option>
+        <option value="4">Trainer</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="form-control" formControlName="passwordSignup"/>
+    </div>
+
+    <button class="btn btn-primary form-control" (click)="onSignUp()">Signup</button>
+    <small *ngIf="userRegistered === false">{{registrationFailure}}</small>
+  </form>
+
+</div>
+

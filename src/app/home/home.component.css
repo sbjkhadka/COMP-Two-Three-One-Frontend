@@ -1,0 +1,42 @@
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 5px;
+
+}
+
+.home-header {
+  height: 50px;
+}
+.app-name{
+  font-size: larger;
+  font-weight: bold;
+}
+.navbar {
+  z-index: 9999;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+
+#bg-test{
+  width:1%;
+  min-height: 19cm;
+  margin: auto;
+}
+.card-text {
+  font-family: "Candara Light", serif;
+  font-weight: bolder;
+}
+
+::ng-deep .mat-checkbox .mat-checkbox-frame {
+  background-color: white;
+  border: 1px solid #0cbd65;
+}
+.font-color-navy {
+  color: navy;
+}
+
+
+

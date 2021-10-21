@@ -1,0 +1,47 @@
+<div [formGroup]="ingredientForm" class="container-fluid h-100">
+
+
+  <div class="row bg-warning">
+    <div class="col-md-12 myClass font-color-navy">
+      <u>Add New Ingredient</u>
+    </div>
+  </div>
+
+
+  <div class="row d-flex justify-content-around pt-1">
+
+
+        <mat-form-field class="col-md-4">
+          <input matInput type="text" formControlName="ingredientName" placeholder="Name"/>
+          <small style="color: red" *ngIf="submitted === true && this.ingredientForm.controls.ingredientName.errors">Ingredient name is required</small>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-3">
+          <input matInput type="number" min="0" step="5" formControlName="calorie" placeholder="Calorie"/>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-3">
+          <mat-select formControlName="unit" placeholder="Unit">
+            <mat-option value="grams">Grams</mat-option>
+            <mat-option value="kg">KG</mat-option>
+            <mat-option value="ml">ml</mat-option>
+            <mat-option value="liter">Liters</mat-option>
+            <mat-option value="tbsp">Table spoon</mat-option>
+            <mat-option value="tsp">Tea spoon</mat-option>
+            <mat-option value="dessertspoon ">Dessert Spoon</mat-option>
+            <mat-option value="piece">Piece</mat-option>
+          </mat-select>
+          <small style="color: red" *ngIf="submitted === true && this.ingredientForm.controls.unit.pristine">Unit is required</small>
+        </mat-form-field>
+
+
+      <div class="col-md-1 d-flex align-items-center justify-content-end">
+        <button class="btn btn-primary btn-sm d-flex align-items-center" (click)="createIngredient()"><mat-icon>save</mat-icon></button>
+      </div>
+      <div class="col-md-1 d-flex align-items-center justify-content-end">
+        <button class="btn btn-danger btn-sm d-flex align-items-center" (click)="close()"><mat-icon>close</mat-icon></button>
+      </div>
+
+  </div>
+
+</div>

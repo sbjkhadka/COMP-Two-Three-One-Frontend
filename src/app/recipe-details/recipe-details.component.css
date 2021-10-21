@@ -1,0 +1,23 @@
+.dialog-wrapper {
+  height: 100%;
+}
+.dialog-header {
+  height: 80px;
+}
+.dialog-main {
+  height: 440px;
+}
+.dialog-detail {
+  height: 280px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain
+}
+.button-span {
+  width: 80px;
+}

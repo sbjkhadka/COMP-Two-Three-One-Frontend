@@ -1,0 +1,21 @@
+<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center main-container">
+  <h2>Sign In</h2>
+  <form class="d-flex justify-content-around flex-column w-50 form-style" [formGroup]="loginForm">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" #email id="email" class="form-control" formControlName="email"/>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" class="form-control" formControlName="password"/>
+    </div>
+
+
+  <button class="btn btn-primary form-control" (click)="onSignIn()">Login</button>
+  </form>
+  <span>Not a member yet?</span><span (click)="openRegistrationDialog()" class="cursor-pointer"> Register now</span>
+</div>
+
+
+
