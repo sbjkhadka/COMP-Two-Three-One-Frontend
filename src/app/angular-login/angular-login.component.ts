@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AngularLoginService} from '../shared-services/services/angular-login.service';
+import {LocalStorageService} from '../shared-services/services/local-storage.service';
 
 @Component({
   selector: 'app-angular-login',
@@ -14,7 +15,8 @@ export class AngularLoginComponent implements OnInit {
   };
   public loginForm: FormGroup;
 
-  constructor(private angularLoginService: AngularLoginService) { }
+  constructor(private angularLoginService: AngularLoginService,
+              private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -31,6 +33,14 @@ export class AngularLoginComponent implements OnInit {
 
     if (this.loginForm.value.email && this.loginForm.value.password) {
       this.angularLoginService.signIn(this.credentials).subscribe(value => {
+        if (value && value.accessToken) {
+          this.localStorageService.setToken(value.accessToken);
+        }
+
+        if (value && value.refreshToken) {
+          this.localStorageService.setRefreshToken(value.refreshToken);
+        }
+        window.location.href = '/home';
         console.log('logged in as', value);
       });
     }
@@ -39,8 +49,8 @@ export class AngularLoginComponent implements OnInit {
   }
   initializeForm(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('a@b.com'),
-      password: new FormControl('<1234567890>')
+      email: new FormControl('subarna.khadka@acme.edu.np'),
+      password: new FormControl('password')
     });
   }
 
