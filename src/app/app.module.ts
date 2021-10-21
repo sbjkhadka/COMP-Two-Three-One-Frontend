@@ -43,11 +43,17 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
+import { AngularLoginComponent } from './angular-login/angular-login.component';
 
+// Pathmatch full Vs prefix
+// https://stackoverflow.com/questions/42992212/in-angular-what-is-pathmatch-full-and-what-effect-does-it-have/62476799
 
 const routes: Routes = [
+
+  {path: 'login', component: AngularLoginComponent, pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
+  // {path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent},
   {path: 'calorieChecker', component: CalorieCheckerComponent}
 ];
@@ -67,6 +73,7 @@ const routes: Routes = [
     MyGroceryListComponent,
     PrintMyGroceryComponent,
     CalorieCheckerComponent,
+    AngularLoginComponent,
   ],
     imports: [
         BrowserModule,
