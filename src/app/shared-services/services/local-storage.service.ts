@@ -40,4 +40,8 @@ export class LocalStorageService {
     localStorage.removeItem('token');
     return true;
   }
+
+  setItem(itemName, item): void {
+    localStorage.setItem(itemName, item);
+  }
 }
