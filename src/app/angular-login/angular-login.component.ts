@@ -32,8 +32,8 @@ export class AngularLoginComponent implements OnInit {
   openRegistrationDialog(): void {
     const dialogRef = this.dialog.open(RegisterAuthComponent,
       {
-        height: '650px',
-        width: '500px',
+        height: '820px',
+        width: '600px',
         panelClass: 'no-padding-container'
       }
     );

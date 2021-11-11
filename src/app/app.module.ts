@@ -45,6 +45,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { AngularLoginComponent } from './angular-login/angular-login.component';
 import {AuthGuard} from './shared-services/services/auth.guard';
+import {NgxCaptchaModule} from 'ngx-captcha';
 
 // Pathmatch full Vs prefix
 // https://stackoverflow.com/questions/42992212/in-angular-what-is-pathmatch-full-and-what-effect-does-it-have/62476799
@@ -76,42 +77,43 @@ const routes: Routes = [
     CalorieCheckerComponent,
     AngularLoginComponent,
   ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        AngularFireModule.initializeApp(
-            {
-                apiKey: 'AIzaSyBt1aASZOPZ2em0G1IVGxOMN0iJM3wseo8',
-                authDomain: 'grocery-admin-9bc92.firebaseapp.com',
-                projectId: 'grocery-admin-9bc92',
-                storageBucket: 'grocery-admin-9bc92.appspot.com',
-                messagingSenderId: '895704770040',
-                appId: '1:895704770040:web:65d862dacb4c2ec9fa220d'
-            }
-        ),
-        FormsModule,
-        BrowserAnimationsModule,
-        MatDialogModule,
-        HttpClientModule,
-        MatIconModule,
-        MatToolbarModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatSelectModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
-        MatSnackBarModule,
-        MatCheckboxModule,
-        NgxPrintModule,
-        MatSlideToggleModule,
-        MatDatepickerModule,
-        MatButtonToggleModule,
-        MatNativeDateModule,
-        MatRadioModule
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(
+      {
+        apiKey: 'AIzaSyBt1aASZOPZ2em0G1IVGxOMN0iJM3wseo8',
+        authDomain: 'grocery-admin-9bc92.firebaseapp.com',
+        projectId: 'grocery-admin-9bc92',
+        storageBucket: 'grocery-admin-9bc92.appspot.com',
+        messagingSenderId: '895704770040',
+        appId: '1:895704770040:web:65d862dacb4c2ec9fa220d'
+      }
+    ),
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    HttpClientModule,
+    MatIconModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatCheckboxModule,
+    NgxPrintModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatButtonToggleModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    NgxCaptchaModule
+  ],
   providers: [FirebaseService,
               AuthenticationService,
               RecipeServiceService,
