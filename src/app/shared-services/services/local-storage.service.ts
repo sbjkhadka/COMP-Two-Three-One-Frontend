@@ -56,4 +56,8 @@ export class LocalStorageService {
   setItem(itemName, item): void {
     localStorage.setItem(itemName, item);
   }
+
+  getItem(itemName: string): any {
+    return localStorage.getItem(itemName);
+  }
 }
