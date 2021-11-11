@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActiveUserSingletonService} from './shared-services/active-user-singleton.service';
-import {BehaviorSubject} from 'rxjs';
 import {FirebaseService} from './shared-services/services/firebase.service';
+import {AngularLoginService} from './shared-services/services/angular-login.service';
+import {LocalStorageService} from './shared-services/services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,27 +10,10 @@ import {FirebaseService} from './shared-services/services/firebase.service';
 })
 export class AppComponent implements OnInit{
   title = 'COMP-Two-Three-One-Frontend';
-
   loggedInUser;
-  loggedInUserDetails;
-  loggedInUserDetailsDB;
-  constructor(public activeUserSingletonService: ActiveUserSingletonService,
-              public firebaseService: FirebaseService) {
-
-
-    // this.activeUserSingletonService.activeUser.subscribe(user => {
-    //   console.log('changed', user);
-    //   this.loggedInUser = user;
-    // });
-
-    // this.activeUserSingletonService.activeUserDetails.subscribe(userDetails => {
-    //   this.loggedInUserDetails = userDetails;
-    //   console.log('LOGGED_IN_USER_DETAILS', this.loggedInUserDetails);
-    // });
-    // this.activeUserSingletonService.activeUserDetailsFromDB.subscribe(activeUserFromDB => {
-    //   console.log('FROM_DB', activeUserFromDB);
-    //   this.loggedInUserDetailsDB = activeUserFromDB;
-    // });
+  constructor(public firebaseService: FirebaseService,
+              private angularLoginService: AngularLoginService,
+              private localStorageService: LocalStorageService) {
 
   }
 
@@ -39,13 +22,9 @@ export class AppComponent implements OnInit{
   }
 
   logout(): any {
-    localStorage.removeItem('user');
-    localStorage.removeItem('selectedRecipe');
-    localStorage.removeItem('quantity');
-    this.activeUserSingletonService.activeUser.next(null);
-    this.activeUserSingletonService.activeUserDetails.next(null);
-    this.activeUserSingletonService.activeUserRecipe.next(null);
-    this.activeUserSingletonService.activeUserSelectedRecipe.next([]);
-    this.firebaseService.logOut();
+    localStorage.removeItem('logged_in_user');
+    this.localStorageService.removeToken();
+    this.localStorageService.removeRefreshToken();
+    this.angularLoginService.logout();
   }
 }

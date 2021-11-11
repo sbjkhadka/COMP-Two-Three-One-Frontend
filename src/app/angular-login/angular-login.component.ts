@@ -37,12 +37,6 @@ export class AngularLoginComponent implements OnInit {
         panelClass: 'no-padding-container'
       }
     );
-    // dialogRef.componentInstance.signUpStatus.subscribe((value) => {
-    //   if (value === true) {
-    //     this.isSignedIn = true;
-    //     this.isLoggedIn.emit(true);
-    //   }
-    // });
   }
   onSignIn(): void {
     this.credentials.email =  this.loginForm.value.email;
@@ -61,15 +55,12 @@ export class AngularLoginComponent implements OnInit {
         window.location.href = '/home';
       });
     }
-
-
   }
+
   initializeForm(): void {
     this.loginForm = new FormGroup({
       email: new FormControl('subarna.khadka@acme.edu.np'),
       password: new FormControl('password')
     });
   }
-
-
 }

@@ -39,7 +39,6 @@ export class HomeComponent implements OnInit {
 
   stockRecipe = [];
   users = new BehaviorSubject<any[]>([]);
-  // currentUser = new BehaviorSubject<any>(null);
   currentUser;
 
   // will use it later
@@ -81,11 +80,6 @@ export class HomeComponent implements OnInit {
 
   login(): void{
     this.loggedInUser = JSON.parse(localStorage.getItem('logged_in_user'));
-    // this.activeUserSingletonService.activeUser.next(this.loggedInUser.email); // feeding singleton
-
-    // console.log('logged_in_user', this.loggedInUser);
-    // this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
-    // this.checkTrainer();
     this.getAllRecipes(this.loggedInUser.user.email);
   }
 
@@ -157,22 +151,8 @@ export class HomeComponent implements OnInit {
 
   }
   getAllRecipes(loggedInUserId: string): void {
-    alert('i am here');
-    // this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
-    //   console.log('response _ my', res);
-    //   alert('got here');
-    //   this.myRecipe.next(res.payload);
-    //   // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
-    //   // this.loggedInUserRecipes.next( res.payload);
-    //   console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
-    //   this.loggedInUserRecipes.next(res.payload);
-    //
-    //   this.updateToggleButton();
-    //   this.checkLocalStorage();
-    // });
     this.recipeServiceService.getAllStockRecipe().subscribe(res => {
       console.log('response _ my', res);
-      alert('got here');
       this.myRecipe.next(res.payload);
       // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       // this.loggedInUserRecipes.next( res.payload);

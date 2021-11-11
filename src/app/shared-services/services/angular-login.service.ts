@@ -17,5 +17,11 @@ export class AngularLoginService {
     }));
   }
 
+  logout(): Observable<any> {
+    return this.http.delete(`${environmentAngular.base_url}logout`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
 
 }

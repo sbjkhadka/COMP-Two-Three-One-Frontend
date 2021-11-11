@@ -7,9 +7,20 @@ export class LocalStorageService {
 
   constructor() { }
 
+  // Getting token
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   // Setting token
   setToken(token): boolean {
     localStorage.setItem('token', token);
+    return true;
+  }
+
+  // Removing token
+  removeToken(): boolean {
+    localStorage.removeItem('token');
     return true;
   }
 
@@ -24,9 +35,10 @@ export class LocalStorageService {
     return true;
   }
 
-  // Getting token
-  getToken(): string {
-    return localStorage.getItem('token');
+  // Removing refresh token
+  removeRefreshToken(): boolean {
+    localStorage.removeItem('RefreshToken');
+    return true;
   }
 
   // check if user is logged in or not

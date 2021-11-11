@@ -20,7 +20,6 @@ export class MyRecipeListComponent implements OnInit {
     public dialog: MatDialog) {
     this.confirmUserLoginAfterPageReload();
     this.recipeList = JSON.parse(localStorage.getItem('selectedRecipe'));
-    console.log('recipe_list_in_list', this.recipeList);
     this.initializeQuantity();
   }
 

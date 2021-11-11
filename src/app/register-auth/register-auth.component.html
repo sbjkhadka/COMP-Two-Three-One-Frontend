@@ -77,9 +77,6 @@
         formControlName="recaptcha">
       </ngx-recaptcha2>
     </div>
-
-
-
     <button class="btn btn-primary form-control" (click)="onSignUp()" [disabled]="!botCheckPass">Signup</button>
     <small *ngIf="userRegistered === false">{{registrationFailure}}</small>
   </form>
