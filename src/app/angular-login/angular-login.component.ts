@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {AngularLoginService} from '../shared-services/services/angular-login.service';
 import {LocalStorageService} from '../shared-services/services/local-storage.service';
+import {RegisterAuthComponent} from '../register-auth/register-auth.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-angular-login',
@@ -16,24 +18,40 @@ export class AngularLoginComponent implements OnInit {
   public loginForm: FormGroup;
 
   constructor(private angularLoginService: AngularLoginService,
-              private localStorageService: LocalStorageService) { }
+              private localStorageService: LocalStorageService,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     console.log('form is submitted');
   }
 
-  openRegistrationDialog() {}
-  onSignIn() {
+  openRegistrationDialog(): void {
+    const dialogRef = this.dialog.open(RegisterAuthComponent,
+      {
+        height: '650px',
+        width: '500px',
+        panelClass: 'no-padding-container'
+      }
+    );
+    // dialogRef.componentInstance.signUpStatus.subscribe((value) => {
+    //   if (value === true) {
+    //     this.isSignedIn = true;
+    //     this.isLoggedIn.emit(true);
+    //   }
+    // });
+  }
+  onSignIn(): void {
     this.credentials.email =  this.loginForm.value.email;
     this.credentials.password = this.loginForm.value.password;
 
     if (this.loginForm.value.email && this.loginForm.value.password) {
       this.angularLoginService.signIn(this.credentials).subscribe(value => {
         if (value && value.accessToken) {
+          this.localStorageService.setItem('logged_in_user', JSON.stringify(value));
           this.localStorageService.setToken(value.accessToken);
         }
 
@@ -41,7 +59,6 @@ export class AngularLoginComponent implements OnInit {
           this.localStorageService.setRefreshToken(value.refreshToken);
         }
         window.location.href = '/home';
-        console.log('logged in as', value);
       });
     }
 
