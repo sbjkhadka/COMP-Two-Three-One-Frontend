@@ -20,9 +20,8 @@ export class RecipeServiceService {
         price: '0.5',
         recipePhoto: 'https://static.toiimg.com/photo/63185231.cms?width=500&resizemode=4&imgsize=135525',
         partyId: 'GJl6QwM6G8hnEl1mnlmguIRvnUs2',
-        roleId: 2,
-        roleName: 'Trainer',
-        recipeItemList: [
+        isGlobal: true,
+        recipeItem: [
           {
             itemId: 31,
             itemQuantity: '6',
@@ -77,9 +76,11 @@ export class RecipeServiceService {
   };
 
   getRecipeByPartyId(partyId: string): any {
-    return this.http.get<any>(environment.base_url + 'recipe/getAllRecipesByUserId?userId=' + partyId).pipe(catchError(error => {
-      return throwError(error);
-    }));
+    return this.getAllStockRecipe();
+    // Temporary commenting out this code until the backend people makes getRecipeebyEmail ready
+    // return this.http.get<any>(environment.base_url + 'recipe/getAllRecipesByUserId?userId=' + partyId).pipe(catchError(error => {
+    //   return throwError(error);
+    // }));
   }
 
   getAllStockRecipe(): any {
