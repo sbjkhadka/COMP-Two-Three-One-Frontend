@@ -4,6 +4,7 @@ import {AngularLoginService} from '../shared-services/services/angular-login.ser
 import {LocalStorageService} from '../shared-services/services/local-storage.service';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {MatDialog} from '@angular/material/dialog';
+import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
 
 @Component({
   selector: 'app-angular-login',
@@ -30,7 +31,7 @@ export class AngularLoginComponent implements OnInit {
   }
 
   openRegistrationDialog(): void {
-    const dialogRef = this.dialog.open(RegisterAuthComponent,
+    this.dialog.open(RegisterAuthComponent,
       {
         height: '820px',
         width: '600px',

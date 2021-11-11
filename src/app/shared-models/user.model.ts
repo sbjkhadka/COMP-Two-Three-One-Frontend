@@ -1,5 +1,3 @@
-import {EmailValidator} from '@angular/forms';
-
 export class User {
   email: string;
   firstName: string;

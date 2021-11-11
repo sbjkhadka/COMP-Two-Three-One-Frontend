@@ -46,6 +46,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { AngularLoginComponent } from './angular-login/angular-login.component';
 import {AuthGuard} from './shared-services/services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
+import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 
 // Pathmatch full Vs prefix
 // https://stackoverflow.com/questions/42992212/in-angular-what-is-pathmatch-full-and-what-effect-does-it-have/62476799
@@ -76,6 +77,7 @@ const routes: Routes = [
     PrintMyGroceryComponent,
     CalorieCheckerComponent,
     AngularLoginComponent,
+    InfoDialogComponent,
   ],
   imports: [
     BrowserModule,

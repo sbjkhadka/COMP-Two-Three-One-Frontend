@@ -1,11 +1,14 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {FirebaseService} from '../shared-services/services/firebase.service';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Form, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
 import {AngularRegistrationService} from '../shared-services/services/angular-registration.service';
 import {User} from '../shared-models/user.model';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {ConfirmationDialogComponent} from '../home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
+import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
+import {InfoDialog} from '../shared-models/info-dialog.model';
 
 
 @Component({
@@ -18,7 +21,8 @@ export class RegisterAuthComponent implements OnInit {
               private angularRegistrationService: AngularRegistrationService,
               public dialogRef: MatDialogRef<RegisterAuthComponent>,
               public recipeServiceService: RecipeServiceService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              public dialog: MatDialog) {
     // this.getAllRoles();
     this.initializeForm();
 
@@ -35,7 +39,10 @@ export class RegisterAuthComponent implements OnInit {
   roles = [];
   matcher = new MyErrorStateMatcher();
   botCheckPass = false;
-
+  info: InfoDialog = {
+    infoName: '',
+    infoType: ''
+  };
   ngOnInit(): void {
     this.isSignedIn = localStorage.getItem('user') !== null;
   }
@@ -68,60 +75,35 @@ export class RegisterAuthComponent implements OnInit {
     };
     this.angularRegistrationService.register(user).subscribe(value => {
       console.log('user registered successfully', value);
+      // tslint:disable-next-line:prefer-const
+      if (value.status === 200) {
+        this.info.infoName = 'Registration';
+        this.info.infoType = 'Success';
+      } else {
+        this.info.infoName = 'Registration';
+        this.info.infoType = 'Success';
+      }
+
+      this.dialog.open(InfoDialogComponent, {
+        height: '200px',
+        width: '500px',
+        panelClass: 'no-padding-container',
+        data: {
+          infoName: this.info.infoName,
+          infoType: this.info.infoType
+        }
+      }).afterClosed().subscribe(res => {
+        this.info = null;
+        this.close();
+      });
     });
-    // const userDetails = {
-    //   email: this.registrationForm.value.emailSignup,
-    //   password: this.registrationForm.value.passwordSignup,
-    //   firstName: this.registrationForm.value.firstNameSignup,
-    //   lastName: this.registrationForm.value.lastNameSignup,
-    //   role: this.registrationForm.value.roleSignup,
-    // };
-    //
-    // await this.firebaseService.signUp(userDetails).then(() => {
-    //   this.userRegistered = true;
-    //   this.dialogRef.close();
-    //   this.signUpStatus.emit(true);
-    // }).catch((error) => {
-    //   this.userRegistered = false;
-    //   this.signUpStatus.emit(false);
-    //   console.log('Signup Error:', error);
-    // });
-    // if (this.firebaseService.isLoggedIn) {
-    //   this.isSignedIn = true;
-    //   // this.isLoggedIn.emit(true);
-    // }
   }
-
-  // tslint:disable-next-line:typedef
-  // async onSignIn(email: string, password: string) {
-  //   console.log('signing in');
-  //   await this.firebaseService.signin(email, password);
-  //   if (this.firebaseService.isLoggedIn) {
-  //     this.isSignedIn = true;
-  //     this.isLoggedIn.emit(true);
-  //   }
-  // }
-
-  // tslint:disable-next-line:typedef
-  // handleLogout(){
-  //   this.firebaseService.logOut();
-  //   this.isLoggedIn.emit(false);
-  // }
 
   close(): void {
     this.dialogRef.close();
   }
 
-    // modify this
-  // getAllRoles() {
-  //   this.recipeServiceService.getAllRoles().subscribe(res => {
-  //     console.log('roles', res.payload);
-  //     this.roles = res.payload;
-  //   });
-  // }
-
   checkPasswords(group: FormGroup): any{ // here we have the 'passwords' group
-    // console.log('checking pass' + this.registrationForm.value.passwordSignup + ',' + this.registrationForm.value.rePasswordSignup);
     const pass = group.controls.passwordSignup.value;
     const confirmPass = group.controls.rePasswordSignup.value;
 
