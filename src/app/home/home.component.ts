@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
 
   // will use it later
   ngOnInit(): void {
+    this.login();
     this.updateToggleButton();
   }
   getListOfUsers(): void {
@@ -78,14 +79,14 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  login(event): void{
-    this.loggedInUser = JSON.parse(localStorage.getItem('user'));
-    this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid); // feeding singleton
+  login(): void{
+    this.loggedInUser = JSON.parse(localStorage.getItem('logged_in_user'));
+    // this.activeUserSingletonService.activeUser.next(this.loggedInUser.email); // feeding singleton
 
-    console.log('logged_in_user', this.loggedInUser);
-    this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
-    this.checkTrainer();
-    this.getAllRecipes(this.loggedInUser.uid);
+    // console.log('logged_in_user', this.loggedInUser);
+    // this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
+    // this.checkTrainer();
+    this.getAllRecipes(this.loggedInUser.user.email);
   }
 
   register(event): void {
@@ -156,8 +157,22 @@ export class HomeComponent implements OnInit {
 
   }
   getAllRecipes(loggedInUserId: string): void {
-    this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
+    alert('i am here');
+    // this.recipeServiceService.getRecipeByPartyId(loggedInUserId).subscribe(res => {
+    //   console.log('response _ my', res);
+    //   alert('got here');
+    //   this.myRecipe.next(res.payload);
+    //   // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
+    //   // this.loggedInUserRecipes.next( res.payload);
+    //   console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+    //   this.loggedInUserRecipes.next(res.payload);
+    //
+    //   this.updateToggleButton();
+    //   this.checkLocalStorage();
+    // });
+    this.recipeServiceService.getAllStockRecipe().subscribe(res => {
       console.log('response _ my', res);
+      alert('got here');
       this.myRecipe.next(res.payload);
       // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       // this.loggedInUserRecipes.next( res.payload);
