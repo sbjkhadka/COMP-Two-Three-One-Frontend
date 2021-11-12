@@ -45,7 +45,14 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { AngularLoginComponent } from './angular-login/angular-login.component';
 import {AuthGuard} from './shared-services/services/auth.guard';
-
+import { GroceryDashboardComponent } from './home/grocery-dashboard/grocery-dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
+import { ChartIngredientsComponent } from './home/chart-ingredients/chart-ingredients.component';
+import { RecipeChartComponent } from './home/recipe-chart/recipe-chart.component';
 // Pathmatch full Vs prefix
 // https://stackoverflow.com/questions/42992212/in-angular-what-is-pathmatch-full-and-what-effect-does-it-have/62476799
 
@@ -56,7 +63,8 @@ const routes: Routes = [
   // {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent},
-  {path: 'calorieChecker', component: CalorieCheckerComponent}
+  {path: 'calorieChecker', component: CalorieCheckerComponent},
+  {path: 'groceryDashboard', component: GroceryDashboardComponent}
 ];
 @NgModule({
   declarations: [
@@ -75,9 +83,13 @@ const routes: Routes = [
     PrintMyGroceryComponent,
     CalorieCheckerComponent,
     AngularLoginComponent,
+    GroceryDashboardComponent,
+    ChartIngredientsComponent,
+    RecipeChartComponent,
   ],
     imports: [
         BrowserModule,
+        ChartsModule,
         RouterModule.forRoot(routes),
         AngularFireModule.initializeApp(
             {
@@ -110,7 +122,11 @@ const routes: Routes = [
         MatDatepickerModule,
         MatButtonToggleModule,
         MatNativeDateModule,
-        MatRadioModule
+        MatRadioModule,
+        MatGridListModule,
+        MatCardModule,
+        MatMenuModule,
+        LayoutModule
     ],
   providers: [FirebaseService,
               AuthenticationService,
