@@ -1,21 +1,57 @@
 <div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center main-container">
-  <h2>Sign In</h2>
-  <p>{{credentials | json}}</p>
-  <form class="d-flex justify-content-around flex-column w-50 form-style" [formGroup]="loginForm">
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" #email id="email" class="form-control" formControlName="email"/>
+<div class="login-wrap opacity-50">
+  <div class="login-html">
+    <input id="tab-1" type="radio" name="tab" class="sign-in"  checked><label for="tab-1" class="tab"><span class="cheat">Sign In</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="tab-2" type="radio" name="tab" class="for-pwd" ><label for="tab-2" class="tab"><span class="cheat">Forgot Password?</span></label>
+    <div class="login-form">
+
+      <form class="sign-in-htm" [formGroup]="loginForm">
+            <div class="form-group group">
+              <label for="email" class="label">Username or Email</label>
+              <input type="text" #email id="email" class="form-control" formControlName="email"/>
+            </div>
+            <div class="form-group group">
+              <label for="password" class="label">Password</label>
+              <input type="password" id="password" class="form-control" formControlName="password"/>
+            </div>
+        <div class="hr"></div>
+        <div class="group">
+          <button type="submit" class="button" value="Sign In" (click)="onSignIn()">Sign In</button>
+        </div>
+      </form>
+
     </div>
 
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" class="form-control" formControlName="password"/>
+    <div class="login-form">
+      <div class="group">
+        <input type="submit" class="button" value="Register Now" (click)="openRegistrationDialog()">
+      </div>
     </div>
 
-
-    <button class="btn btn-primary form-control" (click)="onSignIn()">Login</button>
-  </form>
-  <span>Not a member yet?</span><span (click)="openRegistrationDialog()" class="cursor-pointer"> Register now</span>
+  </div>
 </div>
+</div>
+
+
+
+
+<!--<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center main-container">-->
+<!--  <h2>Sign In</h2>-->
+<!--  <form class="d-flex justify-content-around flex-column w-50 form-style" [formGroup]="loginForm">-->
+<!--    <div class="form-group">-->
+<!--      <label for="email">Email</label>-->
+<!--      <input type="text" #email id="email" class="form-control" formControlName="email"/>-->
+<!--    </div>-->
+
+<!--    <div class="form-group">-->
+<!--      <label for="password">Password</label>-->
+<!--      <input type="password" id="password" class="form-control" formControlName="password"/>-->
+<!--    </div>-->
+
+
+<!--    <button class="btn btn-primary form-control" (click)="onSignIn()">Login</button>-->
+<!--  </form>-->
+<!--  <span>Not a member yet?</span><span (click)="openRegistrationDialog()" class="cursor-pointer"> Register now</span>-->
+<!--</div>-->
 
 
