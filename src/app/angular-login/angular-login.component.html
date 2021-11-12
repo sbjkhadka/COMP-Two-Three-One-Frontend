@@ -34,7 +34,21 @@
 
       </form>
 
-      <h1 *ngIf="displayedForm==2">Displayed form 2</h1>
+      <form class="for-pwd-htm" *ngIf="displayedForm==2">
+        <div class="group">
+          <label for="question" class="label">Question</label>
+          <input id="question" type="text" class="input" formControlName="question" readonly>
+        </div>
+        <div class="group">
+          <label for="answer" class="label">Answer</label>
+          <input id="answer" type="text" class="input" formControlName="answer">
+        </div>
+        <div class="hr"></div>
+        <div class="group">
+          <button type="submit" class="button" value="Reset Password" (click)="onReset(3)">Next</button>
+        </div>
+
+      </form>
 
     </div>
 
