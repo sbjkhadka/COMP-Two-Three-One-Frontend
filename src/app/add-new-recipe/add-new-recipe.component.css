@@ -18,7 +18,9 @@ img {
 .font-color-navy {
   color: navy;
 }
-
+.cdk-overlay-pane {
+  width: 900px !important;
+}
 /*Related to fancy input type starts*/
 .price input[type="number"] {
   -moz-appearance: textfield;

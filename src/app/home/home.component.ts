@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
     private snackBar: MatSnackBar) {
     this.confirmUserLoginAfterPageReload();
     this.getListOfUsers();
+    this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue())
   }
   bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
   loggedInUser;
@@ -107,8 +108,8 @@ export class HomeComponent implements OnInit {
     console.log('item.recipe_name' + item.recipe_name);
     const dialogRef = this.dialog.open(RecipeDetailsComponent,
       {
-        height: '800px',
-        width: '1000px',
+        height: '700px',
+        width: '700px',
         panelClass: 'no-padding-container',
         data: {
           selectedRecipe: item
@@ -140,8 +141,8 @@ export class HomeComponent implements OnInit {
   openAddNewRecipeDialog(): void {
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
       {
-        height: '800px',
-        width: '1000px',
+        height: '700px',
+        width: '700px',
         panelClass: 'no-padding-container',
         data: {
           selectedRecipe: null,

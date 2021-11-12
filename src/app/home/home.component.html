@@ -1,15 +1,30 @@
-<div class="container-fluid">
+<!--<div class="container-fluid dialog-wrapper"style="height:100%;background-image: url('./assets/Images/AddrecipeImage.png');background-position: center;background-repeat: no-repeat; background-size: cover ;">-->
+<div  style="background-image: url('./assets/Images/AddrecipeImage.png');background-repeat: no-repeat;">
+
+  <br />
+  <br />
+  <br />
+  <br />
+  <div class="form-group row">
+    <div class="col-sm-6">
+      <h3>  Recipe List </h3>
+    </div>
+    <div class="col-sm-6">
+      <a href="javascript:;" class="btn btn-warning pull-right" (click)="openAddNewRecipeDialog()"><i class="fa fa-plus"></i> Add Recipe</a>
+      <!--<span class="pl-2 font-weight-bold" style="cursor: pointer" (click)="openAddNewRecipeDialog()"> + Add your own recipe</span>-->
+    </div>
+    <div class="clear-fix"></div>
+  </div>
+  <hr />
   <div class="d-flex justify-content-end mt-1" *ngIf="stockRecipeToggleButtonStatus">
     <mat-slide-toggle (change)="stockDisplayToggled($event)" [(ngModel)]="displayingStockRecipes" style="align-self: flex-end">Include stock recipes
     </mat-slide-toggle>
   </div>
-  <div class="row">
+  <!--<div class="row">
     <div class="col-md-12 home-header d-flex align-items-center justify-content-around">
       <span class="app-name font-color-navy">Select recipes</span>
     </div>
-
-  </div>
-
+  </div>-->
   <div class="row">
     <div class="col-md-12 cards-container d-flex justify-content-start align-items-center flex-wrap align-self-center"
          style="max-height: 800px;overflow: auto" *ngIf="loggedInUserRecipes.value!=null">
@@ -48,12 +63,12 @@
     </div>
   </div>
 
-  <div class="row fixed-bottom bg-warning text-dark">
+  <!--<div class="row fixed-bottom bg-warning text-dark">
     <div class="col-md-12 d-flex justify-content-between">
       <span class="pl-2 font-weight-bold" style="cursor: pointer" (click)="openAddNewRecipeDialog()"> + Add your own recipe</span>
 
     </div>
-  </div>
+  </div>-->
 </div>
 
 

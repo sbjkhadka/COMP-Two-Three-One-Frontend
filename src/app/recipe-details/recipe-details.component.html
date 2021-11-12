@@ -1,8 +1,8 @@
-<div class="container-fluid dialog-wrapper">
+<div class="container-fluid dialog-wrapper"style="height:100%;background-image: url('./assets/Images/AddrecipeImage.png');background-position: center;background-repeat: no-repeat;background-size: cover;">
   <div class="row dialog-header">
 
-    <mat-toolbar class="d-flex justify-content-between">
-      <span *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</span>
+    <mat-toolbar class="d-flex justify-content-between" style="background-color: #FFC107;">
+      <span *ngIf="recipeDetail && recipeDetail.recipeName">Recipe Detail</span>
       <a id="close-btn" class="cursor-pointer">
         <mat-icon matSuffix (click)="close()">close</mat-icon>
       </a>
@@ -12,40 +12,55 @@
 
   </div>
   <div class="row dialog-main">
-    <div class="col-md-7 d-flex justify-content-around align-items-center">
-      <img *ngIf="recipeDetail &&recipeDetail.recipePhoto" src="{{recipeDetail.recipePhoto}}" height="100%">
-    </div>
-
-    <div class="col-md-5 d-flex flex-column justify-content-around align-items-start"  *ngIf="recipeDetail" style="height: 440px;max-height: 440px; overflow: auto;">
-      <div class="w-100 d-flex justify-content-between align-items-center flex-column border-bottom">
-        <span style="font-size: xxx-large;margin-bottom: 20px" *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</span>
-        <small style="font-family: 'Arial Black',serif"> ${{recipeDetail.price}} </small>
+    <div class="form-group row">
+      <div class="col-sm-6">
+      <img *ngIf="recipeDetail &&recipeDetail.recipePhoto" style="margin-left:10px" src="{{recipeDetail.recipePhoto}}">
       </div>
+      <div class="col-sm-6">
+        <div class="form-group" *ngIf="recipeDetail">
+          <h3 class="text-center" *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</h3>
+          <p class="text-center"> ( ${{recipeDetail.price}} ) </p>
+        </div>
+        <!--<div class="form-group">
+          <div class="pull-right">
+            <span>${{recipeDetail.price}}</span>
+            <a href="javascript:;" class="btn btn-warning">Order Now</a>
+          </div>
+          <div class="clearfix"></div>
+        </div>-->
+        <div class="form-group">
+          <h4>Ingredient's</h4>
+          <hr />
+          <div class="row">
+            <div class="col-sm-1">
 
-      <div class="d-flex justify-content-around w-100">
-        <ul>
-          <li *ngFor="let recipeItem of recipeDetail.recipeItemList">
-            {{recipeItem.ingredientName}}
-          </li>
+            </div>
+            <div class="col-sm-10 text-center">
+              <div *ngFor="let recipeItem of recipeDetail.recipeItemList">
+                <span> {{recipeItem.ingredientName}} </span>
+                <hr />
+              </div>
 
-        </ul>
-<!--        Populate ingredient list here-->
-<!--        <ul>-->
-<!--          <li>Tomato</li>-->
-<!--          <li>Cheese</li>-->
-<!--        </ul>-->
-<!--        <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer bg-warning button-span"><mat-icon>add</mat-icon>Add</span>-->
-<!--        <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer button-span"><mat-icon>save</mat-icon>Text</span>-->
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+          </div>
+          <!--        Populate ingredient list here-->
+          <!--        <ul>-->
+          <!--          <li>Tomato</li>-->
+          <!--          <li>Cheese</li>-->
+          <!--        </ul>-->
+          <!--        <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer bg-warning button-span"><mat-icon>add</mat-icon>Add</span>-->
+          <!--        <span class="d-flex justify-content-around align-items-center border border-secondary rounded cursor-pointer button-span"><mat-icon>save</mat-icon>Text</span>-->
+        </div>
       </div>
-
+      <div class="clearfix"></div>
     </div>
-  </div>
-
-  <div class="row dialog-detail">
-    <div *ngIf="recipeDetail && recipeDetail.description" class="col-md-12 d-flex justify-content-around align-items-center" style="font-family:Arial,monospace;font-size: large;font-weight: bold;padding: 20px 40px;color: #107896;text-align: justify">
-
-      {{recipeDetail.description}}
-
-    </div>
+      <div class="form-group col-sm-12" *ngIf="recipeDetail && recipeDetail.description">
+        <h4>Description</h4>
+        <hr />
+        <p>{{recipeDetail.description}}</p>
+      </div>
   </div>
 </div>

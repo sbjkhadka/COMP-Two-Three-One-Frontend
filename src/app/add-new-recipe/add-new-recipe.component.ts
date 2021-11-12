@@ -33,7 +33,7 @@ export class AddNewRecipeComponent implements OnInit {
   recipeForm: FormGroup;
   ingredientNameList = new BehaviorSubject<any[]>([]);
 
-  price = new FormControl(0.5);
+  price = new FormControl(0.50);
 
   searching = false;
   recipeItem = null;
@@ -279,14 +279,14 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   increasePrice(): void {
-    this.price.setValue(Number(this.price.value) + 0.5);
+    this.price.setValue(Number(this.price.value) + 0.50);
   }
 
   decreasePrice(): void {
     if (this.price.value <= 0) {
       this.price.setValue(0);
     } else {
-      this.price.setValue(Number(this.price.value) - 0.5);
+      this.price.setValue(Number(this.price.value) - 0.50);
     }
   }
 
