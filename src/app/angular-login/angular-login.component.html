@@ -1,8 +1,8 @@
 <div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center main-container">
 <div class="login-wrap opacity-50">
   <div class="login-html">
-    <input id="tab-1" type="radio" name="tab" class="sign-in"  checked><label for="tab-1" class="tab"><span class="cheat">Sign In</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
-    <input id="tab-2" type="radio" name="tab" class="for-pwd" ><label for="tab-2" class="tab"><span class="cheat">Forgot Password?</span></label>
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab cheat">Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab cheat">Forgot Password</label>
     <div class="login-form">
 
       <form class="sign-in-htm" [formGroup]="loginForm">
@@ -19,6 +19,22 @@
           <button type="submit" class="button" value="Sign In" (click)="onSignIn()">Sign In</button>
         </div>
       </form>
+
+<!--      <form class="for-pwd-htm" [formGroup]="recoverPasswordForm">-->
+      <form class="for-pwd-htm" *ngIf="displayedForm == 1">
+        <div class="group">
+          <label for="recEmail" class="label">Username or Email</label>
+          <input #email id="recEmail" type="text" class="input" formControlName="recEmail">
+        </div>
+        <div class="hr"></div>
+        <div class="group">
+          <button type="submit" class="button" value="Reset Password" (click)="onReset(2)">Next</button>
+<!--          <button type="submit" class="button" value="Reset Password" (click)="onReset()">Next</button>-->
+        </div>
+
+      </form>
+
+      <h1 *ngIf="displayedForm==2">Displayed form 2</h1>
 
     </div>
 

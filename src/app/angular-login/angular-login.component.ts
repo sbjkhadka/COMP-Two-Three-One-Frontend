@@ -16,6 +16,8 @@ export class AngularLoginComponent implements OnInit {
     email: '',
     password: ''
   };
+
+  displayedForm = 1;
   public loginForm: FormGroup;
 
   constructor(private angularLoginService: AngularLoginService,
@@ -63,5 +65,13 @@ export class AngularLoginComponent implements OnInit {
       email: new FormControl('subarna.khadka@acme.edu.np'),
       password: new FormControl('password')
     });
+  }
+
+  switchForm(formNumber: number): void {
+    this.displayedForm = formNumber;
+  }
+
+  onReset(step: number): void {
+    this.displayedForm = 2;
   }
 }
