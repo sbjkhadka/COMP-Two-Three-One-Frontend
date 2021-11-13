@@ -28,7 +28,18 @@
             {{loggedInUser.user.firstName || loggedInUser.user.email}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item menu-font-family" (click)="logout()">Logout</a>
+            <a class="dropdown-item menu-font-family  pl-1 pr-0"  >
+                  <input [style.background]="color"
+                         [colorPicker]="color"
+                         (colorPickerChange)="colorChanged($event)"
+                         placeholder="Custom Theme"
+                         style="border: 1px dotted transparent;width: 100%;"
+                         readonly
+                  />
+
+            </a>
+            <a class="dropdown-item menu-font-family pl-2 pr-0" (click)="switchToDefaultTheme()">Default Theme</a><br />
+            <a href="#" class="dropdown-item menu-font-family  pl-2 pr-0" (click)="logout()">Logout</a>
           </div>
         </li>
       </ul>

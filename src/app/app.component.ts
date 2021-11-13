@@ -3,6 +3,7 @@ import {FirebaseService} from './shared-services/services/firebase.service';
 import {AngularLoginService} from './shared-services/services/angular-login.service';
 import {LocalStorageService} from './shared-services/services/local-storage.service';
 import {ThemeService} from './shared-services/theme.service';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +14,22 @@ export class AppComponent implements OnInit{
   title = 'COMP-Two-Three-One-Frontend';
   loggedInUser;
   theme: string;
-
+  fg: FormGroup;
   constructor(public firebaseService: FirebaseService,
               private angularLoginService: AngularLoginService,
               private localStorageService: LocalStorageService,
               private themeService: ThemeService) {
 
   }
-
+  color = document.documentElement.style.getPropertyValue('--mainColor');
   ngOnInit(): void {
     this.loggedInUser =  JSON.parse(localStorage.getItem('logged_in_user'));
     this.themeService.theme.subscribe(value => {
       this.theme = value;
+    });
+
+    this.themeService.themeColor.subscribe(value => {
+      document.documentElement.style.setProperty('--mainColor', value);
     });
   }
 
@@ -37,5 +42,17 @@ export class AppComponent implements OnInit{
 
   switchTheme(): void {
     this.themeService.switchTheme();
+    document.documentElement.style.getPropertyValue('--mainColor');
   }
+
+  colorChanged(event: any): void {
+    this.themeService.changeThemeColor(event);
+  }
+
+  switchToDefaultTheme(): void {
+    this.themeService.changeThemeColor(this.themeService.getDefaultThemeColor());
+  }
+
+
+
 }

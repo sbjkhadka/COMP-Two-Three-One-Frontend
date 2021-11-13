@@ -12,7 +12,6 @@ body {
   margin:0;
   color:#edf3ff;
   background:#c8c8c8;
-  /*background:url(https://t3.ftcdn.net/jpg/03/35/74/56/360_F_335745675_MaxYxSsadrviZdThITuHB2oCohYOiwEu.jpg) fixed;*/
   background-size: cover;
   font:600 16px/18px 'Open Sans',sans-serif;
 }
@@ -75,7 +74,7 @@ a{color:inherit;text-decoration:none}
 }
 .login-html .border-colored:checked + .tab {
   color:#fff;
-  border-color:#F58634;
+  border-color:var(--mainColor);
 }
 
 .login-html .border-dark:checked + .tab{
@@ -119,7 +118,8 @@ a{color:inherit;text-decoration:none}
   font-size:18px;
 }
 .login-form .group .button{
-  background:#F58634;
+  /*background:#F58634;*/
+  background-color: var(--mainColor);
   font-size:18px;
 }
 .login-form .group .button-dark{
