@@ -7,7 +7,6 @@ import {AngularFireModule} from '@angular/fire';
 import {FirebaseService} from './shared-services/services/firebase.service';
 import { RegisterAuthComponent } from './register-auth/register-auth.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthenticationService} from './shared-services/authentication.service';
 import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -118,7 +117,6 @@ const routes: Routes = [
     NgxCaptchaModule
   ],
   providers: [FirebaseService,
-              AuthenticationService,
               RecipeServiceService,
               ActiveUserSingletonService],
   bootstrap: [AppComponent]
