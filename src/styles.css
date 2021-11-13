@@ -65,6 +65,7 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
 }
  :root {
    --mainColor: #F58634;
+   /*--mainColor: red;*/
    --mainFontColor: #FCF9EA;
    --blackColor: #000;
    --whiteColor: #FFF;
