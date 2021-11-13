@@ -9,6 +9,7 @@ import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component
 import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
 import {ConfirmationDialogComponent} from './generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ThemeService} from '../shared-services/theme.service';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,14 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class HomeComponent implements OnInit {
 
+  theme: string;
   constructor(
     public firebaseService: FirebaseService,
     public recipeServiceService: RecipeServiceService,
     public activeUserSingletonService: ActiveUserSingletonService,
     public dialog: MatDialog,
-    private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private themeService: ThemeService) {
     this.confirmUserLoginAfterPageReload();
     this.getListOfUsers();
   }
@@ -43,6 +46,9 @@ export class HomeComponent implements OnInit {
 
   // will use it later
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
     this.login();
     this.updateToggleButton();
   }
