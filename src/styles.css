@@ -63,6 +63,17 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
 .add-recipe-dark-color {
   color:var(--grayColor);
 }
+
+ /* extras */
+.theme-bg-lavender {
+  background-color: var(--lavender);
+  color: var(--mainFontColor);
+}
+
+.theme-bg-light-gray {
+  background-color: var(--lightGray);
+  color: var(--mainFontColor);
+}
  :root {
    --mainColor: #F58634;
    /*--mainColor: red;*/
@@ -71,6 +82,8 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
    --whiteColor: #FFF;
    --grayColor: #696969;
    --navyBlue: #000080;
+   --lavender: lavender;
+   --lightGray: #D3D3D3;
  }
 
 

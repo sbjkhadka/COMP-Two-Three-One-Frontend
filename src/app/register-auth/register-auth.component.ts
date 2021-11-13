@@ -9,6 +9,7 @@ import {ErrorStateMatcher} from '@angular/material/core';
 import {ConfirmationDialogComponent} from '../home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
 import {InfoDialog} from '../shared-models/info-dialog.model';
+import {ThemeService} from '../shared-services/theme.service';
 
 
 @Component({
@@ -17,13 +18,14 @@ import {InfoDialog} from '../shared-models/info-dialog.model';
   styleUrls: ['./register-auth.component.css']
 })
 export class RegisterAuthComponent implements OnInit {
+  theme: string;
   constructor(public firebaseService: FirebaseService,
               private angularRegistrationService: AngularRegistrationService,
               public dialogRef: MatDialogRef<RegisterAuthComponent>,
               public recipeServiceService: RecipeServiceService,
               private formBuilder: FormBuilder,
-              public dialog: MatDialog) {
-    // this.getAllRoles();
+              public dialog: MatDialog,
+              private themeService: ThemeService) {
     this.initializeForm();
 
   }
@@ -44,6 +46,9 @@ export class RegisterAuthComponent implements OnInit {
     infoType: ''
   };
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
     this.isSignedIn = localStorage.getItem('user') !== null;
   }
 

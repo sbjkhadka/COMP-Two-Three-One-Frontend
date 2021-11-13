@@ -6,6 +6,11 @@
   border-bottom: 3px solid red;
   width: 60px;
 }
+.gray-underline {
+  margin: 0 auto;
+  border-bottom: 3px solid var(--lightGray);
+  width: 60px;
+}
 .titleText{
   text-align: center;
   font-weight: bold;

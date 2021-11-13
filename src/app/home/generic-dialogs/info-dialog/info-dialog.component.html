@@ -1,18 +1,18 @@
 <div id="dialog-container" class="d-flex flex-column justify-content-between h-100">
-  <div class="mt-0 pr-3 pl-3" style="background-color: #FFC107">
+  <div class="mt-0 pr-3 pl-3" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'">
     <p class="titleText mt-3">&nbsp;&nbsp;&nbsp;&nbsp;<span *ngIf="infoType">{{infoType | uppercase}}</span>
       <mat-icon style="float: right;"
                 (click)="close(false)" matSuffix id="close-icon">close
       </mat-icon>
     </p>
 
-    <div class="red-underline"></div>
+    <div class="red-underline" [ngClass]="theme==='color'?'red-underline':'gray-underline'"></div>
   </div>
 
 <p><span *ngIf="infoName">{{infoName}}</span>: {{infoType | uppercase}}!</p>
 
   <div class="w-100 d-flex justify-content-around mb-4">
-    <button class="btn btn-outline-success" mat-dialog-close="true" (click)="close(false)">OK</button>
+    <button class="btn " [ngClass]="theme==='color'?'btn-outline-success':'theme-dark-bg'" (click)="close(false)">OK</button>
   </div>
 
 </div>
