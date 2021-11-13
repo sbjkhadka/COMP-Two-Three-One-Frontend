@@ -24,7 +24,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .theme-dark-bg-inverse {
   color: var(--grayColor);
-  background-color: var(--mainFontColor);
+  /*background-color: var(--mainFontColor);*/
 }
 /*Font on theme background*/
 .theme-font {
@@ -63,3 +63,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
    --grayColor: #696969;
    --navyBlue: #000080;
  }
+
+
+
