@@ -53,8 +53,8 @@ const routes: Routes = [
   {path: 'login', component: AngularLoginComponent, pathMatch: 'full'},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'myRecipe', component: MyRecipeListComponent},
-  {path: 'calorieChecker', component: CalorieCheckerComponent}
+  {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
+  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
 @NgModule({
