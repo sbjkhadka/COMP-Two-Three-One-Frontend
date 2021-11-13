@@ -1,8 +1,8 @@
-<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center main-container">
+<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" [ngClass]="theme==='color'?'main-container':'main-container-dark'">
   <div class="login-wrap opacity-50">
     <div class="login-html">
-      <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab cheat">Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
-      <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab cheat">Forgot Password</label>
+      <input id="tab-1" type="radio" class="sign-in" name="tab"  checked [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
+      <input id="tab-2" type="radio" class="for-pwd" name="tab" [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-2" class="tab cheat" >Forgot Password</label>
       <div class="login-form">
 
         <form class="sign-in-htm" [formGroup]="loginForm">
@@ -16,7 +16,7 @@
           </div>
           <div class="hr"></div>
           <div class="group">
-            <button type="submit" class="button" value="Sign In" (click)="onSignIn()">Sign In</button>
+            <button type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
           </div>
         </form>
 
@@ -30,7 +30,7 @@
 
           <div class="hr"></div>
           <div class="group">
-            <button type="submit" class="button" value="Reset Password" (click)="onReset(2)">Next</button>
+            <button type="submit" value="Reset Password" (click)="onReset(2)" [ngClass]="theme==='color'?'button':'button-dark'">Next</button>
           </div>
 
         </form>
@@ -48,7 +48,7 @@
           </div>
           <div class="hr"></div>
           <div class="group">
-            <button type="submit" class="button" value="Reset Password" (click)="onReset(3)">Next</button>
+            <button type="submit" value="Reset Password" (click)="onReset(3)" [ngClass]="theme==='color'?'button':'button-dark'">Next</button>
           </div>
 
         </form>
@@ -66,14 +66,14 @@
             <small class="text-light" [class.d-none]="!resetPasswordAPIError">Something went wrong! Please try again!</small>
           </div>
           <div class="group">
-            <button type="submit" class="button" value="Reset Password" (click)="onReset(4)">Next</button>
+            <button type="submit" value="Reset Password" (click)="onReset(4)" [ngClass]="theme==='color'?'button':'button-dark'">Next</button>
           </div>
         </form>
       </div>
 
       <div class="login-form">
         <div class="group">
-          <input type="submit" class="button" value="sRegister Now" (click)="openRegistrationDialog()">
+          <input type="submit" value="Register Now" (click)="openRegistrationDialog()" [ngClass]="theme==='color'?'button':'button-dark'">
         </div>
       </div>
 

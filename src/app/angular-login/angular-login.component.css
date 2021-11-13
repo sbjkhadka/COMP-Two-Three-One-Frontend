@@ -2,12 +2,17 @@
   background: url(https://static.thehoneycombers.com/wp-content/uploads/sites/2/2021/06/online-grocery-singapore.png) no-repeat;
   background-size: cover;
 }
+.main-container-dark {
+  background: url(https://static.thehoneycombers.com/wp-content/uploads/sites/2/2021/06/online-grocery-singapore.png) no-repeat;
+  background-size: cover;
+  filter: grayscale(100%);
+}
 
 body {
   margin:0;
   color:#edf3ff;
   background:#c8c8c8;
-  background:url(https://t3.ftcdn.net/jpg/03/35/74/56/360_F_335745675_MaxYxSsadrviZdThITuHB2oCohYOiwEu.jpg) fixed;
+  /*background:url(https://t3.ftcdn.net/jpg/03/35/74/56/360_F_335745675_MaxYxSsadrviZdThITuHB2oCohYOiwEu.jpg) fixed;*/
   background-size: cover;
   font:600 16px/18px 'Open Sans',sans-serif;
 }
@@ -56,7 +61,8 @@ a{color:inherit;text-decoration:none}
 }
 .login-html .tab,
 .login-form .group .label,
-.login-form .group .button{
+.login-form .group .button,
+.login-form .group .button-dark{
   text-transform:uppercase;
 }
 .login-html .tab{
@@ -67,10 +73,14 @@ a{color:inherit;text-decoration:none}
   display:inline-block;
   border-bottom:2px solid transparent;
 }
-.login-html .sign-in:checked + .tab,
-.login-html .for-pwd:checked + .tab{
+.login-html .border-colored:checked + .tab {
   color:#fff;
   border-color:#F58634;
+}
+
+.login-html .border-dark:checked + .tab{
+  color:#fff;
+  border-color:var(--grayColor);
 }
 .login-form{
   margin-top:30px;
@@ -86,13 +96,15 @@ a{color:inherit;text-decoration:none}
 }
 .login-form .group .label,
 .login-form .group .input,
-.login-form .group .button{
+.login-form .group .button,
+.login-form .group .button-dark{
   width:100%;
   color:#fff;
   display:block;
 }
 .login-form .group .input,
-.login-form .group .button{
+.login-form .group .button,
+.login-form .group .button-dark{
   border:none;
   padding:15px 20px;
   border-radius:25px;
@@ -108,6 +120,10 @@ a{color:inherit;text-decoration:none}
 }
 .login-form .group .button{
   background:#F58634;
+  font-size:18px;
+}
+.login-form .group .button-dark{
+  background: var(--grayColor);
   font-size:18px;
 }
 

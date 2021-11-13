@@ -6,6 +6,7 @@ import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {MatDialog} from '@angular/material/dialog';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
 import {InfoDialog} from '../shared-models/info-dialog.model';
+import {ThemeService} from '../shared-services/theme.service';
 
 @Component({
   selector: 'app-angular-login',
@@ -14,9 +15,11 @@ import {InfoDialog} from '../shared-models/info-dialog.model';
 })
 export class AngularLoginComponent implements OnInit, OnDestroy {
 
+  theme: string;
   constructor(private angularLoginService: AngularLoginService,
               private localStorageService: LocalStorageService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private themeService: ThemeService) { }
   credentials = {
     email: '',
     password: ''
@@ -38,6 +41,9 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
   };
 
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
     this.initializeForm();
   }
 
