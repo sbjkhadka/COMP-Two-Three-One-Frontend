@@ -5,8 +5,6 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-<!--  <button (click)="switchTheme()">Switch Theme</button>-->
-
   <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" >
       <li class="nav-item active">
@@ -34,9 +32,7 @@
                          (colorPickerChange)="colorChanged($event)"
                          placeholder="Custom Theme"
                          style="border: 1px dotted transparent;width: 100%;"
-                         readonly
-                  />
-
+                         readonly />
             </a>
             <a class="dropdown-item menu-font-family pl-2 pr-0" (click)="switchToDefaultTheme()">Default Theme</a><br />
             <a href="#" class="dropdown-item menu-font-family  pl-2 pr-0" (click)="logout()">Logout</a>
@@ -55,5 +51,4 @@
               [ngClass]="theme==='color'?'add-recipe-dark-color':'add-recipe-color'">color_lens</mat-icon>
   </div>
 </div>
-
 <router-outlet></router-outlet>
