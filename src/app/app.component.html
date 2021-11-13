@@ -7,7 +7,7 @@
 
 <!--  <button (click)="switchTheme()">Switch Theme</button>-->
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" >
       <li class="nav-item active">
         <a  class="nav-link theme-font" href="/home">Home  <span class="sr-only">(current)</span></a>
@@ -22,7 +22,7 @@
     </ul>
     <div class="my-2 my-lg-0" *ngIf="loggedInUser">
 
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto pr-3">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{loggedInUser.user.firstName || loggedInUser.user.email}}
