@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {environmentAngular} from '../../../environments/environment';
 import {catchError} from 'rxjs/operators';
@@ -19,6 +19,13 @@ export class AngularLoginService {
 
   logout(): Observable<any> {
     return this.http.delete(`${environmentAngular.base_url}logout`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  getSecurityQuestionByEmail(email: string): Observable<any> {
+    console.log(email);
+    return this.http.post(`${environmentAngular.base_url}fetchSecurityQuestion`, {email} ).pipe(catchError(error => {
       return throwError(error);
     }));
   }

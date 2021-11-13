@@ -1,87 +1,80 @@
-<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center main-container">
-<div class="login-wrap opacity-50">
-  <div class="login-html">
-    <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab cheat">Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
-    <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab cheat">Forgot Password</label>
-    <div class="login-form">
+<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center main-container">
+  <div class="login-wrap opacity-50">
+    <div class="login-html">
+      <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab cheat">Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
+      <input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab cheat">Forgot Password</label>
+      <div class="login-form">
 
-      <form class="sign-in-htm" [formGroup]="loginForm">
-            <div class="form-group group">
-              <label for="email" class="label">Username or Email</label>
-              <input type="text" #email id="email" class="form-control" formControlName="email"/>
-            </div>
-            <div class="form-group group">
-              <label for="password" class="label">Password</label>
-              <input type="password" id="password" class="form-control" formControlName="password"/>
-            </div>
-        <div class="hr"></div>
-        <div class="group">
-          <button type="submit" class="button" value="Sign In" (click)="onSignIn()">Sign In</button>
-        </div>
-      </form>
+        <form class="sign-in-htm" [formGroup]="loginForm">
+          <div class="form-group group">
+            <label for="email" class="label">Username or Email</label>
+            <input type="text" #email id="email" class="form-control" formControlName="email"/>
+          </div>
+          <div class="form-group group">
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password" class="form-control" formControlName="password"/>
+          </div>
+          <div class="hr"></div>
+          <div class="group">
+            <button type="submit" class="button" value="Sign In" (click)="onSignIn()">Sign In</button>
+          </div>
+        </form>
 
-<!--      <form class="for-pwd-htm" [formGroup]="recoverPasswordForm">-->
-      <form class="for-pwd-htm" *ngIf="displayedForm == 1">
-        <div class="group">
-          <label for="recEmail" class="label">Username or Email</label>
-          <input #email id="recEmail" type="text" class="input" formControlName="recEmail">
-        </div>
-        <div class="hr"></div>
-        <div class="group">
-          <button type="submit" class="button" value="Reset Password" (click)="onReset(2)">Next</button>
-<!--          <button type="submit" class="button" value="Reset Password" (click)="onReset()">Next</button>-->
-        </div>
+        <form class="for-pwd-htm" *ngIf="displayedForm == 1" [formGroup]="forgotPasswordEmailForm">
+          <div class="group">
+            <label for="recEmail" class="label">Username or Email</label>
+            <input #email id="recEmail" type="text" class="input" formControlName="email">
+            <small [class.d-none]="forgotPasswordEmailError">&nbsp;</small>
+            <small class="text-light" [class.d-none]="!forgotPasswordEmailError">Please check your email!</small>
+          </div>
 
-      </form>
+          <div class="hr"></div>
+          <div class="group">
+            <button type="submit" class="button" value="Reset Password" (click)="onReset(2)">Next</button>
+          </div>
 
-      <form class="for-pwd-htm" *ngIf="displayedForm==2">
-        <div class="group">
-          <label for="question" class="label">Question</label>
-          <input id="question" type="text" class="input" formControlName="question" readonly>
-        </div>
-        <div class="group">
-          <label for="answer" class="label">Answer</label>
-          <input id="answer" type="text" class="input" formControlName="answer">
-        </div>
-        <div class="hr"></div>
-        <div class="group">
-          <button type="submit" class="button" value="Reset Password" (click)="onReset(3)">Next</button>
-        </div>
+        </form>
 
-      </form>
+        <form class="for-pwd-htm" *ngIf="displayedForm==2" [formGroup]="forgotPasswordSecurityQuestionForm">
+          <div class="group">
+            <label for="question" class="label">Question</label>
+            <input id="question" type="text" class="input" formControlName="question" readonly>
+          </div>
+          <div class="group">
+            <label for="answer" class="label">Answer</label>
+            <input id="answer" type="text" class="input" formControlName="answer">
+          </div>
+          <div class="hr"></div>
+          <div class="group">
+            <button type="submit" class="button" value="Reset Password" (click)="onReset(3)">Next</button>
+          </div>
 
-    </div>
+        </form>
 
-    <div class="login-form">
-      <div class="group">
-        <input type="submit" class="button" value="Register Now" (click)="openRegistrationDialog()">
+        <form class="for-pwd-htm" *ngIf="displayedForm==3" [formGroup]="forgotPasswordNewPasswordForm">
+          <div class="group">
+            <label for="newPassword1" class="label">New Password</label>
+            <input id="newPassword1" type="password" class="input" data-type="password" formControlName="newPassword1">
+          </div>
+          <div class="group">
+            <label for="newPassword2" class="label">Confirm Password</label>
+            <input id="newPassword2" type="password" class="input" data-type="password" formControlName="newPassword2">
+          </div>
+          <div class="group">
+            <button type="submit" class="button" value="Reset Password" (click)="onReset(4)">Next</button>
+          </div>
+        </form>
       </div>
-    </div>
 
+      <div class="login-form">
+        <div class="group">
+          <input type="submit" class="button" value="sRegister Now" (click)="openRegistrationDialog()">
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
-</div>
 
-
-
-
-<!--<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center main-container">-->
-<!--  <h2>Sign In</h2>-->
-<!--  <form class="d-flex justify-content-around flex-column w-50 form-style" [formGroup]="loginForm">-->
-<!--    <div class="form-group">-->
-<!--      <label for="email">Email</label>-->
-<!--      <input type="text" #email id="email" class="form-control" formControlName="email"/>-->
-<!--    </div>-->
-
-<!--    <div class="form-group">-->
-<!--      <label for="password">Password</label>-->
-<!--      <input type="password" id="password" class="form-control" formControlName="password"/>-->
-<!--    </div>-->
-
-
-<!--    <button class="btn btn-primary form-control" (click)="onSignIn()">Login</button>-->
-<!--  </form>-->
-<!--  <span>Not a member yet?</span><span (click)="openRegistrationDialog()" class="cursor-pointer"> Register now</span>-->
-<!--</div>-->
 
 
