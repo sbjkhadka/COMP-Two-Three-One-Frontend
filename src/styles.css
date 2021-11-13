@@ -74,6 +74,12 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
   background-color: var(--lightGray);
   color: var(--mainFontColor);
 }
+
+.theme-dark-bg-inverse-extra {
+  color: var(--grayColor);
+  border: 1px solid var(--grayColor);
+  /*background-color: var(--mainFontColor);*/
+}
  :root {
    --mainColor: #F58634;
    /*--mainColor: red;*/
