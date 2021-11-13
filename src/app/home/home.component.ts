@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {FirebaseService} from '../shared-services/services/firebase.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
-import {BehaviorSubject, forkJoin} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
