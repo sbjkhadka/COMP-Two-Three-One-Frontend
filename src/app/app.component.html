@@ -5,7 +5,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <button (click)="switchTheme()">Switch Theme</button>
+<!--  <button (click)="switchTheme()">Switch Theme</button>-->
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" >
@@ -35,5 +35,14 @@
     </div>
   </div>
 </nav>
+
+<div class="row fixed-bottom bg-transparent text-dark">
+  <div class="col-md-12 d-flex justify-content-start">
+    <mat-icon class="pl-3 pb-5 font-weight-bold theme-font"
+              style="cursor: pointer;transform: scale(4);"
+              (click)="switchTheme()"
+              [ngClass]="theme==='color'?'add-recipe-dark-color':'add-recipe-color'">color_lens</mat-icon>
+  </div>
+</div>
 
 <router-outlet></router-outlet>
