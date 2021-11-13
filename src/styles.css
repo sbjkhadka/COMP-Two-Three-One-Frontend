@@ -8,3 +8,58 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cursor-pointer {
   cursor: pointer;
 }
+
+/*Theme background*/
+.theme-bg {
+  background-color: var(--mainColor);
+  color: var(--mainFontColor);
+}
+.theme-dark-bg {
+  background-color: var(--grayColor);
+  color: var(--mainFontColor);
+}
+.theme-bg-inverse-navy {
+  color: var(--navyBlue);
+  background-color: var(--mainFontColor);
+}
+.theme-dark-bg-inverse {
+  color: var(--grayColor);
+  background-color: var(--mainFontColor);
+}
+/*Font on theme background*/
+.theme-font {
+  color: var(--mainFontColor);
+}
+.theme-dark-font {
+  color: var(--mainFontColor);
+}
+/*Color for open space*/
+.theme-main-bg {
+  background-color: var(--whiteColor);
+}
+.theme-dark-main-bg {
+  background-color: var(--mainFontColor);
+}
+ /*Color for images*/
+.image-color {
+
+}
+.image-dark {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+ /* Color for add recipe button*/
+.add-recipe-color {
+  color:var(--mainColor);
+}
+.add-recipe-dark-color {
+  color:var(--grayColor);
+}
+ :root {
+   --mainColor: #F58634;
+   --mainFontColor: #FCF9EA;
+   --blackColor: #000;
+   --whiteColor: #FFF;
+   --grayColor: #696969;
+   --navyBlue: #000080;
+ }
