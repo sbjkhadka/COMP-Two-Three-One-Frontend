@@ -29,6 +29,6 @@
 </div>
 
 <!--fixed position button holder-->
-<div class="position-fixed fixed-bottom border height-10percent d-flex justify-content-around align-items-center">
+<div class="position-fixed fixed-bottom height-10percent d-flex justify-content-around align-items-center"  style="z-index: -1">
   <button class="btn btn-lg" [disabled]="isDialogOpened" (click)="generateIngredientList()" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Calculate</button>
 </div>
