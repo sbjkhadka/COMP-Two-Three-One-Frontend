@@ -1,20 +1,20 @@
 <div class="container-fluid h-75 w-75  border-secondary overflow-auto pb-5 position-relative pl-0">
-  <h1 class="position-absolute w-100 d-flex justify-content-around" style="top: 10px;">My Recipes</h1>
+  <h1 class="position-absolute w-100 d-flex justify-content-around" style="top: 10px;" [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">My Recipes</h1>
   <div class="position-absolute w-100 d-flex flex-column align-items-center" style="top: 80px">
     <div class="recipe-item bg-light w-75 m-3 d-flex pl-2 border border-secondary rounded border-3" *ngFor="let item of recipeList">
       <div class="w-25 h-100 d-flex justify-content-around align-items-center">
-        <img src="{{item.recipePhoto}}">
+        <img src="{{item.recipePhoto}}" [ngClass]="theme==='color'?'image-color':'image-dark'">
       </div>
       <div class="w-75 bg-light d-flex">
         <div class="w-50 h-100 d-flex flex-column justify-content-around align-self-start ">
-          <h1 class=" pl-5 pt-3 font-color-navy">{{item.recipeName}}</h1>
+          <h1 class=" pl-5 pt-3" [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">{{item.recipeName}}</h1>
           <h3 class="pl-5  font-color-navy">
 <!--            Serving Size: 1-->&nbsp;
           </h3>
         </div>
         <div class="w-50 d-flex">
           <div class="w-75 pt-5 pb-5 pr-5 pl-5 d-flex flex-column justify-content-center align-items-start">
-            <p class="font-color-navy">Total meals:</p>
+            <p [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">Total meals:</p>
             <input class="form-control" type="number" min="1" value="{{pleaseGiveMeQuantity(item)}}" (change)="quantityChanged($event, item)" />
           </div>
           <div class="w-25 d-flex d-flex justify-content-between pr-2 pt-2">
@@ -30,5 +30,5 @@
 
 <!--fixed position button holder-->
 <div class="position-fixed fixed-bottom border height-10percent d-flex justify-content-around align-items-center">
-  <button class="btn btn-lg btn-primary" [disabled]="isDialogOpened" (click)="generateIngredientList()">Calculate</button>
+  <button class="btn btn-lg" [disabled]="isDialogOpened" (click)="generateIngredientList()" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Calculate</button>
 </div>
