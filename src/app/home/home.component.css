@@ -12,6 +12,7 @@
 .app-name{
   font-size: larger;
   font-weight: bold;
+  font-family: 'Rubik', sans-serif;
 }
 .navbar {
   z-index: 9999;

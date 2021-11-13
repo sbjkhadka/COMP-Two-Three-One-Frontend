@@ -16,3 +16,8 @@ img {
 .font-color-navy {
   color: navy;
 }
+.app-name{
+  font-size: larger;
+  font-weight: bold;
+  font-family: 'Rubik', sans-serif;
+}

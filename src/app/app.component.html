@@ -10,13 +10,13 @@
   <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto" >
       <li class="nav-item active">
-        <a  class="nav-link theme-font" href="/home">Home  <span class="sr-only">(current)</span></a>
+        <a  class="nav-link theme-font menu-font-family" href="/home">Home  <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link theme-font" routerLink="/myRecipe">Grocery List <span class="sr-only">(current)</span></a>
+        <a class="nav-link theme-font menu-font-family" routerLink="/myRecipe">Grocery List <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/calorieChecker">Calorie Checker <span class="sr-only">(current)</span></a>
+        <a class="nav-link menu-font-family" routerLink="/calorieChecker">Calorie Checker <span class="sr-only">(current)</span></a>
       </li>
 
     </ul>
@@ -24,11 +24,11 @@
 
       <ul class="navbar-nav mr-auto pr-3">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle menu-font-family" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{loggedInUser.user.firstName || loggedInUser.user.email}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item" (click)="logout()">Logout</a>
+            <a href="#" class="dropdown-item menu-font-family" (click)="logout()">Logout</a>
           </div>
         </li>
       </ul>

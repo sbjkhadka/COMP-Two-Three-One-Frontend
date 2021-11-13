@@ -1,13 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; font-family: 'Yuji Boku', serif; }
+body { margin: 0; font-family: 'Yuji Boku', serif; }
 .no-padding-container .mat-dialog-container {
   padding: 0 !important;
 }
 .cursor-pointer {
   cursor: pointer;
 }
+.menu-font-family {
+  font-family: 'Epilogue', sans-serif;
+}
+
+.heading-font-family {
+  font-family: 'Heebo', sans-serif;
+}
+
 
 /*Theme background*/
 .theme-bg {
