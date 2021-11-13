@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {RecipeServiceService} from '../../shared-services/recipe-service.service';
 import {ActiveUserSingletonService} from '../../shared-services/active-user-singleton.service';
+import {ThemeService} from '../../shared-services/theme.service';
 
 @Component({
   selector: 'app-add-new-ingredient',
@@ -11,6 +12,7 @@ import {ActiveUserSingletonService} from '../../shared-services/active-user-sing
 })
 export class AddNewIngredientComponent implements OnInit {
 
+  theme: string;
   ingredientForm: FormGroup;
   submitted = false;
   partyId;
@@ -19,7 +21,8 @@ export class AddNewIngredientComponent implements OnInit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder,
               private recipeServiceService: RecipeServiceService,
-              private activeUserSingletonService: ActiveUserSingletonService) {
+              private activeUserSingletonService: ActiveUserSingletonService,
+              private themeService: ThemeService) {
     dialogRef.disableClose = true;
     this.ingredientForm = this.formBuilder.group({
       ingredientName: new FormControl('', Validators.required),
@@ -30,6 +33,9 @@ export class AddNewIngredientComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
   }
 
 
