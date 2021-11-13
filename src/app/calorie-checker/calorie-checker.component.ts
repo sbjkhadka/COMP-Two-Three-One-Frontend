@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ThemeService} from '../shared-services/theme.service';
 
 @Component({
   selector: 'app-calorie-checker',
@@ -8,8 +9,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class CalorieCheckerComponent implements OnInit {
 
-
-  constructor() {
+  theme: string;
+  constructor(private themeService: ThemeService) {
     this.initializeForm();
   }
 
@@ -18,6 +19,9 @@ export class CalorieCheckerComponent implements OnInit {
   submitted = false;
 
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
   }
   initializeForm(): void {
     this.calorieForm = new FormGroup({
