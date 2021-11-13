@@ -60,6 +60,7 @@ const routes: Routes = [
   {path: 'myRecipe', component: MyRecipeListComponent},
   {path: 'calorieChecker', component: CalorieCheckerComponent}
 ];
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,

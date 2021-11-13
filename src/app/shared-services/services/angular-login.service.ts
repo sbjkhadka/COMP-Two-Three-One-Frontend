@@ -24,11 +24,21 @@ export class AngularLoginService {
   }
 
   getSecurityQuestionByEmail(email: string): Observable<any> {
-    console.log(email);
     return this.http.post(`${environmentAngular.base_url}fetchSecurityQuestion`, {email} ).pipe(catchError(error => {
       return throwError(error);
     }));
   }
 
+  checkIfSecurityAnswerIsOkay(query: any): Observable<any> {
+    return this.http.post(`${environmentAngular.base_url}securityQuestion`, query ).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  resetUserPassword(query: any): Observable<any> {
+    return this.http.post(`${environmentAngular.base_url}resetPassword`, query ).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 
 }

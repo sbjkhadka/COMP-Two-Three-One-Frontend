@@ -43,6 +43,8 @@
           <div class="group">
             <label for="answer" class="label">Answer</label>
             <input id="answer" type="text" class="input" formControlName="answer">
+            <small [class.d-none]="securityAnswerError">&nbsp;</small>
+            <small class="text-light" [class.d-none]="!securityAnswerError">Incorrect Response!</small>
           </div>
           <div class="hr"></div>
           <div class="group">
@@ -59,6 +61,9 @@
           <div class="group">
             <label for="newPassword2" class="label">Confirm Password</label>
             <input id="newPassword2" type="password" class="input" data-type="password" formControlName="newPassword2">
+            <small [class.d-none]="resetPasswordError">&nbsp;</small>
+            <small class="text-light" [class.d-none]="!resetPasswordError">Passwords don't match!</small>
+            <small class="text-light" [class.d-none]="!resetPasswordAPIError">Something went wrong! Please try again!</small>
           </div>
           <div class="group">
             <button type="submit" class="button" value="Reset Password" (click)="onReset(4)">Next</button>

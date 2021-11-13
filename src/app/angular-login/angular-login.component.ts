@@ -5,6 +5,7 @@ import {LocalStorageService} from '../shared-services/services/local-storage.ser
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {MatDialog} from '@angular/material/dialog';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
+import {InfoDialog} from '../shared-models/info-dialog.model';
 
 @Component({
   selector: 'app-angular-login',
@@ -27,7 +28,14 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
   forgotPasswordSecurityQuestionForm: FormGroup;
   forgotPasswordNewPasswordForm: FormGroup;
 
-  forgotPasswordEmailError=false;
+  forgotPasswordEmailError = false;
+  securityAnswerError = false;
+  resetPasswordError = false;
+  resetPasswordAPIError = false;
+  info: InfoDialog = {
+    infoName: 'Password Reset',
+    infoType: 'Successful'
+  };
 
   ngOnInit(): void {
     this.initializeForm();
@@ -90,12 +98,11 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
     this.displayedForm = formNumber;
   }
   onReset(step: number): void {
+    const email = this.forgotPasswordEmailForm.value.email;
     switch (step) {
       case 2: {
-        const email = this.forgotPasswordEmailForm.value.email;
         if (email) {
           this.angularLoginService.getSecurityQuestionByEmail(email).subscribe(value => {
-            console.log('value', value);
             if (value.status === 200) {
               this.forgotPasswordSecurityQuestionForm.patchValue({
                 question: value.securityQuestion
@@ -111,6 +118,51 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
 
         break;
       }
+      case 3: {
+        const queryObject = {
+          email,
+          securityAnswer: this.forgotPasswordSecurityQuestionForm.value.answer
+        };
+        this.angularLoginService.checkIfSecurityAnswerIsOkay(queryObject).subscribe(value => {
+          if (value.status === 200) {
+            this.displayedForm = step;
+          } else {
+            this.securityAnswerError = true;
+          }
+        });
+        break;
+      }
+      case 4: {
+        const password = this.forgotPasswordNewPasswordForm.value.newPassword1;
+        const rePassword = this.forgotPasswordNewPasswordForm.value.newPassword2;
+        if (password.toString() !== rePassword.toString()) {
+          this.resetPasswordError = true;
+        } else {
+          const queryObject = {
+            email,
+            password: this.forgotPasswordNewPasswordForm.value.newPassword1
+          };
+          this.angularLoginService.resetUserPassword(queryObject).subscribe(value => {
+            if (value.status === 200) {
+              this.dialog.open(InfoDialogComponent, {
+                height: '200px',
+                width: '500px',
+                panelClass: 'no-padding-container',
+                data: {
+                  infoName: this.info.infoName,
+                  infoType: this.info.infoType
+                }
+              }).afterClosed().subscribe(res => {
+                this.info = null;
+                window.location.href = '/login';
+              });
+            } else {
+              this.resetPasswordAPIError = true;
+            }
+          });
+        }
+        break;
+      }
       default: {
         break;
       }
@@ -119,5 +171,8 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.forgotPasswordEmailError = false;
+    this.securityAnswerError = false;
+    this.resetPasswordError = false;
+    this.resetPasswordAPIError = false;
   }
 }
