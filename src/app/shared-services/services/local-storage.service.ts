@@ -21,7 +21,7 @@ export class LocalStorageService {
   // Removing token
   removeToken(): boolean {
     localStorage.removeItem('token');
-    return true;
+    return !!(localStorage.getItem('token'));
   }
 
   // Getting token
@@ -50,7 +50,7 @@ export class LocalStorageService {
   // logs out user
   logout(): boolean {
     localStorage.removeItem('token');
-    return true;
+    return !localStorage.getItem('token');
   }
 
   setItem(itemName, item): void {
