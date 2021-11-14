@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit {
     private snackBar: MatSnackBar,
     private themeService: ThemeService,
     private recipeService: RecipeService) {
-    this.confirmUserLoginAfterPageReload();
-    this.getListOfUsers();
+    // this.confirmUserLoginAfterPageReload();
+    // this.getListOfUsers();
   }
   bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
   loggedInUser;
@@ -45,18 +45,20 @@ export class HomeComponent implements OnInit {
   stockRecipe = [];
   users = new BehaviorSubject<any[]>([]);
   currentUser;
+  recipeInDisplay: any[]; // Create a model later
 
   // will use it later
   ngOnInit(): void {
     this.themeService.theme.subscribe(value => {
       this.theme = value;
     });
-    this.login();
-    this.updateToggleButton();
+    // this.login();
+    // this.updateToggleButton();
+    this.getAllRecipes1();
   }
   getListOfUsers(): void {
     this.recipeServiceService.getAllRoles().subscribe(res => {
-      console.log('users', res.payload);
+      // console.log('users', res.payload);
       this.users.next(res.payload);
     });
   }
@@ -71,15 +73,15 @@ export class HomeComponent implements OnInit {
   }
   checkTrainer(): void {
     this.users.subscribe(res => {
-      console.log('LIST OF USERS', res);
-      console.log('LOGGED_IN_USERS', this.loggedInUser);
+      // console.log('LIST OF USERS', res);
+      // console.log('LOGGED_IN_USERS', this.loggedInUser);
       const user = res.find(element => element.partyId === this.loggedInUser.uid);
       if (user) {
-        console.log('USERRRRRRRRR', user);
+        // console.log('USERRRRRRRRR', user);
         // this.currentUser.next(user);
         this.activeUserSingletonService.activeUserDetailsFromDB.next(user);
       }
-      console.log('USER', user);
+      // console.log('USER', user);
     });
     this.activeUserSingletonService.activeUserDetailsFromDB.subscribe(value => {
       this.currentUser = value;
@@ -107,7 +109,7 @@ export class HomeComponent implements OnInit {
   }
 
   recipeItemClicked(item: any): void {
-    console.log('item.recipe_name' + item.recipe_name);
+    // console.log('item.recipe_name' + item.recipe_name);
     const dialogRef = this.dialog.open(RecipeDetailsComponent,
       {
         height: '800px',
@@ -121,7 +123,7 @@ export class HomeComponent implements OnInit {
   }
 
   editRecipe(item: any): void {
-    console.log('item.recipe_name:' + item.recipeName);
+    // console.log('item.recipe_name:' + item.recipeName);
     const dialogRef = this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
@@ -160,11 +162,11 @@ export class HomeComponent implements OnInit {
   }
   getAllRecipes(loggedInUserId: string): void {
     this.recipeServiceService.getAllStockRecipe().subscribe(res => {
-      console.log('response _ my', res);
+      // console.log('response _ my', res);
       this.myRecipe.next(res.payload);
       // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
       // this.loggedInUserRecipes.next( res.payload);
-      console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
+      // console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
       this.loggedInUserRecipes.next(res.payload);
 
       this.updateToggleButton();
@@ -178,13 +180,13 @@ export class HomeComponent implements OnInit {
   // tslint:disable-next-line:typedef
   updateToggleButton(): void {
     this.loggedInUserRecipes.subscribe(val => {
-      console.log('val', val);
+      // console.log('val', val);
       if (val && val.length > 0) {
         if (val[0].roleName.toLowerCase() === 'chef') {
           this.stockRecipeToggleButtonStatus = true;
-          console.log('chef');
+          // console.log('chef');
         } else {
-          console.log('not chef');
+          // console.log('not chef');
         }
       }
 
@@ -210,7 +212,7 @@ export class HomeComponent implements OnInit {
       let myRec;
       let stockRec;
       this.myRecipe.subscribe(val => {
-        console.log('VALUE', val);
+        // console.log('VALUE', val);
         myRec = val;
         stockRec = this.stockRecipe;
         this.showHideStockRecipe(event, myRec, stockRec);
@@ -239,7 +241,7 @@ export class HomeComponent implements OnInit {
   }
 
   deleteRecipe(item): void {
-    console.log('deleting', item);
+    // console.log('deleting', item);
     const deleteRef = this.dialog.open(ConfirmationDialogComponent, {
       height: '200px',
       width: '500px',
@@ -251,13 +253,13 @@ export class HomeComponent implements OnInit {
     });
     deleteRef.afterClosed().subscribe(decision => {
       if (decision) {
-        console.log('deleting', item);
+        // console.log('deleting', item);
         this.recipeServiceService.deleteRecipe(item.recipeId, item.partyId).subscribe(res => {
-          console.log('deleted_successfully', res);
+          // console.log('deleted_successfully', res);
           this.openSnackBar('Deleted successfully', '');
           this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
         }, error => {
-          console.log('delete_failed', error);
+          // console.log('delete_failed', error);
           this.openSnackBar('Deleted failed', '');
         });
       }
@@ -271,10 +273,10 @@ export class HomeComponent implements OnInit {
   }
 
   recipeAdded(event, item): void {
-    console.log('isChecked', event.checked);
-    console.log('item', item);
+    // console.log('isChecked', event.checked);
+    // console.log('item', item);
     const currentSelected = this.activeUserSingletonService.activeUserSelectedRecipe.value;
-    console.log('current_list', currentSelected);
+    // console.log('current_list', currentSelected);
     if (event.checked) {
       currentSelected.push(item);
     } else {
@@ -284,7 +286,7 @@ export class HomeComponent implements OnInit {
     this.activeUserSingletonService.activeUserSelectedRecipe.next(currentSelected);
     localStorage.setItem('selectedRecipe', JSON.stringify(currentSelected));
     this.selectedRecipes = currentSelected;
-    console.log('now_list', currentSelected);
+    // console.log('now_list', currentSelected);
   }
 
   checkLocalStorage(): void {
@@ -303,13 +305,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getLoggedInDetail(event): void {
-    console.log('EVENT', event);
-  }
+
 
   getAllRecipes1(): void {
     this.recipeService.getAllRecipes().subscribe(value => {
-      console.log('recipe from backend', value);
+      console.log('resipees', value);
+      if (value.status === 200) {
+        this.recipeInDisplay = value.recipes;
+      }
     });
   }
 
