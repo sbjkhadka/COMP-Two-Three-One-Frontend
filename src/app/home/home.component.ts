@@ -10,6 +10,7 @@ import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component'
 import {ConfirmationDialogComponent} from './generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ThemeService} from '../shared-services/theme.service';
+import {RecipeService} from '../shared-services/recipe.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
     public activeUserSingletonService: ActiveUserSingletonService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private themeService: ThemeService) {
+    private themeService: ThemeService,
+    private recipeService: RecipeService) {
     this.confirmUserLoginAfterPageReload();
     this.getListOfUsers();
   }
@@ -303,6 +305,12 @@ export class HomeComponent implements OnInit {
 
   getLoggedInDetail(event): void {
     console.log('EVENT', event);
+  }
+
+  getAllRecipes1(): void {
+    this.recipeService.getAllRecipes().subscribe(value => {
+      console.log('recipe from backend', value);
+    });
   }
 
 
