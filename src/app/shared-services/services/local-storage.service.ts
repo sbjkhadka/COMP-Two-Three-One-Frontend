@@ -50,6 +50,7 @@ export class LocalStorageService {
   // logs out user
   logout(): boolean {
     localStorage.removeItem('token');
+    localStorage.removeItem('logged_in_user');
     return !localStorage.getItem('token');
   }
 

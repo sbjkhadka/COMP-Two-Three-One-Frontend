@@ -7,6 +7,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
 import {InfoDialog} from '../shared-models/info-dialog.model';
 import {ThemeService} from '../shared-services/theme.service';
+import {SessionStorageService} from '../shared-services/session-storage.service';
 
 @Component({
   selector: 'app-angular-login',
@@ -19,7 +20,8 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
   constructor(private angularLoginService: AngularLoginService,
               private localStorageService: LocalStorageService,
               public dialog: MatDialog,
-              private themeService: ThemeService) { }
+              private themeService: ThemeService,
+              private sessionStorageService: SessionStorageService) { }
   credentials = {
     email: '',
     password: ''
@@ -67,12 +69,15 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.value.email && this.loginForm.value.password) {
       this.angularLoginService.signIn(this.credentials).subscribe(value => {
         if (value && value.accessToken) {
-          this.localStorageService.setItem('logged_in_user', JSON.stringify(value));
-          this.localStorageService.setToken(value.accessToken);
+          // this.localStorageService.setItem('logged_in_user', JSON.stringify(value));
+          // this.localStorageService.setToken(value.accessToken);
+          this.sessionStorageService.setItem('logged_in_user', JSON.stringify(value));
+          this.sessionStorageService.setToken(value.accessToken);
         }
 
         if (value && value.refreshToken) {
-          this.localStorageService.setRefreshToken(value.refreshToken);
+          // this.localStorageService.setRefreshToken(value.refreshToken);
+          this.sessionStorageService.setRefreshToken(value.refreshToken);
         }
         window.location.href = '/home';
       });
