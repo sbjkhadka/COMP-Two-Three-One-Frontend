@@ -3,8 +3,8 @@ import {FirebaseService} from '../../shared-services/services/firebase.service';
 import {RecipeServiceService} from '../../shared-services/recipe-service.service';
 import {ActiveUserSingletonService} from '../../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
-import {FormControl} from '@angular/forms';
 import {MyGroceryListComponent} from './my-grocery-list/my-grocery-list.component';
+import {ThemeService} from '../../shared-services/theme.service';
 
 @Component({
   selector: 'app-my-recipe-list',
@@ -12,15 +12,15 @@ import {MyGroceryListComponent} from './my-grocery-list/my-grocery-list.componen
   styleUrls: ['./my-recipe-list.component.css']
 })
 export class MyRecipeListComponent implements OnInit {
-
+  theme: string;
   constructor(
     public firebaseService: FirebaseService,
     public recipeServiceService: RecipeServiceService,
     public activeUserSingletonService: ActiveUserSingletonService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    private themeService: ThemeService) {
     this.confirmUserLoginAfterPageReload();
     this.recipeList = JSON.parse(localStorage.getItem('selectedRecipe'));
-    console.log('recipe_list_in_list', this.recipeList);
     this.initializeQuantity();
   }
 
@@ -31,6 +31,9 @@ export class MyRecipeListComponent implements OnInit {
   isDialogOpened = false;
 
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
   }
 
   initializeQuantity(): void {
@@ -41,6 +44,7 @@ export class MyRecipeListComponent implements OnInit {
     //   console.log('quantity_list_exists', this.quantityList);
     // } else {
       this.quantityList = [];
+    // tslint:disable-next-line:prefer-for-of
       for (let i = 0; i < this.recipeList.length; i++) {
         this.quantityList.push({
           recipeId: this.recipeList[i].recipeId,
@@ -78,6 +82,7 @@ export class MyRecipeListComponent implements OnInit {
     const quantity = JSON.parse(localStorage.getItem('quantity'));
     const selectedRecipe = JSON.parse(localStorage.getItem('selectedRecipe'));
 
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < selectedRecipe.length; i++) {
       const index = quantity.findIndex(list => list.recipeId === selectedRecipe[i].recipeId);
       selectedRecipe[i].quantity = quantity[index].quantity;
@@ -115,5 +120,4 @@ export class MyRecipeListComponent implements OnInit {
     this.quantityList.splice(index1, 1);
     localStorage.setItem('quantity', JSON.stringify(this.quantityList));
   }
-
 }

@@ -1,41 +1,72 @@
-import { Component } from '@angular/core';
-import {ActiveUserSingletonService} from './shared-services/active-user-singleton.service';
-import {BehaviorSubject} from 'rxjs';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FirebaseService} from './shared-services/services/firebase.service';
+import {AngularLoginService} from './shared-services/services/angular-login.service';
+import {LocalStorageService} from './shared-services/services/local-storage.service';
+import {ThemeService} from './shared-services/theme.service';
+import {FormGroup} from '@angular/forms';
+import {SessionStorageService} from './shared-services/session-storage.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'COMP-Two-Three-One-Frontend';
-
   loggedInUser;
-  loggedInUserDetails;
-  constructor(public activeUserSingletonService: ActiveUserSingletonService,
-              public firebaseService: FirebaseService) {
+  theme: string;
+  fg: FormGroup;
+  constructor(public firebaseService: FirebaseService,
+              private angularLoginService: AngularLoginService,
+              private localStorageService: LocalStorageService,
+              private themeService: ThemeService,
+              private sessionStorageService: SessionStorageService) {
 
-
-    this.activeUserSingletonService.activeUser.subscribe(user => {
-      console.log('changed', user);
-      this.loggedInUser = user;
+  }
+  color = document.documentElement.style.getPropertyValue('--mainColor');
+  // @HostListener('window:onbeforeunload', ['$event'])
+  // clearLocalStorage(event): void{
+  //   alert('hello');
+  //   this.localStorageService.removeToken();
+  //   this.localStorageService.removeRefreshToken();
+  //   this.localStorageService.logout();
+  // }
+  ngOnInit(): void {
+    // this.loggedInUser =  JSON.parse(localStorage.getItem('logged_in_user'));
+    this.loggedInUser =  JSON.parse(sessionStorage.getItem('logged_in_user'));
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
     });
 
-    this.activeUserSingletonService.activeUserDetails.subscribe(userDetails => {
-      this.loggedInUserDetails = userDetails;
+    this.themeService.themeColor.subscribe(value => {
+      document.documentElement.style.setProperty('--mainColor', value);
     });
-
   }
 
   logout(): any {
-    localStorage.removeItem('user');
-    localStorage.removeItem('selectedRecipe');
-    localStorage.removeItem('quantity');
-    this.activeUserSingletonService.activeUser.next(null);
-    this.activeUserSingletonService.activeUserDetails.next(null);
-    this.activeUserSingletonService.activeUserRecipe.next(null);
-    this.activeUserSingletonService.activeUserSelectedRecipe.next([]);
-    this.firebaseService.logOut();
+    // localStorage.removeItem('logged_in_user');
+    sessionStorage.removeItem('logged_in_user');
+    // this.localStorageService.removeToken();
+    // this.localStorageService.removeRefreshToken();
+    // this.angularLoginService.logout();
+    this.sessionStorageService.removeToken();
+    this.sessionStorageService.removeRefreshToken();
+    this.angularLoginService.logout();
   }
+
+  switchTheme(): void {
+    this.themeService.switchTheme();
+    document.documentElement.style.getPropertyValue('--mainColor');
+  }
+
+  colorChanged(event: any): void {
+    this.themeService.changeThemeColor(event);
+  }
+
+  switchToDefaultTheme(): void {
+    this.themeService.changeThemeColor(this.themeService.getDefaultThemeColor());
+  }
+
+
+
 }

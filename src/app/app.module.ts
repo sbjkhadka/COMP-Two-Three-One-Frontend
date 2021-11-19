@@ -7,7 +7,6 @@ import {AngularFireModule} from '@angular/fire';
 import {FirebaseService} from './shared-services/services/firebase.service';
 import { RegisterAuthComponent } from './register-auth/register-auth.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AuthenticationService} from './shared-services/authentication.service';
 import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -43,14 +42,21 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
-
+import { AngularLoginComponent } from './angular-login/angular-login.component';
+import {AuthGuard} from './shared-services/services/auth.guard';
+import {NgxCaptchaModule} from 'ngx-captcha';
+import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
+import {ColorPickerModule} from 'ngx-color-picker';
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'myRecipe', component: MyRecipeListComponent},
-  {path: 'calorieChecker', component: CalorieCheckerComponent}
+
+  {path: 'login', component: AngularLoginComponent, pathMatch: 'full'},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
+  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]}
 ];
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,45 +73,48 @@ const routes: Routes = [
     MyGroceryListComponent,
     PrintMyGroceryComponent,
     CalorieCheckerComponent,
+    AngularLoginComponent,
+    InfoDialogComponent,
   ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(routes),
-        AngularFireModule.initializeApp(
-            {
-                apiKey: 'AIzaSyBt1aASZOPZ2em0G1IVGxOMN0iJM3wseo8',
-                authDomain: 'grocery-admin-9bc92.firebaseapp.com',
-                projectId: 'grocery-admin-9bc92',
-                storageBucket: 'grocery-admin-9bc92.appspot.com',
-                messagingSenderId: '895704770040',
-                appId: '1:895704770040:web:65d862dacb4c2ec9fa220d'
-            }
-        ),
-        FormsModule,
-        BrowserAnimationsModule,
-        MatDialogModule,
-        HttpClientModule,
-        MatIconModule,
-        MatToolbarModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatTooltipModule,
-        MatSelectModule,
-        MatAutocompleteModule,
-        MatProgressSpinnerModule,
-        MatSnackBarModule,
-        MatCheckboxModule,
-        NgxPrintModule,
-        MatSlideToggleModule,
-        MatDatepickerModule,
-        MatButtonToggleModule,
-        MatNativeDateModule,
-        MatRadioModule
-    ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(
+      {
+        apiKey: 'AIzaSyBt1aASZOPZ2em0G1IVGxOMN0iJM3wseo8',
+        authDomain: 'grocery-admin-9bc92.firebaseapp.com',
+        projectId: 'grocery-admin-9bc92',
+        storageBucket: 'grocery-admin-9bc92.appspot.com',
+        messagingSenderId: '895704770040',
+        appId: '1:895704770040:web:65d862dacb4c2ec9fa220d'
+      }
+    ),
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    HttpClientModule,
+    MatIconModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule,
+    MatCheckboxModule,
+    NgxPrintModule,
+    MatSlideToggleModule,
+    MatDatepickerModule,
+    MatButtonToggleModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    NgxCaptchaModule,
+    ColorPickerModule
+  ],
   providers: [FirebaseService,
-              AuthenticationService,
               RecipeServiceService,
               ActiveUserSingletonService],
   bootstrap: [AppComponent]

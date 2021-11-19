@@ -17,4 +17,5 @@ export class ActiveUserSingletonService {
   activeUserRecipe = new BehaviorSubject<any[]>(null);
   adminUserRecipe = new BehaviorSubject<any[]>(null);
   activeUserSelectedRecipe = new BehaviorSubject<any[]>([]);
+  activeUserDetailsFromDB = new BehaviorSubject<any>(null);
 }

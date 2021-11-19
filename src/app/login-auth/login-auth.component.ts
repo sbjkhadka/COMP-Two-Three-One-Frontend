@@ -3,6 +3,8 @@ import {FirebaseService} from '../shared-services/services/firebase.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {FormControl, FormGroup} from '@angular/forms';
+import {RecipeServiceService} from '../shared-services/recipe-service.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-login-auth',
@@ -13,10 +15,10 @@ export class LoginAuthComponent implements OnInit {
 
   isSignedIn = false;
   @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   public loginForm: FormGroup;
   constructor(public firebaseService: FirebaseService,
-              public dialog: MatDialog) {
+              public dialog: MatDialog,
+              public recipeServiceService: RecipeServiceService) {
     this.initializeForm();
   }
 

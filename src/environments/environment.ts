@@ -7,6 +7,13 @@ export const environment = {
   base_url: 'http://localhost:8080/api/v1/',
 };
 
+export const environmentAngular = {
+  production: false,
+  base_url: 'http://localhost:3001/api/',
+};
+
+export const baseColor = '#F58634';
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

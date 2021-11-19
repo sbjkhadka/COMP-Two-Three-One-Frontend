@@ -1,10 +1,96 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%; font-family: 'Yuji Boku', serif; }
+body { margin: 0; font-family: 'Yuji Boku', serif; }
 .no-padding-container .mat-dialog-container {
   padding: 0 !important;
 }
 .cursor-pointer {
   cursor: pointer;
 }
+.menu-font-family {
+  font-family: 'Epilogue', sans-serif;
+}
+
+.heading-font-family {
+  font-family: 'Heebo', sans-serif;
+}
+
+
+/*Theme background*/
+.theme-bg {
+  background-color: var(--mainColor);
+  color: var(--mainFontColor);
+}
+.theme-dark-bg {
+  background-color: var(--grayColor);
+  color: var(--mainFontColor);
+}
+.theme-bg-inverse-navy {
+  color: var(--navyBlue);
+  background-color: var(--mainFontColor);
+}
+.theme-dark-bg-inverse {
+  color: var(--grayColor);
+  /*background-color: var(--mainFontColor);*/
+}
+/*Font on theme background*/
+.theme-font {
+  color: var(--mainFontColor);
+}
+.theme-dark-font {
+  color: var(--mainFontColor);
+}
+/*Color for open space*/
+.theme-main-bg {
+  background-color: var(--whiteColor);
+}
+.theme-dark-main-bg {
+  background-color: var(--mainFontColor);
+}
+ /*Color for images*/
+.image-color {
+
+}
+.image-dark {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+ /* Color for add recipe button*/
+.add-recipe-color {
+  color:var(--mainColor);
+}
+.add-recipe-dark-color {
+  color:var(--grayColor);
+}
+
+ /* extras */
+.theme-bg-lavender {
+  background-color: var(--lavender);
+  color: var(--mainFontColor);
+}
+
+.theme-bg-light-gray {
+  background-color: var(--lightGray);
+  color: var(--mainFontColor);
+}
+
+.theme-dark-bg-inverse-extra {
+  color: var(--grayColor);
+  border: 1px solid var(--grayColor);
+  /*background-color: var(--mainFontColor);*/
+}
+ :root {
+   --mainColor: #F58634;
+   /*--mainColor: red;*/
+   --mainFontColor: #FCF9EA;
+   --blackColor: #000;
+   --whiteColor: #FFF;
+   --grayColor: #696969;
+   --navyBlue: #000080;
+   --lavender: lavender;
+   --lightGray: #D3D3D3;
+ }
+
+
+

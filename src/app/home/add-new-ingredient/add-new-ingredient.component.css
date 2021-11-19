@@ -4,3 +4,18 @@
 .font-color-navy {
   color: navy;
 }
+
+::ng-deep .mat-focused .mat-form-field-label {
+  /*change color of label*/
+  color: black !important;
+}
+
+::ng-deep.mat-form-field-underline {
+  /*change color of underline*/
+  background-color: black !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+  /*change color of underline when focused*/
+  background-color: black !important;;
+}

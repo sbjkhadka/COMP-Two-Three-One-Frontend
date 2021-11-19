@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -20,9 +20,8 @@ export class RecipeServiceService {
         price: '0.5',
         recipePhoto: 'https://static.toiimg.com/photo/63185231.cms?width=500&resizemode=4&imgsize=135525',
         partyId: 'GJl6QwM6G8hnEl1mnlmguIRvnUs2',
-        roleId: 2,
-        roleName: 'Trainer',
-        recipeItemList: [
+        isGlobal: true,
+        recipeItem: [
           {
             itemId: 31,
             itemQuantity: '6',
@@ -77,13 +76,15 @@ export class RecipeServiceService {
   };
 
   getRecipeByPartyId(partyId: string): any {
-    return this.http.get<any>(environment.base_url + 'recipe/getAllRecipesByUserId?userId=' + partyId).pipe(catchError(error => {
-      return throwError(error);
-    }));
+    return this.getAllStockRecipe();
+    // Temporary commenting out this code until the backend people makes getRecipeebyEmail ready
+    // return this.http.get<any>(environment.base_url + 'recipe/getAllRecipesByUserId?userId=' + partyId).pipe(catchError(error => {
+    //   return throwError(error);
+    // }));
   }
 
   getAllStockRecipe(): any {
-    return this.http.get<any>('https://raw.githubusercontent.com/sbjkhadka/test-repo/master/stock').pipe(catchError(error => {
+    return this.http.get<any>('https://raw.githubusercontent.com/sbjkhadka/test-repo/master/admin_recipeV2.json').pipe(catchError(error => {
       return throwError(error);
     }));
   }
@@ -118,6 +119,19 @@ export class RecipeServiceService {
     const params = new HttpParams()
       .set('recipeId', recipeId);
     return this.http.put<any>(environment.base_url + 'recipe/updateRecipe', recipeObject, {params}).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  // Change this api
+  getAllRoles(): any {
+    return this.http.get<any>(environment.base_url + 'party/getAllMembers').pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get<any>(environment.base_url + 'party/getAllMembers').pipe(catchError(error => {
       return throwError(error);
     }));
   }

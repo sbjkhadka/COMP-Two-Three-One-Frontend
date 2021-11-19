@@ -9,6 +9,7 @@ import * as rxjsOps from 'rxjs/operators';
 import {MatAutocomplete} from '@angular/material/autocomplete';
 import {AddNewIngredientComponent} from '../home/add-new-ingredient/add-new-ingredient.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ThemeService} from '../shared-services/theme.service';
 
 @Component({
   selector: 'app-add-new-recipe',
@@ -16,7 +17,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./add-new-recipe.component.css']
 })
 export class AddNewRecipeComponent implements OnInit {
-
+  theme: string;
   // Related to recipe image
   recipeInstruction = new FormControl();
   imageLink = new FormControl();
@@ -43,7 +44,8 @@ export class AddNewRecipeComponent implements OnInit {
               private recipeServiceService: RecipeServiceService,
               public dialogRef: MatDialogRef<AddNewRecipeComponent>,
               public dialog: MatDialog,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private themeService: ThemeService) {
     this.imgSrc = this.defaultImage;
     this.getIngredientList();
     dialogRef.disableClose = true;
@@ -53,6 +55,9 @@ export class AddNewRecipeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
     this.prepareRow();
   }
 

@@ -1,35 +1,40 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-warning  sticky">
+<nav class="navbar navbar-expand-lg navbar-light sticky" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'" *ngIf="loggedInUser">
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto" >
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home  <span class="sr-only">(current)</span></a>
+        <a  class="nav-link theme-font menu-font-family" href="/home">Home  <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/myRecipe">Grocery List <span class="sr-only">(current)</span></a>
+        <a class="nav-link theme-font menu-font-family" routerLink="/myRecipe">Grocery List <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" routerLink="/calorieChecker">Calorie Checker <span class="sr-only">(current)</span></a>
+        <a class="nav-link menu-font-family" routerLink="/calorieChecker">Calorie Checker <span class="sr-only">(current)</span></a>
       </li>
-
-
-
 
     </ul>
     <div class="my-2 my-lg-0" *ngIf="loggedInUser">
-
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto pr-3">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{loggedInUserDetails.displayName || loggedInUserDetails.email}}
+          <a class="nav-link dropdown-toggle menu-font-family" href="#"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{loggedInUser.user.firstName || loggedInUser.user.email}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a href="#" class="dropdown-item" (click)="logout()">Logout</a>
+            <a class="dropdown-item menu-font-family  pl-1 pr-0"  >
+                  <input [style.background]="color"
+                         [colorPicker]="color"
+                         (colorPickerChange)="colorChanged($event)"
+                         placeholder="Custom Theme"
+                         style="border: 1px dotted transparent;width: 100%;"
+                         readonly />
+            </a>
+            <a class="dropdown-item menu-font-family pl-2 pr-0" (click)="switchToDefaultTheme()">Default Theme</a><br />
+            <a href="#" class="dropdown-item menu-font-family  pl-2 pr-0" (click)="logout()">Logout</a>
           </div>
         </li>
       </ul>
@@ -37,4 +42,12 @@
   </div>
 </nav>
 
+<div class="row fixed-bottom bg-transparent text-dark">
+  <div class="col-md-12 d-flex justify-content-start">
+    <mat-icon class="pl-3 pb-5 font-weight-bold theme-font"
+              style="cursor: pointer;transform: scale(4);"
+              (click)="switchTheme()"
+              [ngClass]="theme==='color'?'add-recipe-dark-color':'add-recipe-color'">color_lens</mat-icon>
+  </div>
+</div>
 <router-outlet></router-outlet>

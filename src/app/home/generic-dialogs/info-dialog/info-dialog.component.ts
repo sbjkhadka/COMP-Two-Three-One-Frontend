@@ -3,22 +3,21 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {ThemeService} from '../../../shared-services/theme.service';
 
 @Component({
-  selector: 'app-confirmation-dialog',
-  templateUrl: './confirmation-dialog.component.html',
-  styleUrls: ['./confirmation-dialog.component.css']
+  selector: 'app-info-dialog',
+  templateUrl: './info-dialog.component.html',
+  styleUrls: ['./info-dialog.component.css']
 })
-export class ConfirmationDialogComponent implements OnInit {
+export class InfoDialogComponent implements OnInit {
 
   theme: string;
-  itemName;
-  itemType;
-  constructor(
-    private dialogRef: MatDialogRef<ConfirmationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data,
-    private themeService: ThemeService) {
+  infoType: string;
+  infoName: string;
+  constructor(private dialogRef: MatDialogRef<InfoDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) data,
+              private themeService: ThemeService) {
     dialogRef.disableClose = true;
-    this.itemName = data.itemName;
-    this.itemType = data.itemType;
+    this.infoType = data.infoType;
+    this.infoName = data.infoName;
   }
 
   ngOnInit(): void {

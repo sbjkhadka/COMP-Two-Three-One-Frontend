@@ -1,0 +1,85 @@
+<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" [ngClass]="theme==='color'?'main-container':'main-container-dark'">
+  <div class="login-wrap opacity-50">
+    <div class="login-html">
+      <input id="tab-1" type="radio" class="sign-in" name="tab"  checked [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
+      <input id="tab-2" type="radio" class="for-pwd" name="tab" [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-2" class="tab cheat" >Forgot Password</label>
+      <div class="login-form">
+
+        <form class="sign-in-htm" [formGroup]="loginForm">
+          <div class="form-group group">
+            <label for="email" class="label">Username or Email</label>
+            <input type="text" #email id="email" class="form-control" formControlName="email"/>
+          </div>
+          <div class="form-group group">
+            <label for="password" class="label">Password</label>
+            <input type="password" id="password" class="form-control" formControlName="password"/>
+          </div>
+          <div class="hr"></div>
+          <div class="group">
+            <button type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
+          </div>
+        </form>
+
+        <form class="for-pwd-htm" *ngIf="displayedForm == 1" [formGroup]="forgotPasswordEmailForm">
+          <div class="group">
+            <label for="recEmail" class="label">Username or Email</label>
+            <input #email id="recEmail" type="text" class="input" formControlName="email">
+            <small [class.d-none]="forgotPasswordEmailError">&nbsp;</small>
+            <small class="text-light" [class.d-none]="!forgotPasswordEmailError">Please check your email!</small>
+          </div>
+
+          <div class="hr"></div>
+          <div class="group">
+            <button type="submit" value="Reset Password" (click)="onReset(2)" [ngClass]="theme==='color'?'button':'button-dark'">Next</button>
+          </div>
+
+        </form>
+
+        <form class="for-pwd-htm" *ngIf="displayedForm==2" [formGroup]="forgotPasswordSecurityQuestionForm">
+          <div class="group">
+            <label for="question" class="label">Question</label>
+            <input id="question" type="text" class="input" formControlName="question" readonly>
+          </div>
+          <div class="group">
+            <label for="answer" class="label">Answer</label>
+            <input id="answer" type="text" class="input" formControlName="answer">
+            <small [class.d-none]="securityAnswerError">&nbsp;</small>
+            <small class="text-light" [class.d-none]="!securityAnswerError">Incorrect Response!</small>
+          </div>
+          <div class="hr"></div>
+          <div class="group">
+            <button type="submit" value="Reset Password" (click)="onReset(3)" [ngClass]="theme==='color'?'button':'button-dark'">Next</button>
+          </div>
+
+        </form>
+
+        <form class="for-pwd-htm" *ngIf="displayedForm==3" [formGroup]="forgotPasswordNewPasswordForm">
+          <div class="group">
+            <label for="newPassword1" class="label">New Password</label>
+            <input id="newPassword1" type="password" class="input" data-type="password" formControlName="newPassword1">
+          </div>
+          <div class="group">
+            <label for="newPassword2" class="label">Confirm Password</label>
+            <input id="newPassword2" type="password" class="input" data-type="password" formControlName="newPassword2">
+            <small [class.d-none]="resetPasswordError">&nbsp;</small>
+            <small class="text-light" [class.d-none]="!resetPasswordError">Passwords don't match!</small>
+            <small class="text-light" [class.d-none]="!resetPasswordAPIError">Something went wrong! Please try again!</small>
+          </div>
+          <div class="group">
+            <button type="submit" value="Reset Password" (click)="onReset(4)" [ngClass]="theme==='color'?'button':'button-dark'">Next</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="login-form">
+        <div class="group">
+          <input type="submit" value="Register Now" (click)="openRegistrationDialog()" [ngClass]="theme==='color'?'button':'button-dark'">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+

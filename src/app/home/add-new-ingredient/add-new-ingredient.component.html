@@ -1,9 +1,9 @@
 <div [formGroup]="ingredientForm" class="container-fluid h-100">
 
 
-  <div class="row bg-warning">
-    <div class="col-md-12 myClass font-color-navy">
-      <u>Add New Ingredient</u>
+  <div class="row"  [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'">
+    <div class="col-md-12 myClass" [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">
+      <u style="color: whitesmoke">Add New Ingredient</u>
     </div>
   </div>
 
@@ -36,10 +36,10 @@
 
 
       <div class="col-md-1 d-flex align-items-center justify-content-end">
-        <button class="btn btn-primary btn-sm d-flex align-items-center" (click)="createIngredient()"><mat-icon>save</mat-icon></button>
+        <button class="btn btn-sm d-flex align-items-center" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'" (click)="createIngredient()"><mat-icon>save</mat-icon></button>
       </div>
       <div class="col-md-1 d-flex align-items-center justify-content-end">
-        <button class="btn btn-danger btn-sm d-flex align-items-center" (click)="close()"><mat-icon>close</mat-icon></button>
+        <button class="btn btn-sm d-flex align-items-center" [ngClass]="theme==='color'?'btn-danger':'theme-dark-bg'" (click)="close()"><mat-icon>close</mat-icon></button>
       </div>
 
   </div>
