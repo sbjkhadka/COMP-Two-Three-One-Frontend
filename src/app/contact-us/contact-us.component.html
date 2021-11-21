@@ -1,5 +1,5 @@
-<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center">
-  <div class="contactus-form" >
+<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" [ngClass]="theme==='color'?'main-container':'main-container-dark'">
+  <div class="contactus-form">
     <form style="width: 800px"> <!-- [formGroup]="contactUsForm" -->
       <div class="form-group group">
         <mat-form-field appearance="outline">
@@ -14,7 +14,7 @@
       <div class="form-group group">
         <mat-form-field appearance="outline" class="mat-form-field">
           <mat-label>Message</mat-label>
-          <textarea matInput rows="20" cols="100" formControlName="message"></textarea>
+          <textarea matInput rows="15" cols="100" formControlName="message"></textarea>
         </mat-form-field>
       </div>
       <div class="form-group group">
