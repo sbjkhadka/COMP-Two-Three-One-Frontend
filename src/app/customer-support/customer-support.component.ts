@@ -4,11 +4,11 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
-  selector: 'app-customer-support-feedback',
-  templateUrl: './customer-support-feedback.component.html',
-  styleUrls: ['./customer-support-feedback.component.css']
+  selector: 'app-customer-support',
+  templateUrl: './customer-support.component.html',
+  styleUrls: ['./customer-support.component.css']
 })
-export class CustomerSupportFeedbackComponent implements AfterViewInit {
+export class CustomerSupportComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['id', 'firstname', 'lastname', 'feedback'];
   dataSource = new MatTableDataSource<Feedback>(DATA);

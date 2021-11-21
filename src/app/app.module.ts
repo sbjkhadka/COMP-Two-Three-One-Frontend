@@ -45,6 +45,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { AngularLoginComponent } from './angular-login/angular-login.component';
 import {AuthGuard} from './shared-services/services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
+// @ts-ignore
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
 import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
@@ -52,7 +53,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {MatSortModule} from '@angular/material/sort';
-import { CustomerSupportFeedbackComponent } from './customer-support-feedback/customer-support-feedback.component';
+import { CustomerSupportComponent } from './customer-support/customer-support.component';
 
 const routes: Routes = [
 
@@ -63,7 +64,7 @@ const routes: Routes = [
   {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
   {path: 'listOfUsers', component: ListOfUsersComponent, pathMatch: 'full'},
   {path: 'contactus', component: ContactUsComponent, pathMatch: 'full'},
-  {path: 'csfeedback', component: CustomerSupportFeedbackComponent, pathMatch: 'full'},
+  {path: 'customersupport', component: CustomerSupportComponent, pathMatch: 'full'},
 ];
 // @ts-ignore
 @NgModule({
@@ -86,7 +87,7 @@ const routes: Routes = [
     InfoDialogComponent,
     ListOfUsersComponent,
     ContactUsComponent,
-    CustomerSupportFeedbackComponent,
+    CustomerSupportComponent,
   ],
   imports: [
     BrowserModule,
