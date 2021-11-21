@@ -5,6 +5,10 @@ import {MatTableDataSource} from '@angular/material/table';
 import fontawesome from '@fortawesome/fontawesome';
 import faTrashAlt from '@fortawesome/fontawesome-free-regular/';
 import {ThemeService} from '../shared-services/theme.service';
+import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
+import {MatDialog} from '@angular/material/dialog';
+import {CustomerSupportDetailsComponent} from '../customer-support-details/customer-support-details.component';
+import {DeleteUserComponent} from '../delete-user/delete-user.component';
 
 @Component({
   selector: 'app-list-of-users',
@@ -13,11 +17,14 @@ import {ThemeService} from '../shared-services/theme.service';
 })
 
 export class ListOfUsersComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'role', 'securityquestion', 'delete'];
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'role', 'securityquestion', 'delete', 'more'];
   dataSource = new MatTableDataSource<User>(DATA);
   theme: string;
 
-  constructor(private themeService: ThemeService){
+  constructor(
+    private themeService: ThemeService,
+    public dialog: MatDialog,
+  ){
     fontawesome.library.add(faTrashAlt);
   }
 
@@ -40,6 +47,21 @@ export class ListOfUsersComponent implements OnInit, AfterViewInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  itemClicked(item: any): void {
+    console.log('item.title' + item.title);
+    const dialogRef = this.dialog.open(DeleteUserComponent,
+      {
+        height: '170px',
+        width: '500px',
+        panelClass: 'no-padding-container',
+        data: {
+          selectedRecipe: item
+        }
+      }
+    );
+  }
+
 }
 
 export interface User {

@@ -54,6 +54,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {MatSortModule} from '@angular/material/sort';
 import { CustomerSupportComponent } from './customer-support/customer-support.component';
+import { CustomerSupportDetailsComponent } from './customer-support-details/customer-support-details.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 const routes: Routes = [
 
@@ -88,6 +90,8 @@ const routes: Routes = [
     ListOfUsersComponent,
     ContactUsComponent,
     CustomerSupportComponent,
+    CustomerSupportDetailsComponent,
+    DeleteUserComponent,
   ],
   imports: [
     BrowserModule,
