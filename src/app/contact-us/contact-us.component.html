@@ -1,0 +1,25 @@
+<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center">
+  <div class="contactus-form" >
+    <form style="width: 800px"> <!-- [formGroup]="contactUsForm" -->
+      <div class="form-group group">
+        <mat-form-field appearance="outline">
+          <mat-label>Select</mat-label>
+          <mat-select [(ngModel)]="selectedType" name="type">
+            <mat-option *ngFor="let type of types" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group group">
+        <mat-form-field appearance="outline" class="mat-form-field">
+          <mat-label>Message</mat-label>
+          <textarea matInput rows="20" cols="100" formControlName="message"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-group group">
+        <button type="submit" value="Sign In" (click)="onSend()" [ngClass]="theme==='color'?'button':'button-dark'">Send</button>
+      </div>
+    </form>
+  </div>
+</div>

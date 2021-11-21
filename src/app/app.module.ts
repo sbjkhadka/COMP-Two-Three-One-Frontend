@@ -47,6 +47,11 @@ import {AuthGuard} from './shared-services/services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import {MatSortModule} from '@angular/material/sort';
 
 const routes: Routes = [
 
@@ -54,7 +59,9 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
-  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]}
+  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
+  {path: 'listOfUsers', component: ListOfUsersComponent, pathMatch: 'full'},
+  {path: 'contactus', component: ContactUsComponent, pathMatch: 'full'},
 ];
 // @ts-ignore
 @NgModule({
@@ -75,6 +82,8 @@ const routes: Routes = [
     CalorieCheckerComponent,
     AngularLoginComponent,
     InfoDialogComponent,
+    ListOfUsersComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +121,10 @@ const routes: Routes = [
     MatNativeDateModule,
     MatRadioModule,
     NgxCaptchaModule,
-    ColorPickerModule
+    ColorPickerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
   ],
   providers: [FirebaseService,
               RecipeServiceService,

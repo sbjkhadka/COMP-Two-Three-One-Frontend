@@ -55,13 +55,13 @@ a{color:inherit;text-decoration:none}
 }
 .login-html .sign-in,
 .login-html .for-pwd,
-.login-form .group .check{
+.contactus-form .group .check{
   display:none;
 }
 .login-html .tab,
-.login-form .group .label,
-.login-form .group .button,
-.login-form .group .button-dark{
+.contactus-form .group .label,
+.contactus-form .group .button,
+.contactus-form .group .button-dark{
   text-transform:uppercase;
 }
 .login-html .tab{
@@ -81,7 +81,7 @@ a{color:inherit;text-decoration:none}
   color:#fff;
   border-color:var(--grayColor);
 }
-.login-form{
+.contactus-form{
   margin-top:30px;
   min-height:345px;
   position:relative;
@@ -90,44 +90,44 @@ a{color:inherit;text-decoration:none}
   -webkit-transform-style:preserve-3d;
   transform-style:preserve-3d;
 }
-.login-form .group{
+.contactus-form .group{
   margin-bottom:15px;
 }
-.login-form .group .label,
-.login-form .group .input,
-.login-form .group .button,
-.login-form .group .button-dark{
+.contactus-form .group .label,
+.contactus-form .group .input,
+.contactus-form .group .button,
+.contactus-form .group .button-dark{
   width:100%;
   color:#fff;
   display:block;
 }
-.login-form .group .input,
-.login-form .group .button,
-.login-form .group .button-dark{
+.contactus-form .group .input,
+.contactus-form .group .button,
+.contactus-form .group .button-dark{
   border:none;
   padding:15px 20px;
   border-radius:25px;
   background:rgba(255,255,255,.1);
 }
-.login-form .group input[data-type="password"]{
+.contactus-form .group input[data-type="password"]{
   text-security:circle;
   -webkit-text-security:circle;
 }
-.login-form .group .label{
+.contactus-form .group .label{
   color:#c0c0c0;
   font-size:18px;
 }
-.login-form .group .button{
+.contactus-form .group .button{
   /*background:#F58634;*/
   background-color: var(--mainColor);
   font-size:18px;
 }
-.login-form .group .button-dark{
+.contactus-form .group .button-dark{
   background: var(--grayColor);
   font-size:18px;
 }
 
-.login-form .group label .icon{
+.contactus-form .group label .icon{
   width:15px;
   height:15px;
   border-radius:2px;
@@ -135,8 +135,8 @@ a{color:inherit;text-decoration:none}
   display:inline-block;
   background:rgba(255,255,255,.1);
 }
-.login-form .group label .icon:before,
-.login-form .group label .icon:after{
+.contactus-form .group label .icon:before,
+.contactus-form .group label .icon:after{
   content:'';
   width:10px;
   height:2px;
@@ -145,38 +145,38 @@ a{color:inherit;text-decoration:none}
   -webkit-transition:all .2s ease-in-out 0s;
   transition:all .2s ease-in-out 0s;
 }
-.login-form .group label .icon:before{
+.contactus-form .group label .icon:before{
   left:3px;
   width:5px;
   bottom:6px;
   -webkit-transform:scale(0) rotate(0);
   transform:scale(0) rotate(0);
 }
-.login-form .group label .icon:after{
+.contactus-form .group label .icon:after{
   top:6px;
   right:0;
   -webkit-transform:scale(0) rotate(0);
   transform:scale(0) rotate(0);
 }
-.login-form .group .check:checked + label{
+.contactus-form .group .check:checked + label{
   color:#fff;
 }
-.login-form .group .check:checked + label .icon{
+.contactus-form .group .check:checked + label .icon{
   background:#1161ee;
 }
-.login-form .group .check:checked + label .icon:before{
+.contactus-form .group .check:checked + label .icon:before{
   -webkit-transform:scale(1) rotate(45deg);
   transform:scale(1) rotate(45deg);
 }
-.login-form .group .check:checked + label .icon:after{
+.contactus-form .group .check:checked + label .icon:after{
   -webkit-transform:scale(1) rotate(-45deg);
   transform:scale(1) rotate(-45deg);
 }
-.login-html .sign-in:checked + .tab + .for-pwd + .tab + .login-form .sign-in-htm{
+.login-html .sign-in:checked + .tab + .for-pwd + .tab + .contactus-form .sign-in-htm{
   -webkit-transform:rotate(0);
   transform:rotate(0);
 }
-.login-html .for-pwd:checked + .tab + .login-form .for-pwd-htm{
+.login-html .for-pwd:checked + .tab + .contactus-form .for-pwd-htm{
   -webkit-transform:rotate(0);
   transform:rotate(0);
 }
@@ -203,6 +203,4 @@ input {
   color: whitesmoke;
 }
 
-mat-form-field {
-  width: 100%;
-}
+.mat-form-field{ width: 100%; }
