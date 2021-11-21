@@ -1,22 +1,30 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {ThemeService} from '../shared-services/theme.service';
 
 @Component({
   selector: 'app-customer-support',
   templateUrl: './customer-support.component.html',
   styleUrls: ['./customer-support.component.css']
 })
-export class CustomerSupportComponent implements AfterViewInit {
+export class CustomerSupportComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'feedback'];
-  dataSource = new MatTableDataSource<Feedback>(DATA);
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'status'];
+  dataSource = new MatTableDataSource<Status>(DATA);
+  theme: string;
 
-  constructor() { }
+  constructor(private themeService: ThemeService) { }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
+  }
 
   // tslint:disable-next-line:typedef
   ngAfterViewInit() {
@@ -31,32 +39,32 @@ export class CustomerSupportComponent implements AfterViewInit {
 
 }
 
-export interface Feedback {
+export interface Status {
   id: string;
   firstname: string;
   lastname: string;
-  feedback: string;
+  status: string;
 }
 
-const DATA: Feedback[] = [
-  {id: 'id1', firstname: 'A', lastname: 'Smith', feedback: 'AAA'},
-  {id: 'id2', firstname: 'B', lastname: 'Smith', feedback: 'AAA'},
-  {id: 'id3', firstname: 'C', lastname: 'Smith', feedback: 'BBB'},
-  {id: 'id4', firstname: 'D', lastname: 'Smith', feedback: 'BBB'},
-  {id: 'id5', firstname: 'E', lastname: 'Smith', feedback: 'BBB'},
-  {id: 'id6', firstname: 'F', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id7', firstname: 'G', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id8', firstname: 'H', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id9', firstname: 'I', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id10', firstname: 'J', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id11', firstname: 'K', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id12', firstname: 'L', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id13', firstname: 'M', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id14', firstname: 'N', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id15', firstname: 'O', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id16', firstname: 'P', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id17', firstname: 'Q', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id18', firstname: 'R', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id19', firstname: 'S', lastname: 'Smith', feedback: 'CCC'},
-  {id: 'id20', firstname: 'T', lastname: 'Smith', feedback: 'CCC'},
+const DATA: Status[] = [
+  {id: 'id1', firstname: 'A', lastname: 'Smith', status: 'Closed'},
+  {id: 'id2', firstname: 'B', lastname: 'Smith', status: 'Closed'},
+  {id: 'id3', firstname: 'C', lastname: 'Smith', status: 'Closed'},
+  {id: 'id4', firstname: 'D', lastname: 'Smith', status: 'Closed'},
+  {id: 'id5', firstname: 'E', lastname: 'Smith', status: 'Closed'},
+  {id: 'id6', firstname: 'F', lastname: 'Smith', status: 'Closed'},
+  {id: 'id7', firstname: 'G', lastname: 'Smith', status: 'Working'},
+  {id: 'id8', firstname: 'H', lastname: 'Smith', status: 'Working'},
+  {id: 'id9', firstname: 'I', lastname: 'Smith', status: 'Working'},
+  {id: 'id10', firstname: 'J', lastname: 'Smith', status: 'Working'},
+  {id: 'id11', firstname: 'K', lastname: 'Smith', status: 'Working'},
+  {id: 'id12', firstname: 'L', lastname: 'Smith', status: 'Working'},
+  {id: 'id13', firstname: 'M', lastname: 'Smith', status: 'Working'},
+  {id: 'id14', firstname: 'N', lastname: 'Smith', status: 'Working'},
+  {id: 'id15', firstname: 'O', lastname: 'Smith', status: 'Working'},
+  {id: 'id16', firstname: 'P', lastname: 'Smith', status: 'Working'},
+  {id: 'id17', firstname: 'Q', lastname: 'Smith', status: 'Working'},
+  {id: 'id18', firstname: 'R', lastname: 'Smith', status: 'Suspended'},
+  {id: 'id19', firstname: 'S', lastname: 'Smith', status: 'Suspended'},
+  {id: 'id20', firstname: 'T', lastname: 'Smith', status: 'Suspended'},
 ];

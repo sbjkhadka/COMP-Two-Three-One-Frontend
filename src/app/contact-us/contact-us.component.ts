@@ -24,7 +24,7 @@ export class ContactUsComponent implements OnInit {
 
   types: Type[] = [
     {value: 'support', viewValue: 'Support'},
-    {value: 'review', viewValue: 'Review'},
+    {value: 'feedback', viewValue: 'Feedback'},
   ];
 
   contactUsForm: FormGroup;

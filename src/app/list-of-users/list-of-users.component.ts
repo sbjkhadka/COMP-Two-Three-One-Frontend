@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import fontawesome from '@fortawesome/fontawesome';
 import faTrashAlt from '@fortawesome/fontawesome-free-regular/';
+import {ThemeService} from '../shared-services/theme.service';
 
 @Component({
   selector: 'app-list-of-users',
@@ -11,16 +12,23 @@ import faTrashAlt from '@fortawesome/fontawesome-free-regular/';
   styleUrls: ['./list-of-users.component.css']
 })
 
-export class ListOfUsersComponent implements AfterViewInit {
+export class ListOfUsersComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'firstname', 'lastname', 'role', 'securityquestion', 'delete'];
   dataSource = new MatTableDataSource<User>(DATA);
+  theme: string;
 
-  constructor(){
+  constructor(private themeService: ThemeService){
     fontawesome.library.add(faTrashAlt);
   }
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  ngOnInit(): void {
+    this.themeService.theme.subscribe(value => {
+      this.theme = value;
+    });
+  }
 
   // tslint:disable-next-line:typedef
   ngAfterViewInit() {

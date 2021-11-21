@@ -1,5 +1,4 @@
-<div class="mat-elevation-z8">
-
+<div [ngClass]="theme==='color'?'main-container':'main-container-dark'"> <!-- class="mat-elevation-z8" -->
   <table>
     <td style="padding-top: 20px">
       <mat-form-field>
@@ -7,7 +6,7 @@
       </mat-form-field>
     </td>
   </table>
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort >
 
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -27,18 +26,19 @@
       <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
     </ng-container>
 
-    <!-- Role Column -->
-    <ng-container matColumnDef="feedback">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Feedback </th>
-      <td mat-cell *matCellDef="let element"> {{element.feedback}} </td>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-
   <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
 </div>
+
+
