@@ -1,3 +1,21 @@
+<div class="overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" [ngClass]="theme==='color'?'main-container':'main-container-dark'">
+  <div class="details-form">
+    <form style="width: 800px"> <!-- [formGroup]="contactUsForm" -->
+      <div class="form-group group" style="margin-top: 20px">
+        <mat-form-field appearance="outline" class="mat-form-field">
+          <mat-label>Ticket ID</mat-label>
+          <input matInput formControlName="ticketid">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="mat-form-field">
+          <mat-label>Message</mat-label>
+          <textarea matInput rows="10" cols="100" formControlName="message"></textarea>
+        </mat-form-field>
+        <button type="submit" value="Add" (click)="onSend()" [ngClass]="theme==='color'?'button':'button-dark'">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div [ngClass]="theme==='color'?'main-container':'main-container-dark'"> <!-- class="mat-elevation-z8" -->
   <table>
     <td style="padding-top: 20px">
@@ -8,31 +26,31 @@
   </table>
   <table mat-table [dataSource]="dataSource" matSort >
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="messageid">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Message ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.messageid}} </td>
+    <!-- Time Column -->
+    <ng-container matColumnDef="timestamp">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
     </ng-container>
 
-    <!-- First Name Column -->
+    <!-- FTicket ID Column -->
     <ng-container matColumnDef="ticketid">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Ticket ID </th>
       <td mat-cell *matCellDef="let element"> {{element.ticketid}} </td>
     </ng-container>
 
-    <!-- Last Name Column -->
+    <!-- User ID Column -->
     <ng-container matColumnDef="userid">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> User ID </th>
       <td mat-cell *matCellDef="let element"> {{element.userid}} </td>
     </ng-container>
 
-    <!-- Status Column -->
+    <!-- Full Name Column -->
     <ng-container matColumnDef="fullname">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Full Name </th>
       <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
     </ng-container>
 
-    <!-- More Column -->
+    <!-- Message Column -->
     <ng-container matColumnDef="message">
       <th mat-header-cell *matHeaderCellDef> Message </th>
       <td mat-cell *matCellDef="let element"> {{element.message}} </td>

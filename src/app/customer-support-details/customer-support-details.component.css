@@ -18,3 +18,37 @@ mat-paginator {
 .main-container-dark {
   filter: grayscale(100%);
 }
+
+.main-container {
+}
+.main-container-dark {
+  filter: grayscale(100%);
+}
+
+.details-form .group .label,
+.details-form .group .input,
+.details-form .group .button,
+.details-form .group .button-dark{
+  width:100%;
+  color:#fff;
+  display:block;
+}
+.details-form .group .input,
+.details-form .group .button,
+.details-form .group .button-dark{
+  border:none;
+  padding:15px 20px;
+  border-radius:25px;
+  background:rgba(255,255,255,.1);
+}
+
+.details-form .group .button{
+  background-color: var(--mainColor);
+  font-size:18px;
+}
+.details-form .group .button-dark{
+  background: var(--grayColor);
+  font-size:18px;
+}
+
+.mat-form-field{ width: 100%; }
