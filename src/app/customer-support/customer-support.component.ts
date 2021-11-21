@@ -11,7 +11,7 @@ import {ThemeService} from '../shared-services/theme.service';
 })
 export class CustomerSupportComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'status'];
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'status', 'more'];
   dataSource = new MatTableDataSource<Status>(DATA);
   theme: string;
 
@@ -35,6 +35,10 @@ export class CustomerSupportComponent implements OnInit, AfterViewInit {
   // tslint:disable-next-line:typedef
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openDetails(): void {
+    window.location.href = '/customersupportdetails';
   }
 
 }
@@ -68,3 +72,4 @@ const DATA: Status[] = [
   {id: 'id19', firstname: 'S', lastname: 'Smith', status: 'Suspended'},
   {id: 'id20', firstname: 'T', lastname: 'Smith', status: 'Suspended'},
 ];
+

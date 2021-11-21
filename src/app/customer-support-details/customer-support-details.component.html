@@ -1,1 +1,50 @@
-<p>customer-support-details works!</p>
+<div [ngClass]="theme==='color'?'main-container':'main-container-dark'"> <!-- class="mat-elevation-z8" -->
+  <table>
+    <td style="padding-top: 20px">
+      <mat-form-field>
+        <input (keyup)="applyFilter($event.target.value)" matInput placeholder="Filter">
+      </mat-form-field>
+    </td>
+  </table>
+  <table mat-table [dataSource]="dataSource" matSort >
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="messageid">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Message ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.messageid}} </td>
+    </ng-container>
+
+    <!-- First Name Column -->
+    <ng-container matColumnDef="ticketid">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Ticket ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.ticketid}} </td>
+    </ng-container>
+
+    <!-- Last Name Column -->
+    <ng-container matColumnDef="userid">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> User ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.userid}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="fullname">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Full Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.fullname}} </td>
+    </ng-container>
+
+    <!-- More Column -->
+    <ng-container matColumnDef="message">
+      <th mat-header-cell *matHeaderCellDef> Message </th>
+      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+
+

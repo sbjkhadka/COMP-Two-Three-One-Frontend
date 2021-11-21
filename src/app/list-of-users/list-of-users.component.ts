@@ -17,7 +17,7 @@ import {DeleteUserComponent} from '../delete-user/delete-user.component';
 })
 
 export class ListOfUsersComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'role', 'securityquestion', 'delete', 'more'];
+  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'role', 'securityquestion', 'delete'];
   dataSource = new MatTableDataSource<User>(DATA);
   theme: string;
 

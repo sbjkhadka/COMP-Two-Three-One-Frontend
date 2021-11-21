@@ -48,6 +48,7 @@ import {NgxCaptchaModule} from 'ngx-captcha';
 // @ts-ignore
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+// @ts-ignore
 import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -67,6 +68,7 @@ const routes: Routes = [
   {path: 'listOfUsers', component: ListOfUsersComponent, pathMatch: 'full'},
   {path: 'contactus', component: ContactUsComponent, pathMatch: 'full'},
   {path: 'customersupport', component: CustomerSupportComponent, pathMatch: 'full'},
+  {path: 'customersupportdetails', component: CustomerSupportDetailsComponent, pathMatch: 'full'},
 ];
 // @ts-ignore
 @NgModule({
