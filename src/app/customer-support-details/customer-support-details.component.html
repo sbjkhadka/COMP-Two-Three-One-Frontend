@@ -4,7 +4,7 @@
       <div class="form-group group" style="margin-top: 20px">
         <mat-form-field appearance="outline" class="mat-form-field">
           <mat-label>Ticket ID</mat-label>
-          <input matInput formControlName="ticketid">
+          <input matInput formControlName="ticketid" readonly>
         </mat-form-field>
         <mat-form-field appearance="outline" class="mat-form-field">
           <mat-label>Message</mat-label>
@@ -30,12 +30,6 @@
     <ng-container matColumnDef="timestamp">
       <th mat-header-cell mat-sort-header *matHeaderCellDef> Time </th>
       <td mat-cell *matCellDef="let element"> {{element.timestamp}} </td>
-    </ng-container>
-
-    <!-- FTicket ID Column -->
-    <ng-container matColumnDef="ticketid">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Ticket ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.ticketid}} </td>
     </ng-container>
 
     <!-- User ID Column -->

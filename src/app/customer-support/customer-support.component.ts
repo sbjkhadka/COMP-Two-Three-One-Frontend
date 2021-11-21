@@ -11,7 +11,7 @@ import {ThemeService} from '../shared-services/theme.service';
 })
 export class CustomerSupportComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['id', 'firstname', 'lastname', 'status', 'more'];
+  displayedColumns: string[] = ['ticketid', 'customerfullname', 'status', 'more'];
   dataSource = new MatTableDataSource<Status>(DATA);
   theme: string;
 
@@ -44,32 +44,31 @@ export class CustomerSupportComponent implements OnInit, AfterViewInit {
 }
 
 export interface Status {
-  id: string;
-  firstname: string;
-  lastname: string;
+  ticketid: string;
+  customerfullname: string;
   status: string;
 }
 
 const DATA: Status[] = [
-  {id: 'id1', firstname: 'A', lastname: 'Smith', status: 'Closed'},
-  {id: 'id2', firstname: 'B', lastname: 'Smith', status: 'Closed'},
-  {id: 'id3', firstname: 'C', lastname: 'Smith', status: 'Closed'},
-  {id: 'id4', firstname: 'D', lastname: 'Smith', status: 'Closed'},
-  {id: 'id5', firstname: 'E', lastname: 'Smith', status: 'Closed'},
-  {id: 'id6', firstname: 'F', lastname: 'Smith', status: 'Closed'},
-  {id: 'id7', firstname: 'G', lastname: 'Smith', status: 'Working'},
-  {id: 'id8', firstname: 'H', lastname: 'Smith', status: 'Working'},
-  {id: 'id9', firstname: 'I', lastname: 'Smith', status: 'Working'},
-  {id: 'id10', firstname: 'J', lastname: 'Smith', status: 'Working'},
-  {id: 'id11', firstname: 'K', lastname: 'Smith', status: 'Working'},
-  {id: 'id12', firstname: 'L', lastname: 'Smith', status: 'Working'},
-  {id: 'id13', firstname: 'M', lastname: 'Smith', status: 'Working'},
-  {id: 'id14', firstname: 'N', lastname: 'Smith', status: 'Working'},
-  {id: 'id15', firstname: 'O', lastname: 'Smith', status: 'Working'},
-  {id: 'id16', firstname: 'P', lastname: 'Smith', status: 'Working'},
-  {id: 'id17', firstname: 'Q', lastname: 'Smith', status: 'Working'},
-  {id: 'id18', firstname: 'R', lastname: 'Smith', status: 'Suspended'},
-  {id: 'id19', firstname: 'S', lastname: 'Smith', status: 'Suspended'},
-  {id: 'id20', firstname: 'T', lastname: 'Smith', status: 'Suspended'},
+  {ticketid: 'id1', customerfullname: 'A', status: 'Closed'},
+  {ticketid: 'id2', customerfullname: 'B', status: 'Closed'},
+  {ticketid: 'id3', customerfullname: 'C', status: 'Closed'},
+  {ticketid: 'id4', customerfullname: 'D', status: 'Closed'},
+  {ticketid: 'id5', customerfullname: 'E', status: 'Closed'},
+  {ticketid: 'id6', customerfullname: 'F', status: 'Closed'},
+  {ticketid: 'id7', customerfullname: 'G', status: 'Working'},
+  {ticketid: 'id8', customerfullname: 'H', status: 'Working'},
+  {ticketid: 'id9', customerfullname: 'I', status: 'Working'},
+  {ticketid: 'id10', customerfullname: 'J', status: 'Working'},
+  {ticketid: 'id11', customerfullname: 'K', status: 'Working'},
+  {ticketid: 'id12', customerfullname: 'L', status: 'Working'},
+  {ticketid: 'id13', customerfullname: 'M', status: 'Working'},
+  {ticketid: 'id14', customerfullname: 'N', status: 'Working'},
+  {ticketid: 'id15', customerfullname: 'O', status: 'Working'},
+  {ticketid: 'id16', customerfullname: 'P', status: 'Working'},
+  {ticketid: 'id17', customerfullname: 'Q', status: 'Working'},
+  {ticketid: 'id18', customerfullname: 'R', status: 'Suspended'},
+  {ticketid: 'id19', customerfullname: 'S', status: 'Suspended'},
+  {ticketid: 'id20', customerfullname: 'T', status: 'Suspended'},
 ];
 

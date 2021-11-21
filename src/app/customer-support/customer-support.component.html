@@ -8,22 +8,16 @@
   </table>
   <table mat-table [dataSource]="dataSource" matSort >
 
-    <!-- ID Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    <!-- Ticket ID Column -->
+    <ng-container matColumnDef="ticketid">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Ticket ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.ticketid}} </td>
     </ng-container>
 
-    <!-- First Name Column -->
-    <ng-container matColumnDef="firstname">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> First Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
-    </ng-container>
-
-    <!-- Last Name Column -->
-    <ng-container matColumnDef="lastname">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Last Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+    <!-- Customer Full Name -->
+    <ng-container matColumnDef="customerfullname">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Customer Full Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.customerfullname}} </td>
     </ng-container>
 
     <!-- Status Column -->

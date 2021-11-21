@@ -12,7 +12,7 @@ import {Status} from '../customer-support/customer-support.component';
 })
 export class CustomerSupportDetailsComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['timestamp', 'ticketid', 'userid', 'fullname', 'message'];
+  displayedColumns: string[] = ['timestamp', 'userid', 'fullname', 'message'];
   dataSource = new MatTableDataSource<Details>(DATA);
   theme: string;
 
@@ -45,31 +45,30 @@ export class CustomerSupportDetailsComponent implements OnInit, AfterViewInit {
 
 export interface Details {
   timestamp: string;
-  ticketid: string;
   userid: string;
   fullname: string;
   message: string;
 }
 
 const DATA: Details[] = [
-  {timestamp: 'AAA', ticketid: 'id1', userid: 'A', fullname: 'Smith', message: 'AAA'},
-  {timestamp: 'AAA', ticketid: 'id2', userid: 'B', fullname: 'Smith', message: 'AAA'},
-  {timestamp: 'AAA', ticketid: 'id3', userid: 'C', fullname: 'Smith', message: 'AAA'},
-  {timestamp: 'AAA', ticketid: 'id4', userid: 'D', fullname: 'Smith', message: 'AAA'},
-  {timestamp: 'AAA', ticketid: 'id5', userid: 'E', fullname: 'Smith', message: 'AAA'},
-  {timestamp: 'AAA', ticketid: 'id6', userid: 'F', fullname: 'Smith', message: 'AAA'},
-  {timestamp: 'AAA', ticketid: 'id7', userid: 'G', fullname: 'Smith', message: 'BBB'},
-  {timestamp: 'AAA', ticketid: 'id8', userid: 'H', fullname: 'Smith', message: 'BBB'},
-  {timestamp: 'AAA', ticketid: 'id9', userid: 'I', fullname: 'Smith', message: 'BBB'},
-  {timestamp: 'AAA', ticketid: 'id10', userid: 'J', fullname: 'Smith', message: 'BBB'},
-  {timestamp: 'AAA', ticketid: 'id11', userid: 'K', fullname: 'Smith', message: 'BBB'},
-  {timestamp: 'AAA', ticketid: 'id12', userid: 'L', fullname: 'Smith', message: 'BBB'},
-  {timestamp: 'AAA', ticketid: 'id13', userid: 'M', fullname: 'Smith', message: 'CCC'},
-  {timestamp: 'AAA', ticketid: 'id14', userid: 'N', fullname: 'Smith', message: 'CCC'},
-  {timestamp: 'AAA', ticketid: 'id15', userid: 'O', fullname: 'Smith', message: 'CCC'},
-  {timestamp: 'AAA', ticketid: 'id16', userid: 'P', fullname: 'Smith', message: 'CCC'},
-  {timestamp: 'AAA', ticketid: 'id17', userid: 'Q', fullname: 'Smith', message: 'CCC'},
-  {timestamp: 'AAA', ticketid: 'id18', userid: 'R', fullname: 'Smith', message: 'DDD'},
-  {timestamp: 'AAA', ticketid: 'id19', userid: 'S', fullname: 'Smith', message: 'DDD'},
-  {timestamp: 'AAA', ticketid: 'id20', userid: 'T', fullname: 'Smith', message: 'DDD'},
+  {timestamp: 'AAA',  userid: 'A', fullname: 'Smith', message: 'AAA'},
+  {timestamp: 'AAA', userid: 'B', fullname: 'Smith', message: 'AAA'},
+  {timestamp: 'AAA', userid: 'C', fullname: 'Smith', message: 'AAA'},
+  {timestamp: 'AAA', userid: 'D', fullname: 'Smith', message: 'AAA'},
+  {timestamp: 'AAA', userid: 'E', fullname: 'Smith', message: 'AAA'},
+  {timestamp: 'AAA', userid: 'F', fullname: 'Smith', message: 'AAA'},
+  {timestamp: 'AAA', userid: 'G', fullname: 'Smith', message: 'BBB'},
+  {timestamp: 'AAA', userid: 'H', fullname: 'Smith', message: 'BBB'},
+  {timestamp: 'AAA', userid: 'I', fullname: 'Smith', message: 'BBB'},
+  {timestamp: 'AAA', userid: 'J', fullname: 'Smith', message: 'BBB'},
+  {timestamp: 'AAA', userid: 'K', fullname: 'Smith', message: 'BBB'},
+  {timestamp: 'AAA', userid: 'L', fullname: 'Smith', message: 'BBB'},
+  {timestamp: 'AAA', userid: 'M', fullname: 'Smith', message: 'CCC'},
+  {timestamp: 'AAA', userid: 'N', fullname: 'Smith', message: 'CCC'},
+  {timestamp: 'AAA', userid: 'O', fullname: 'Smith', message: 'CCC'},
+  {timestamp: 'AAA', userid: 'P', fullname: 'Smith', message: 'CCC'},
+  {timestamp: 'AAA', userid: 'Q', fullname: 'Smith', message: 'CCC'},
+  {timestamp: 'AAA', userid: 'R', fullname: 'Smith', message: 'DDD'},
+  {timestamp: 'AAA', userid: 'S', fullname: 'Smith', message: 'DDD'},
+  {timestamp: 'AAA', userid: 'T', fullname: 'Smith', message: 'DDD'},
 ];
