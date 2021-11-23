@@ -3,62 +3,62 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LocalStorageService {
+export class SessionStorageService {
 
   constructor() { }
 
   // Getting token
   getToken(): string {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 
   // Setting token
   setToken(token): boolean {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     return true;
   }
 
   // Removing token
   removeToken(): boolean {
-    localStorage.removeItem('token');
-    return !!(localStorage.getItem('token'));
+    sessionStorage.removeItem('token');
+    return !!(sessionStorage.getItem('token'));
   }
 
   // Getting token
   getRefreshToken(): string {
-    return localStorage.getItem('RefreshToken');
+    return sessionStorage.getItem('RefreshToken');
   }
 
   // Setting token
   setRefreshToken(token): boolean {
-    localStorage.setItem('RefreshToken', token);
+    sessionStorage.setItem('RefreshToken', token);
     return true;
   }
 
   // Removing refresh token
   removeRefreshToken(): boolean {
-    localStorage.removeItem('RefreshToken');
+    sessionStorage.removeItem('RefreshToken');
     return true;
   }
 
   // check if user is logged in or not
   isLoggedIn(): boolean {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return !!token;
   }
 
   // logs out user
   logout(): boolean {
-    localStorage.removeItem('token');
-    localStorage.removeItem('logged_in_user');
-    return !localStorage.getItem('token');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('logged_in_user');
+    return !sessionStorage.getItem('token');
   }
 
   setItem(itemName, item): void {
-    localStorage.setItem(itemName, item);
+    sessionStorage.setItem(itemName, item);
   }
 
   getItem(itemName: string): any {
-    return localStorage.getItem(itemName);
+    return sessionStorage.getItem(itemName);
   }
 }

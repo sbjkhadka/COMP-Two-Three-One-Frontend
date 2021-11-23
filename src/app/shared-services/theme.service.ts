@@ -38,9 +38,6 @@ export class ThemeService {
     } else if (this.theme.getValue() === 'dark') {
       this.theme.next('color');
       this.localStorageService.setItem('theme', 'color');
-    } else {
-      this.theme.next('color');
-      this.localStorageService.setItem('theme', 'color');
     }
   }
 

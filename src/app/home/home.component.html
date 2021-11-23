@@ -13,12 +13,13 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12 cards-container d-flex justify-content-start align-items-center flex-wrap align-self-center"
-         style="max-height: 800px;overflow: auto" *ngIf="loggedInUserRecipes.value!=null">
 
-      <div class="card" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'" style="width: 18rem;margin: 20px;" *ngFor="let item of this.loggedInUserRecipes.value">
+    <div class="col-md-12 cards-container d-flex justify-content-around align-items-center flex-wrap align-self-center"
+         style="max-height: 800px;overflow: auto" *ngIf="recipeInDisplay">
 
-        <img class="card-img-top" src="{{item.recipePhoto}}" alt="Card image cap" [ngClass]="theme==='color'?'image-color':'image-dark'">
+      <div class="card" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'" style="width: 18rem;margin: 20px;" *ngFor="let item of recipeInDisplay">
+
+        <img class="card-img-top" src="{{item.recipePhoto}}" alt="Card image cap" [ngClass]="theme==='color'?'image-color':'image-dark'" style="width: 100%; height: 220px; object-fit: fill;">
         <div class="card-body d-flex justify-content-between pr-0 border">
           <span class="menu-font-family">{{item.recipeName | titlecase }}</span>
           <div class="w-45 d-flex justify-content-between pr-1">
@@ -27,22 +28,57 @@
               (click)="deleteRecipe(item)"
               matTooltip="Delete this Recipe"><mat-icon >delete</mat-icon></span>
             <span
-                  class="cursor-pointer"
-                  (click)="editRecipe(item)"
-                  matTooltip="Edit this Recipe"><mat-icon
-              >edit</mat-icon></span>
+              class="cursor-pointer"
+              (click)="editRecipe(item)"
+              matTooltip="Edit this Recipe"><mat-icon
+            >edit</mat-icon></span>
             <span class="cursor-pointer" (click)="recipeItemClicked(item)" matTooltip="View Recipe Details"><mat-icon
-              >open_in_new</mat-icon></span>
+            >open_in_new</mat-icon></span>
           </div>
         </div>
         <div class="card-img-overlay h-25 w-100 d-flex justify-content-between align-self-start pt-3 pr-3">
-          <img src="../../assets/icons/price-tag.png" *ngIf="item.roleName.toLowerCase() === 'trainer'"/>
+          <img src="../../assets/icons/price-tag.png" [ngClass]="theme==='color'?'image-color':'image-dark'"/>
           <span></span>
           <mat-checkbox [checked]="shouldICheck(item)" (change)="recipeAdded($event, item)"></mat-checkbox>
         </div>
 
       </div>
     </div>
+
+
+
+
+
+<!--    <div class="col-md-12 cards-container d-flex justify-content-start align-items-center flex-wrap align-self-center"-->
+<!--         style="max-height: 800px;overflow: auto" *ngIf="loggedInUserRecipes.value!=null">-->
+
+<!--      <div class="card" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'" style="width: 18rem;margin: 20px;" *ngFor="let item of this.loggedInUserRecipes.value">-->
+
+<!--        <img class="card-img-top" src="{{item.recipePhoto}}" alt="Card image cap" [ngClass]="theme==='color'?'image-color':'image-dark'">-->
+<!--        <div class="card-body d-flex justify-content-between pr-0 border">-->
+<!--          <span class="menu-font-family">{{item.recipeName | titlecase }}</span>-->
+<!--          <div class="w-45 d-flex justify-content-between pr-1">-->
+<!--            <span-->
+<!--              class="cursor-pointer"-->
+<!--              (click)="deleteRecipe(item)"-->
+<!--              matTooltip="Delete this Recipe"><mat-icon >delete</mat-icon></span>-->
+<!--            <span-->
+<!--                  class="cursor-pointer"-->
+<!--                  (click)="editRecipe(item)"-->
+<!--                  matTooltip="Edit this Recipe"><mat-icon-->
+<!--              >edit</mat-icon></span>-->
+<!--            <span class="cursor-pointer" (click)="recipeItemClicked(item)" matTooltip="View Recipe Details"><mat-icon-->
+<!--              >open_in_new</mat-icon></span>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="card-img-overlay h-25 w-100 d-flex justify-content-between align-self-start pt-3 pr-3">-->
+<!--          <img src="../../assets/icons/price-tag.png" *ngIf="item.roleName.toLowerCase() === 'trainer'"/>-->
+<!--          <span></span>-->
+<!--          <mat-checkbox [checked]="shouldICheck(item)" (change)="recipeAdded($event, item)"></mat-checkbox>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
   </div>
 
   <div class="row fixed-bottom bg-transparent text-dark">
