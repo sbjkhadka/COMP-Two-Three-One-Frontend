@@ -47,6 +47,11 @@ import {AuthGuard} from './shared-services/services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+import { DashboardVisualizationComponent } from './dashboard-visualization/dashboard-visualization.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { LayoutModule } from '@angular/cdk/layout';
 
 const routes: Routes = [
 
@@ -54,7 +59,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
-  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]}
+  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
+  {path: 'dashboard', component: DashboardVisualizationComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
 @NgModule({
@@ -75,6 +81,7 @@ const routes: Routes = [
     CalorieCheckerComponent,
     AngularLoginComponent,
     InfoDialogComponent,
+    DashboardVisualizationComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +119,11 @@ const routes: Routes = [
     MatNativeDateModule,
     MatRadioModule,
     NgxCaptchaModule,
-    ColorPickerModule
+    ColorPickerModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    LayoutModule
   ],
   providers: [FirebaseService,
               RecipeServiceService,
