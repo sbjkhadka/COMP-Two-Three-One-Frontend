@@ -53,6 +53,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChartIngredientsComponent } from './home/chart-ingredients/chart-ingredients.component';
 import { RecipeChartComponent } from './home/recipe-chart/recipe-chart.component';
+import { Chart2IngredientsComponent } from './home/chart2-ingredients/chart2-ingredients.component';
 // Pathmatch full Vs prefix
 // https://stackoverflow.com/questions/42992212/in-angular-what-is-pathmatch-full-and-what-effect-does-it-have/62476799
 
@@ -86,6 +87,7 @@ const routes: Routes = [
     GroceryDashboardComponent,
     ChartIngredientsComponent,
     RecipeChartComponent,
+    Chart2IngredientsComponent,
   ],
     imports: [
         BrowserModule,

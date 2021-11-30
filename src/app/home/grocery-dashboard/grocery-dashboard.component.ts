@@ -13,18 +13,19 @@ export class GroceryDashboardComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Ingredients', cols: 1, rows: 1 },
-          { title: 'Recipes', cols: 1, rows: 1 },
+          { title: 'Ingredients', cols: 2, rows: 2 },
+          { title: 'Recipes', cols: 1, rows: 1  },
           { title: 'Calories', cols: 1, rows: 1 },
-          { title: 'Budget/Amount', cols: 1, rows: 1 }
+          { title: 'Other', cols: 1, rows: 1 }
         ];
       }
 
       return [
-        { title: 'Ingredients', cols: 2, rows: 1 },
-        { title: 'Recipes', cols: 1, rows: 1 },
-        { title: 'Calories', cols: 1, rows: 2 },
-        { title: 'Budget/Amount', cols: 1, rows: 1 }
+        { title: 'Ingredients', cols: 1, rows: 1  },
+        { title: 'Recipes', cols: 1, rows: 1  },
+        { title: 'Calories', cols: 1, rows: 1 },
+        { title: 'Other', cols: 1, rows: 1 }
+
       ];
     })
   );
