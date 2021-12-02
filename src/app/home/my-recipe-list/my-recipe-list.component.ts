@@ -10,6 +10,7 @@ import {ThemeService} from '../../shared-services/theme.service';
 })
 export class MyRecipeListComponent implements OnInit {
   theme: string;
+  fallbackRecipeImage = 'https://aadhyafoodindian.com/img/placeholders/grey_fork_and_knife.png';
   constructor(
     public dialog: MatDialog,
     private themeService: ThemeService) {

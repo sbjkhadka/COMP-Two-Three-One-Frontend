@@ -3,7 +3,7 @@
   <div class="position-absolute w-100 d-flex flex-column align-items-center" style="top: 80px">
     <div class="recipe-item bg-light w-75 m-3 d-flex pl-2 border border-secondary rounded border-3" *ngFor="let item of recipeList">
       <div class="w-25 h-100 d-flex justify-content-around align-items-center">
-        <img src="{{item.recipePhoto}}" [ngClass]="theme==='color'?'image-color':'image-dark'">
+        <img src="{{item.recipePhoto || fallbackRecipeImage}}" [ngClass]="theme==='color'?'image-color':'image-dark'">
       </div>
       <div class="w-75 bg-light d-flex">
         <div class="w-50 h-100 d-flex flex-column justify-content-around align-self-start ">
