@@ -264,10 +264,8 @@ export class AddNewRecipeComponent implements OnInit {
         this.getIngredientList();
         this.openSnackBar('Ingredient Added!', '');
       } else if (res === 'fail') {
-        console.log('failed');
         this.openSnackBar('Failed', '');
       } else if (res === 'cancel') {
-        console.log('you cancelled');
         this.openSnackBar('Cancelled', '');
       }
     });

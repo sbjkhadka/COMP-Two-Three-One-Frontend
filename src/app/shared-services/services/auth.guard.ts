@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
       return true;
     }
     this.router.navigate(['login']).then(() => {
-      console.log('you are not authorized to visit home page without logging in');
+      // Do whatever required
     });
     return false;
   }

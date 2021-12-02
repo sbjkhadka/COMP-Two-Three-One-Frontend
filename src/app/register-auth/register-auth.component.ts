@@ -72,7 +72,6 @@ export class RegisterAuthComponent implements OnInit {
       securityAnswer: this.registrationForm.value.securityAnswerSignup,
     };
     this.angularRegistrationService.register(user).subscribe(value => {
-      console.log('user registered successfully', value);
       // tslint:disable-next-line:prefer-const
       if (value.status === 200) {
         this.info.infoName = 'Registration';
@@ -101,7 +100,7 @@ export class RegisterAuthComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  checkPasswords(group: FormGroup): any{ // here we have the 'passwords' group
+  checkPasswords(group: FormGroup): any{
     const pass = group.controls.passwordSignup.value;
     const confirmPass = group.controls.rePasswordSignup.value;
 

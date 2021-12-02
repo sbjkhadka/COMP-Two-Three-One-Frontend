@@ -49,10 +49,6 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
     this.initializeForm();
   }
 
-  onSubmit(): void {
-    console.log('form is submitted');
-  }
-
   openRegistrationDialog(): void {
     this.dialog.open(RegisterAuthComponent,
       {
@@ -69,14 +65,11 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
     if (this.loginForm.value.email && this.loginForm.value.password) {
       this.angularLoginService.signIn(this.credentials).subscribe(value => {
         if (value && value.accessToken) {
-          // this.localStorageService.setItem('logged_in_user', JSON.stringify(value));
-          // this.localStorageService.setToken(value.accessToken);
           this.sessionStorageService.setItem('logged_in_user', JSON.stringify(value));
           this.sessionStorageService.setToken(value.accessToken);
         }
 
         if (value && value.refreshToken) {
-          // this.localStorageService.setRefreshToken(value.refreshToken);
           this.sessionStorageService.setRefreshToken(value.refreshToken);
         }
         window.location.href = '/home';

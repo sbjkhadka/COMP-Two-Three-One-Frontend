@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   stockRecipe = [];
   users = new BehaviorSubject<any[]>([]);
   currentUser;
-  recipeInDisplay: any[] = []; // Create a model later
+  recipeInDisplay: any[] = [];
   myRecipees: any[] = [];
   notMyRecipees: any[] = [];
   showingMyRecipeOnly = false;
@@ -54,10 +54,8 @@ export class HomeComponent implements OnInit {
   updateCurrentUser(): void {
     if (this.sessionStorageService.isLoggedIn()) {
       const loggedInUser = this.sessionStorageService.getItem('logged_in_user');
-      console.log(loggedInUser);
       if (loggedInUser) {
         this.currentUser = JSON.parse(loggedInUser).user;
-        console.log(this.currentUser);
       }
     }
   }
@@ -128,7 +126,6 @@ export class HomeComponent implements OnInit {
     deleteRef.afterClosed().subscribe(decision => {
       if (decision) {
         this.recipeService.deleteRecipe(item._id).subscribe(response => {
-          console.log(response);
           if (response.status === 200) {
             const index = this.recipeInDisplay.findIndex(r => r._id === item._id);
             if (index >= 0) {
@@ -152,7 +149,6 @@ export class HomeComponent implements OnInit {
   }
 
   recipeAdded(event, item): void {
-    console.log('added',item);
     const currentSelected = JSON.parse(this.localStorageService.getItem('selectedRecipe')) || [];
     const quantity = JSON.parse(this.localStorageService.getItem('quantity')) || [];
     if (event.checked) {
@@ -200,7 +196,6 @@ export class HomeComponent implements OnInit {
   }
 
   stockDisplayToggled(event): void {
-    console.log(event);
     this.recipeInDisplay = [];
     if (this.showingMyRecipeOnly) {
       this.recipeInDisplay.push(...this.myRecipees);
