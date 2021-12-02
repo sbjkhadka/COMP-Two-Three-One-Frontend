@@ -16,4 +16,10 @@ export class RecipeService {
       return throwError(error);
     }));
   }
+
+  deleteRecipe(recipeId: string): Observable<any> {
+    return this.http.delete<any>(`${environmentAngular.base_url}recipe/?recipeId=${recipeId}`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 }

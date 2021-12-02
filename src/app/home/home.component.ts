@@ -138,13 +138,18 @@ export class HomeComponent implements OnInit {
     });
     deleteRef.afterClosed().subscribe(decision => {
       if (decision) {
-        // console.log('deleting', item);
-        this.recipeServiceService.deleteRecipe(item.recipeId, item.partyId).subscribe(res => {
-          // console.log('deleted_successfully', res);
-          this.openSnackBar('Deleted successfully', '');
-          // this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+        this.recipeService.deleteRecipe(item._id).subscribe(response => {
+          console.log(response);
+          if (response.status === 200) {
+            const index = this.recipeInDisplay.findIndex(r => r._id === item._id);
+            if (index >= 0) {
+              this.recipeInDisplay.splice(index, 1);
+            }
+            this.openSnackBar('Deleted successfully', '');
+          } else {
+            this.openSnackBar('Deleted failed', '');
+          }
         }, error => {
-          // console.log('delete_failed', error);
           this.openSnackBar('Deleted failed', '');
         });
       }
@@ -224,6 +229,5 @@ export class HomeComponent implements OnInit {
     this.showingMyRecipeOnly = !this.showingMyRecipeOnly;
     this.cdRef.detectChanges();
   }
-  
 }
 
