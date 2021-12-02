@@ -24,15 +24,7 @@ export class AppComponent implements OnInit{
 
   }
   color = document.documentElement.style.getPropertyValue('--mainColor');
-  // @HostListener('window:onbeforeunload', ['$event'])
-  // clearLocalStorage(event): void{
-  //   alert('hello');
-  //   this.localStorageService.removeToken();
-  //   this.localStorageService.removeRefreshToken();
-  //   this.localStorageService.logout();
-  // }
   ngOnInit(): void {
-    // this.loggedInUser =  JSON.parse(localStorage.getItem('logged_in_user'));
     this.loggedInUser =  JSON.parse(sessionStorage.getItem('logged_in_user'));
     this.themeService.theme.subscribe(value => {
       this.theme = value;
@@ -44,14 +36,12 @@ export class AppComponent implements OnInit{
   }
 
   logout(): any {
-    // localStorage.removeItem('logged_in_user');
     sessionStorage.removeItem('logged_in_user');
-    // this.localStorageService.removeToken();
-    // this.localStorageService.removeRefreshToken();
-    // this.angularLoginService.logout();
     this.sessionStorageService.removeToken();
     this.sessionStorageService.removeRefreshToken();
     this.angularLoginService.logout();
+    this.localStorageService.removeItem('quantity');
+    this.localStorageService.removeItem('selectedRecipe');
   }
 
   switchTheme(): void {
@@ -66,7 +56,4 @@ export class AppComponent implements OnInit{
   switchToDefaultTheme(): void {
     this.themeService.changeThemeColor(this.themeService.getDefaultThemeColor());
   }
-
-
-
 }
