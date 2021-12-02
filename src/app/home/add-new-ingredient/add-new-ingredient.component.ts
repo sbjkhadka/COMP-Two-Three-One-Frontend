@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {RecipeServiceService} from '../../shared-services/recipe-service.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {ActiveUserSingletonService} from '../../shared-services/active-user-singleton.service';
 import {ThemeService} from '../../shared-services/theme.service';
+import {RecipeService} from '../../shared-services/recipe.service';
 
 @Component({
   selector: 'app-add-new-ingredient',
@@ -15,21 +15,22 @@ export class AddNewIngredientComponent implements OnInit {
   theme: string;
   ingredientForm: FormGroup;
   submitted = false;
-  partyId;
+  currentUser;
 
   constructor(public dialogRef: MatDialogRef<AddNewIngredientComponent>,
               public dialog: MatDialog,
               private formBuilder: FormBuilder,
-              private recipeServiceService: RecipeServiceService,
+              private recipeService: RecipeService,
               private activeUserSingletonService: ActiveUserSingletonService,
-              private themeService: ThemeService) {
+              private themeService: ThemeService,
+              @Inject(MAT_DIALOG_DATA) data) {
+    this.currentUser = data.currentUser;
     dialogRef.disableClose = true;
     this.ingredientForm = this.formBuilder.group({
       ingredientName: new FormControl('', Validators.required),
       calorie: new FormControl(100),
       unit: new FormControl(Validators.required)
     });
-    this.partyId = this.activeUserSingletonService.activeUser.getValue();
   }
 
   ngOnInit(): void {
@@ -38,35 +39,27 @@ export class AddNewIngredientComponent implements OnInit {
     });
   }
 
-
-
   close(): void {
     this.dialogRef.close('cancel');
   }
+
   createIngredient(): void {
     this.submitted = true;
     if (this.ingredientForm.invalid) {
       return;
     }
-
     const obj = {
       calorie: this.ingredientForm.controls.calorie.value,
       ingredientName: this.ingredientForm.controls.ingredientName.value,
-      partyId: this.partyId,
-      unitType: this.ingredientForm.controls.unit.value
+      unitType: this.ingredientForm.controls.unit.value,
+      user: this.currentUser._id,
+      userEmail: this.currentUser.email
     };
-
-    console.log('prep_oj', obj);
-
-
-    this.recipeServiceService.createIngredient(obj).subscribe(res => {
-      console.log('created_ingredient', res);
+    this.recipeService.createIngredient(obj).subscribe(res => {
       this.dialogRef.close('done');
     }, error => {
-      console.log('error', error);
       this.dialogRef.close('fail');
     });
-    console.log('sent');
   }
 
 }
