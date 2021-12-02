@@ -13,7 +13,6 @@ export class MyGroceryListComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) data,
               public dialogRef: MatDialogRef<MyGroceryListComponent>) {
     this.finalRecipeList = data.finalRecipeList;
-    console.log('in final', data.finalRecipeList);
     dialogRef.disableClose = true;
     this.generateConsolidatedList(data.finalRecipeList);
   }
@@ -40,8 +39,6 @@ export class MyGroceryListComponent implements OnInit {
     }
 
    this.consolidatedList = tempList;
-   console.log('consList', this.consolidatedList);
-
    // Logic for grouping ingredients in arrays based on ingredientId
    const guideArray = [...new Set(tempList.map(item => item._id))].sort((a, b) => a - b);
    const realArray = [];
