@@ -61,4 +61,8 @@ export class LocalStorageService {
   getItem(itemName: string): any {
     return localStorage.getItem(itemName);
   }
+
+  removeItem(itemName: string): any {
+    return localStorage.removeItem(itemName);
+  }
 }
