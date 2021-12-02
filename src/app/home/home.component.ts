@@ -1,9 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
-import {FirebaseService} from '../shared-services/services/firebase.service';
-import {RecipeServiceService} from '../shared-services/recipe-service.service';
 import {BehaviorSubject} from 'rxjs';
-import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component';
 import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
@@ -12,6 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {RecipeService} from '../shared-services/recipe.service';
 import {ThemeService} from '../shared-services/theme.service';
 import {SessionStorageService} from '../shared-services/session-storage.service';
+import {LocalStorageService} from '../shared-services/services/local-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -22,24 +20,16 @@ export class HomeComponent implements OnInit {
 
   theme: string;
   constructor(
-    public firebaseService: FirebaseService,
-    public recipeServiceService: RecipeServiceService,
-    public activeUserSingletonService: ActiveUserSingletonService,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private themeService: ThemeService,
     private recipeService: RecipeService,
     private sessionStorageService: SessionStorageService,
-    private cdRef: ChangeDetectorRef) {
-    // this.confirmUserLoginAfterPageReload();
-    // this.getListOfUsers();
+    private cdRef: ChangeDetectorRef,
+    private localStorageService: LocalStorageService) {}
 
-  }
-  registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
-  loggedInUserRecipes = new BehaviorSubject<any[]>(null);
   displayingStockRecipes = true;
-  selectedRecipes;
   myRecipe = new BehaviorSubject<any[]>([]);
 
   stockRecipe = [];
@@ -51,7 +41,7 @@ export class HomeComponent implements OnInit {
   showingMyRecipeOnly = false;
   fallbackRecipeImage = 'https://aadhyafoodindian.com/img/placeholders/grey_fork_and_knife.png';
 
-  // will use it later
+
   ngOnInit(): void {
     this.themeService.theme.subscribe(value => {
       this.theme = value;
@@ -71,7 +61,6 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
 
   recipeItemClicked(item: any): void {
     this.dialog.open(RecipeDetailsComponent,
@@ -105,7 +94,6 @@ export class HomeComponent implements OnInit {
       }
     });
   }
-
 
   openAddNewRecipeDialog(): void {
     this.dialog.open(AddNewRecipeComponent,
@@ -164,32 +152,19 @@ export class HomeComponent implements OnInit {
   }
 
   recipeAdded(event, item): void {
-    // console.log('isChecked', event.checked);
-    // console.log('item', item);
-    const currentSelected = this.activeUserSingletonService.activeUserSelectedRecipe.value;
-    // console.log('current_list', currentSelected);
+    const currentSelected = JSON.parse(this.localStorageService.getItem('selectedRecipe'));
     if (event.checked) {
       currentSelected.push(item);
     } else {
-      const index = currentSelected.findIndex(recipe => recipe.recipeId === item.recipeId);
+      const index = currentSelected.findIndex(recipe => recipe._id === item._id);
       currentSelected.splice(index, 1);
     }
-    this.activeUserSingletonService.activeUserSelectedRecipe.next(currentSelected);
-    localStorage.setItem('selectedRecipe', JSON.stringify(currentSelected));
-    this.selectedRecipes = currentSelected;
-    // console.log('now_list', currentSelected);
-  }
-
-  checkLocalStorage(): void {
-    if (localStorage.getItem('selectedRecipe')) {
-      this.selectedRecipes = JSON.parse(localStorage.getItem('selectedRecipe'));
-      this.activeUserSingletonService.activeUserSelectedRecipe.next(this.selectedRecipes);
-    }
+    this.localStorageService.setItem('selectedRecipe', JSON.stringify(currentSelected));
   }
 
   shouldICheck(item): boolean {
     if (JSON.parse(localStorage.getItem('selectedRecipe'))) {
-      const index = JSON.parse(localStorage.getItem('selectedRecipe')).findIndex(recipe => recipe.recipeId === item.recipeId);
+      const index = JSON.parse(localStorage.getItem('selectedRecipe')).findIndex(recipe => recipe._id === item._id);
       return index >= 0;
     } else {
       return false;
@@ -201,7 +176,6 @@ export class HomeComponent implements OnInit {
     this.myRecipees = [];
     this.notMyRecipees = [];
     this.recipeService.getAllRecipes().subscribe(value => {
-      console.log('resipees', value);
       if (value.status === 200) {
         for (let i = 0; i < value.recipes.length; i++) {
           if (value.recipes[i].userEmail === this.currentUser.email) {
