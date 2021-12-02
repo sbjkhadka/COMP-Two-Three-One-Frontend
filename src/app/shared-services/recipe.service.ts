@@ -22,4 +22,28 @@ export class RecipeService {
       return throwError(error);
     }));
   }
+
+  getAllIngredients(email: string): Observable<any> {
+    return this.http.get<any>(`${environmentAngular.base_url}ingredientsByUserEmail/?userEmail=${email}`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  createRecipe(recipe: any): Observable<any> {
+    return this.http.post<any>(`${environmentAngular.base_url}recipe`, recipe).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  updateRecipe(recipe: any): Observable<any> {
+    return this.http.put<any>(`${environmentAngular.base_url}editRecipe/?recipeId=${recipe.recipeId}`, recipe).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  createIngredient(ingredient: any): Observable<any> {
+    return this.http.post<any>(`${environmentAngular.base_url}ingredient`, ingredient).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 }
