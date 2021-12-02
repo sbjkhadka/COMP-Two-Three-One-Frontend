@@ -58,7 +58,7 @@
                 >
 
                   <mat-option *ngFor="let option of filteredOptionsIngredientName | async"
-                              [value]="option.ingredientId">{{option.ingredientName}}</mat-option>
+                              [value]="option._id">{{option.ingredientName}}</mat-option>
                 </mat-autocomplete>
               </mat-form-field>
 
@@ -81,6 +81,7 @@
                   <mat-option value="tsp">Tea spoon</mat-option>
                   <mat-option value="dessertspoon ">Dessert Spoon</mat-option>
                   <mat-option value="piece">Piece</mat-option>
+                  <mat-option value="Lb">Lb</mat-option>
                 </mat-select>
               </mat-form-field>
 
