@@ -1,8 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {error} from '@angular/compiler/src/util';
-
-// import isImageURL from 'image-url-validator';
 
 @Pipe({
   name: 'DefaultAvatar'
