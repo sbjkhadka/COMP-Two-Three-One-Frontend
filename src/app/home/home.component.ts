@@ -40,8 +40,6 @@ export class HomeComponent implements OnInit {
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
   displayingStockRecipes = true;
   selectedRecipes;
-  stockRecipeToggleButtonStatus = false;
-
   myRecipe = new BehaviorSubject<any[]>([]);
 
   stockRecipe = [];
@@ -96,13 +94,15 @@ export class HomeComponent implements OnInit {
         panelClass: 'no-padding-container',
         data: {
           selectedRecipe: item,
-          isEditing: true
+          isEditing: true,
+          currentUser: this.currentUser
         }
       }
     ).afterClosed().subscribe(res => {
-      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
-      // this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
-      // this.addStockRecipe();
+      if (res) {
+        this.openSnackBar('Recipe updated!', '');
+        this.getAllRecipes1();
+      }
     });
   }
 
@@ -115,15 +115,16 @@ export class HomeComponent implements OnInit {
         panelClass: 'no-padding-container',
         data: {
           selectedRecipe: null,
-          isEditing: false
+          isEditing: false,
+          currentUser: this.currentUser
         }
       }
     ).afterClosed().subscribe(res => {
-      // this.getAllRecipes(this.activeUserSingletonService.activeUser);
-      // this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
-      // this.addStockRecipe();
+      if (res) {
+        this.openSnackBar('Recipe added!', '');
+        this.getAllRecipes1();
+      }
     });
-
   }
 
   deleteRecipe(item): void {
@@ -195,10 +196,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
-
-
   getAllRecipes1(): void {
+    this.recipeInDisplay = [];
+    this.myRecipees = [];
+    this.notMyRecipees = [];
     this.recipeService.getAllRecipes().subscribe(value => {
       console.log('resipees', value);
       if (value.status === 200) {
@@ -211,11 +212,9 @@ export class HomeComponent implements OnInit {
         }
         this.recipeInDisplay.push(...this.myRecipees);
         this.recipeInDisplay.push(...this.notMyRecipees);
-
       }
     });
   }
-
 
   stockDisplayToggled(event): void {
     console.log(event);
