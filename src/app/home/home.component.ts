@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   myRecipees: any[] = [];
   notMyRecipees: any[] = [];
   showingMyRecipeOnly = false;
-  fallbackRecipeImage = 'https://explorelompoc.com/wp-content/uploads/2021/06/food_placeholder.jpg';
+  fallbackRecipeImage = 'https://aadhyafoodindian.com/img/placeholders/grey_fork_and_knife.png';
 
   // will use it later
   ngOnInit(): void {
@@ -76,8 +76,7 @@ export class HomeComponent implements OnInit {
 
 
   recipeItemClicked(item: any): void {
-    // console.log('item.recipe_name' + item.recipe_name);
-    const dialogRef = this.dialog.open(RecipeDetailsComponent,
+    this.dialog.open(RecipeDetailsComponent,
       {
         height: '800px',
         width: '1000px',
@@ -90,8 +89,7 @@ export class HomeComponent implements OnInit {
   }
 
   editRecipe(item: any): void {
-    // console.log('item.recipe_name:' + item.recipeName);
-    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+    this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
         width: '1000px',
@@ -110,7 +108,7 @@ export class HomeComponent implements OnInit {
 
 
   openAddNewRecipeDialog(): void {
-    const dialogRef = this.dialog.open(AddNewRecipeComponent,
+    this.dialog.open(AddNewRecipeComponent,
       {
         height: '800px',
         width: '1000px',
@@ -128,28 +126,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-
-  // tslint:disable-next-line:typedef
-  updateToggleButton(): void {
-    this.loggedInUserRecipes.subscribe(val => {
-      // console.log('val', val);
-      if (val && val.length > 0) {
-        if (val[0].roleName.toLowerCase() === 'chef') {
-          this.stockRecipeToggleButtonStatus = true;
-          // console.log('chef');
-        } else {
-          // console.log('not chef');
-        }
-      }
-
-    });
-  }
-
-
-
-
   deleteRecipe(item): void {
-    // console.log('deleting', item);
     const deleteRef = this.dialog.open(ConfirmationDialogComponent, {
       height: '200px',
       width: '500px',
@@ -247,8 +224,6 @@ export class HomeComponent implements OnInit {
     this.showingMyRecipeOnly = !this.showingMyRecipeOnly;
     this.cdRef.detectChanges();
   }
-
-
-
+  
 }
 
