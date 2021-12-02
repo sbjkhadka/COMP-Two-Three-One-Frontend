@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FirebaseService} from '../../shared-services/services/firebase.service';
-import {ActiveUserSingletonService} from '../../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MyGroceryListComponent} from './my-grocery-list/my-grocery-list.component';
 import {ThemeService} from '../../shared-services/theme.service';
@@ -13,8 +11,6 @@ import {ThemeService} from '../../shared-services/theme.service';
 export class MyRecipeListComponent implements OnInit {
   theme: string;
   constructor(
-    public firebaseService: FirebaseService,
-    public activeUserSingletonService: ActiveUserSingletonService,
     public dialog: MatDialog,
     private themeService: ThemeService) {
     this.confirmUserLoginAfterPageReload();
@@ -52,8 +48,6 @@ export class MyRecipeListComponent implements OnInit {
   confirmUserLoginAfterPageReload(): void {
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
     if (this.loggedInUser) {
-      this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid);
-      this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
     }
   }
 
@@ -112,7 +106,6 @@ export class MyRecipeListComponent implements OnInit {
     const index = this.recipeList.findIndex(recipe => recipe._id === item._id);
     this.recipeList.splice(index, 1);
     localStorage.setItem('selectedRecipe', JSON.stringify(this.recipeList));
-    this.activeUserSingletonService.activeUserSelectedRecipe.next(this.recipeList);
 
     // Update Quantity Collection
     const index1 = this.quantityList.findIndex(list => list.recipeId === item._id);

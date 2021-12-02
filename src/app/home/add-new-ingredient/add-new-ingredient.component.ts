@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ActiveUserSingletonService} from '../../shared-services/active-user-singleton.service';
 import {ThemeService} from '../../shared-services/theme.service';
 import {RecipeService} from '../../shared-services/recipe.service';
 
@@ -21,7 +20,6 @@ export class AddNewIngredientComponent implements OnInit {
               public dialog: MatDialog,
               private formBuilder: FormBuilder,
               private recipeService: RecipeService,
-              private activeUserSingletonService: ActiveUserSingletonService,
               private themeService: ThemeService,
               @Inject(MAT_DIALOG_DATA) data) {
     this.currentUser = data.currentUser;

@@ -1,7 +1,5 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {ActiveUserSingletonService} from '../shared-services/active-user-singleton.service';
-import {RecipeServiceService} from '../shared-services/recipe-service.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {startWith} from 'rxjs/operators';
@@ -40,9 +38,8 @@ export class AddNewRecipeComponent implements OnInit {
 
   currentUser;
 
-  constructor(@Inject(MAT_DIALOG_DATA) data, private formBuilder: FormBuilder,
-              private activeUserSingletonService: ActiveUserSingletonService,
-              private recipeServiceService: RecipeServiceService,
+  constructor(@Inject(MAT_DIALOG_DATA) data,
+              private formBuilder: FormBuilder,
               public dialogRef: MatDialogRef<AddNewRecipeComponent>,
               public dialog: MatDialog,
               private snackBar: MatSnackBar,

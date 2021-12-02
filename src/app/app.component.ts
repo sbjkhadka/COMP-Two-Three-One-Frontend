@@ -1,5 +1,4 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {FirebaseService} from './shared-services/services/firebase.service';
 import {AngularLoginService} from './shared-services/services/angular-login.service';
 import {LocalStorageService} from './shared-services/services/local-storage.service';
 import {ThemeService} from './shared-services/theme.service';
@@ -16,8 +15,7 @@ export class AppComponent implements OnInit{
   loggedInUser;
   theme: string;
   fg: FormGroup;
-  constructor(public firebaseService: FirebaseService,
-              private angularLoginService: AngularLoginService,
+  constructor(private angularLoginService: AngularLoginService,
               private localStorageService: LocalStorageService,
               private themeService: ThemeService,
               private sessionStorageService: SessionStorageService) {
