@@ -8,14 +8,9 @@ import {error} from '@angular/compiler/src/util';
   name: 'DefaultAvatar'
 })
 export class DefaultAvatarPipe implements PipeTransform{
-constructor(private http: HttpClient) {
-}
+constructor() {}
 
   transform(url: string, fallbackUrl: string) {
-  // return this.http.get(url).map(res => url).catch(error => fallbackUrl);
-    // return this.http.get(url).pipe(error => return url);
-
-  // }
     let image = '';
     const img = new Image();
     img.src = url;
