@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {FirebaseService} from '../../shared-services/services/firebase.service';
-import {RecipeServiceService} from '../../shared-services/recipe-service.service';
-import {ActiveUserSingletonService} from '../../shared-services/active-user-singleton.service';
 import {MatDialog} from '@angular/material/dialog';
 import {MyGroceryListComponent} from './my-grocery-list/my-grocery-list.component';
 import {ThemeService} from '../../shared-services/theme.service';
@@ -14,20 +11,19 @@ import {ThemeService} from '../../shared-services/theme.service';
 export class MyRecipeListComponent implements OnInit {
   theme: string;
   constructor(
-    public firebaseService: FirebaseService,
-    public recipeServiceService: RecipeServiceService,
-    public activeUserSingletonService: ActiveUserSingletonService,
     public dialog: MatDialog,
     private themeService: ThemeService) {
     this.confirmUserLoginAfterPageReload();
     this.recipeList = JSON.parse(localStorage.getItem('selectedRecipe'));
-    this.initializeQuantity();
+    this.quantityList = JSON.parse(localStorage.getItem('quantity'));
+    if (this.recipeList && this.recipeList.length > 0) {
+      this.initializeQuantity();
+    }
   }
 
   loggedInUser;
   recipeList;
-  quantityList = [];
-
+  quantityList;
   isDialogOpened = false;
 
   ngOnInit(): void {
@@ -37,38 +33,27 @@ export class MyRecipeListComponent implements OnInit {
   }
 
   initializeQuantity(): void {
-    // console.log(this.recipeList);
-    // console.log('qty_list', JSON.parse(localStorage.getItem('quantity')));
-    // this.quantityList = JSON.parse(localStorage.getItem('quantity'));
-    // if (this.quantityList && this.quantityList.length > 0) {
-    //   console.log('quantity_list_exists', this.quantityList);
-    // } else {
-      this.quantityList = [];
-    // tslint:disable-next-line:prefer-for-of
+    if (!this.quantityList) {
       for (let i = 0; i < this.recipeList.length; i++) {
+        this.quantityList = [];
         this.quantityList.push({
-          recipeId: this.recipeList[i].recipeId,
+          recipeId: this.recipeList[i]._id,
           quantity: 1
         });
       }
       localStorage.setItem('quantity', JSON.stringify(this.quantityList));
-    // }
-
+    }
   }
 
   confirmUserLoginAfterPageReload(): void {
     this.loggedInUser = JSON.parse(localStorage.getItem('user'));
     if (this.loggedInUser) {
-      this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid);
-      this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
     }
   }
 
-
-
   pleaseGiveMeQuantity(item): number {
     if (this.quantityList && this.quantityList.length > 0) {
-      const index = this.quantityList.findIndex(list => list.recipeId === item.recipeId);
+      const index = this.quantityList.findIndex(list => list.recipeId === item._id);
       if (index >= 0) {
         return this.quantityList[index].quantity;
       } else {
@@ -78,13 +63,14 @@ export class MyRecipeListComponent implements OnInit {
       return 1;
     }
   }
+
   generateIngredientList(): void {
     const quantity = JSON.parse(localStorage.getItem('quantity'));
     const selectedRecipe = JSON.parse(localStorage.getItem('selectedRecipe'));
 
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < selectedRecipe.length; i++) {
-      const index = quantity.findIndex(list => list.recipeId === selectedRecipe[i].recipeId);
+      const index = quantity.findIndex(list => list.recipeId === selectedRecipe[i]._id);
       selectedRecipe[i].quantity = quantity[index].quantity;
     }
 
@@ -103,20 +89,26 @@ export class MyRecipeListComponent implements OnInit {
   }
 
   quantityChanged(event, item): void {
-    const index = this.quantityList.findIndex(list => list.recipeId === item.recipeId);
-    this.quantityList[index].quantity = event.target.value;
+    const index = this.quantityList.findIndex(list => list.recipeId === item._id);
+    if (index >= 0) {
+        this.quantityList[index].quantity = Number(event.target.value);
+      } else {
+        this.quantityList.push({
+          recipeId: item._id,
+          quantity: event.target.value
+        });
+      }
     localStorage.setItem('quantity', JSON.stringify(this.quantityList));
   }
 
   closeMe(item): void {
     // Update Recipe Collection
-    const index = this.recipeList.findIndex(recipe => recipe.recipeId === item.recipeId);
+    const index = this.recipeList.findIndex(recipe => recipe._id === item._id);
     this.recipeList.splice(index, 1);
     localStorage.setItem('selectedRecipe', JSON.stringify(this.recipeList));
-    this.activeUserSingletonService.activeUserSelectedRecipe.next(this.recipeList);
 
     // Update Quantity Collection
-    const index1 = this.quantityList.findIndex(list => list.recipeId === item.recipeId);
+    const index1 = this.quantityList.findIndex(list => list.recipeId === item._id);
     this.quantityList.splice(index1, 1);
     localStorage.setItem('quantity', JSON.stringify(this.quantityList));
   }

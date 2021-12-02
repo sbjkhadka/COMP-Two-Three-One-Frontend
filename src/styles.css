@@ -58,7 +58,8 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
 }
  /* Color for add recipe button*/
 .add-recipe-color {
-  color:var(--mainColor);
+  color: var(--mainColor);
+  background-color: transparent;
 }
 .add-recipe-dark-color {
   color:var(--grayColor);

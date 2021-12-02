@@ -1,12 +1,9 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {FirebaseService} from '../shared-services/services/firebase.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Form, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {RecipeServiceService} from '../shared-services/recipe-service.service';
 import {AngularRegistrationService} from '../shared-services/services/angular-registration.service';
 import {User} from '../shared-models/user.model';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {ConfirmationDialogComponent} from '../home/generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
 import {InfoDialog} from '../shared-models/info-dialog.model';
 import {ThemeService} from '../shared-services/theme.service';
@@ -19,20 +16,16 @@ import {ThemeService} from '../shared-services/theme.service';
 })
 export class RegisterAuthComponent implements OnInit {
   theme: string;
-  constructor(public firebaseService: FirebaseService,
-              private angularRegistrationService: AngularRegistrationService,
+  constructor(private angularRegistrationService: AngularRegistrationService,
               public dialogRef: MatDialogRef<RegisterAuthComponent>,
-              public recipeServiceService: RecipeServiceService,
               private formBuilder: FormBuilder,
               public dialog: MatDialog,
               private themeService: ThemeService) {
     this.initializeForm();
-
   }
 
   siteKey = '6LeD-CgdAAAAADt6twkJVsYFYjP5lsm64GJczRiM';
   isSignedIn = false;
-  // @Output() isLoggedIn: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() signUpStatus: EventEmitter<boolean> = new EventEmitter<boolean>(); // sign up status should emit true if successfully signed in
   userRegistered;
   registrationFailure = 'Registration failed';
@@ -118,7 +111,6 @@ export class RegisterAuthComponent implements OnInit {
   captchaSuccess(event): void {
     this.botCheckPass = true;
   }
-
 }
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {

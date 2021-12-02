@@ -32,22 +32,23 @@ export class MyGroceryListComponent implements OnInit {
    const tempList = [];
    for (let i = 0; i < finalList.length; i++) {
      let overallQty = 1;
-     for (let j = 0; j < finalList[i].recipeItemList.length; j++) {
-        overallQty = (Number(finalList[i].recipeItemList[j].itemQuantity) * Number(finalList[i].quantity));
-        finalList[i].recipeItemList[j].itemQuantity = overallQty;
-        tempList.push(finalList[i].recipeItemList[j]);
+     for (let j = 0; j < finalList[i].recipeItem.length; j++) {
+        overallQty = (Number(finalList[i].recipeItem[j].itemQuantity) * Number(finalList[i].quantity));
+        finalList[i].recipeItem[j].itemQuantity = overallQty;
+        tempList.push(finalList[i].recipeItem[j]);
       }
     }
 
    this.consolidatedList = tempList;
+   console.log('consList', this.consolidatedList);
 
    // Logic for grouping ingredients in arrays based on ingredientId
-   const guideArray = [...new Set(tempList.map(item => item.ingredientId))].sort((a, b) => a - b);
+   const guideArray = [...new Set(tempList.map(item => item._id))].sort((a, b) => a - b);
    const realArray = [];
    guideArray.map(e => {realArray.push([]); });
 
    for (const item of tempList) {
-     const index = guideArray.findIndex(guide => guide === item.ingredientId);
+     const index = guideArray.findIndex(guide => guide === item._id);
      if (index >= 0) {
        realArray[index].push(item);
      }
@@ -67,7 +68,6 @@ export class MyGroceryListComponent implements OnInit {
      this.printObj.push(obj);
 
    }
-   console.log('final_object', this.printObj);
    this.groceryList$.next(this.printObj);
   }
 

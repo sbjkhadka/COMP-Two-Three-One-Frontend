@@ -15,7 +15,6 @@ export class RecipeDetailsComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) data,
               public dialogRef: MatDialogRef<RecipeDetailsComponent>,
               private themeService: ThemeService) {
-    console.log('inside component:', data.selectedRecipe);
     this.recipeDetail = data.selectedRecipe;
     dialogRef.disableClose = true;
   }
