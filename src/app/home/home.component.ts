@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
   myRecipees: any[] = [];
   notMyRecipees: any[] = [];
   showingMyRecipeOnly = false;
+  fallbackRecipeImage = 'https://explorelompoc.com/wp-content/uploads/2021/06/food_placeholder.jpg';
 
   // will use it later
   ngOnInit(): void {
