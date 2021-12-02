@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {FirebaseService} from '../shared-services/services/firebase.service';
 import {RecipeServiceService} from '../shared-services/recipe-service.service';
@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit {
     private snackBar: MatSnackBar,
     private themeService: ThemeService,
     private recipeService: RecipeService,
-    private sessionStorageService: SessionStorageService) {
+    private sessionStorageService: SessionStorageService,
+    private cdRef: ChangeDetectorRef) {
     // this.confirmUserLoginAfterPageReload();
     // this.getListOfUsers();
 
@@ -46,7 +47,10 @@ export class HomeComponent implements OnInit {
   stockRecipe = [];
   users = new BehaviorSubject<any[]>([]);
   currentUser;
-  recipeInDisplay: any[]; // Create a model later
+  recipeInDisplay: any[] = []; // Create a model later
+  myRecipees: any[] = [];
+  notMyRecipees: any[] = [];
+  showingMyRecipeOnly = false;
 
   // will use it later
   ngOnInit(): void {
@@ -210,16 +214,38 @@ export class HomeComponent implements OnInit {
 
 
 
+
   getAllRecipes1(): void {
     this.recipeService.getAllRecipes().subscribe(value => {
       console.log('resipees', value);
       if (value.status === 200) {
-        this.recipeInDisplay = value.recipes;
+        for (let i = 0; i < value.recipes.length; i++) {
+          if (value.recipes[i].userEmail === this.currentUser.email) {
+            this.myRecipees.push(value.recipes[i]);
+          } else {
+            this.notMyRecipees.push(value.recipes[i]);
+          }
+        }
+        this.recipeInDisplay.push(...this.myRecipees);
+        this.recipeInDisplay.push(...this.notMyRecipees);
+
       }
     });
   }
 
-  stockDisplayToggled(event) {}
+
+  stockDisplayToggled(event): void {
+    console.log(event);
+    this.recipeInDisplay = [];
+    if (this.showingMyRecipeOnly) {
+      this.recipeInDisplay.push(...this.myRecipees);
+      this.recipeInDisplay.push(...this.notMyRecipees);
+    } else {
+      this.recipeInDisplay.push(...this.myRecipees);
+    }
+    this.showingMyRecipeOnly = !this.showingMyRecipeOnly;
+    this.cdRef.detectChanges();
+  }
 
 
 

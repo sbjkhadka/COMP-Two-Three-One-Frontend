@@ -1,6 +1,8 @@
 <div class="container-fluid">
   <div class="d-flex justify-content-start mt-1">
-    <mat-slide-toggle (change)="stockDisplayToggled($event)" [(ngModel)]="displayingStockRecipes" style="align-self: flex-start">My recipees only
+    <mat-slide-toggle (change)="stockDisplayToggled($event)" style="align-self: flex-start">
+      <span *ngIf="!showingMyRecipeOnly">Show my recipes only</span>
+      <span *ngIf="showingMyRecipeOnly">Show all recipes</span>
     </mat-slide-toggle>
   </div>
   <div class="row">
@@ -42,6 +44,7 @@
         </div>
 
       </div>
+      <span *ngIf="recipeInDisplay && recipeInDisplay.length == 0">Ops! Create your recipe!</span>
     </div>
 
 
