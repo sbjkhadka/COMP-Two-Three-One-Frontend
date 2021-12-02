@@ -152,14 +152,23 @@ export class HomeComponent implements OnInit {
   }
 
   recipeAdded(event, item): void {
-    const currentSelected = JSON.parse(this.localStorageService.getItem('selectedRecipe'));
+    console.log('added',item);
+    const currentSelected = JSON.parse(this.localStorageService.getItem('selectedRecipe')) || [];
+    const quantity = JSON.parse(this.localStorageService.getItem('quantity')) || [];
     if (event.checked) {
       currentSelected.push(item);
+      quantity.push({
+        recipeId: item._id,
+        quantity: 1
+      });
     } else {
       const index = currentSelected.findIndex(recipe => recipe._id === item._id);
+      const indexQuantity = quantity.findIndex(qty => qty.recipeId === item._id);
       currentSelected.splice(index, 1);
+      quantity.splice(indexQuantity, 1);
     }
     this.localStorageService.setItem('selectedRecipe', JSON.stringify(currentSelected));
+    this.localStorageService.setItem('quantity', JSON.stringify(quantity));
   }
 
   shouldICheck(item): boolean {
