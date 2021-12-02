@@ -9,8 +9,9 @@ import {RecipeDetailsComponent} from '../recipe-details/recipe-details.component
 import {AddNewRecipeComponent} from '../add-new-recipe/add-new-recipe.component';
 import {ConfirmationDialogComponent} from './generic-dialogs/confirmation-dialog/confirmation-dialog.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {ThemeService} from '../shared-services/theme.service';
 import {RecipeService} from '../shared-services/recipe.service';
+import {ThemeService} from '../shared-services/theme.service';
+import {SessionStorageService} from '../shared-services/session-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -27,12 +28,12 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private themeService: ThemeService,
-    private recipeService: RecipeService) {
+    private recipeService: RecipeService,
+    private sessionStorageService: SessionStorageService) {
     // this.confirmUserLoginAfterPageReload();
     // this.getListOfUsers();
+
   }
-  bannerImage = 'https://www.meriton.com.au/wp-content/uploads/Fresh_Vegetables_Portrait_Large-e1503040370565.jpg';
-  loggedInUser;
   registrationErrorMessage: string;
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   loggedInUserRecipes = new BehaviorSubject<any[]>(null);
@@ -52,61 +53,22 @@ export class HomeComponent implements OnInit {
     this.themeService.theme.subscribe(value => {
       this.theme = value;
     });
-    // this.login();
-    // this.updateToggleButton();
+
+    this.updateCurrentUser();
     this.getAllRecipes1();
   }
-  getListOfUsers(): void {
-    this.recipeServiceService.getAllRoles().subscribe(res => {
-      // console.log('users', res.payload);
-      this.users.next(res.payload);
-    });
-  }
 
-  confirmUserLoginAfterPageReload(): void {
-    this.loggedInUser = JSON.parse(localStorage.getItem('user'));
-    if (this.loggedInUser) {
-      this.activeUserSingletonService.activeUser.next(this.loggedInUser.uid);
-      this.activeUserSingletonService.activeUserDetails.next(this.loggedInUser);
-      this.getAllRecipes(this.loggedInUser.uid);
-    }
-  }
-  checkTrainer(): void {
-    this.users.subscribe(res => {
-      // console.log('LIST OF USERS', res);
-      // console.log('LOGGED_IN_USERS', this.loggedInUser);
-      const user = res.find(element => element.partyId === this.loggedInUser.uid);
-      if (user) {
-        // console.log('USERRRRRRRRR', user);
-        // this.currentUser.next(user);
-        this.activeUserSingletonService.activeUserDetailsFromDB.next(user);
+  updateCurrentUser(): void {
+    if (this.sessionStorageService.isLoggedIn()) {
+      const loggedInUser = this.sessionStorageService.getItem('logged_in_user');
+      console.log(loggedInUser);
+      if (loggedInUser) {
+        this.currentUser = JSON.parse(loggedInUser).user;
+        console.log(this.currentUser);
       }
-      // console.log('USER', user);
-    });
-    this.activeUserSingletonService.activeUserDetailsFromDB.subscribe(value => {
-      this.currentUser = value;
-    });
-  }
-
-  login(): void{
-    this.loggedInUser = JSON.parse(localStorage.getItem('logged_in_user'));
-    this.getAllRecipes(this.loggedInUser.user.email);
-  }
-
-  register(event): void {
-    if (event === false) {
-      this.registrationErrorMessage = 'Registration failed';
-    } else {
-      this.registrationErrorMessage = 'Successfully registered';
     }
   }
 
-  logout(): any {
-    localStorage.removeItem('user');
-    this.loggedInUser = undefined;
-
-    this.firebaseService.logOut();
-  }
 
   recipeItemClicked(item: any): void {
     // console.log('item.recipe_name' + item.recipe_name);
@@ -136,7 +98,7 @@ export class HomeComponent implements OnInit {
       }
     ).afterClosed().subscribe(res => {
       // this.getAllRecipes(this.activeUserSingletonService.activeUser);
-      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
       // this.addStockRecipe();
     });
   }
@@ -155,27 +117,12 @@ export class HomeComponent implements OnInit {
       }
     ).afterClosed().subscribe(res => {
       // this.getAllRecipes(this.activeUserSingletonService.activeUser);
-      this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+      // this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
       // this.addStockRecipe();
     });
 
   }
-  getAllRecipes(loggedInUserId: string): void {
-    this.recipeServiceService.getAllStockRecipe().subscribe(res => {
-      // console.log('response _ my', res);
-      this.myRecipe.next(res.payload);
-      // this.activeUserSingletonService.activeUserRecipe.next(res.payload); // feeding singleton
-      // this.loggedInUserRecipes.next( res.payload);
-      // console.log('logged_in_user_recipes_inside', this.loggedInUserRecipes);
-      this.loggedInUserRecipes.next(res.payload);
 
-      this.updateToggleButton();
-      this.checkLocalStorage();
-    });
-
-    this.addStockRecipe();
-
-  }
 
   // tslint:disable-next-line:typedef
   updateToggleButton(): void {
@@ -192,53 +139,9 @@ export class HomeComponent implements OnInit {
 
     });
   }
-  addStockRecipe(): void {
-    this.recipeServiceService.getAllStockRecipe().subscribe(res => {
-      this.stockRecipe = res.payload;
-      if (this.displayingStockRecipes === true) {
-        this.getMyRecipeAndStockRecipe(true);
-      } else {
-        this.getMyRecipeAndStockRecipe(false);
-      }
-    });
-  }
 
-  stockDisplayToggled(event): void {
-    this.getMyRecipeAndStockRecipe(event.checked);
-  }
 
-  getMyRecipeAndStockRecipe(event?): void {
-    setTimeout(() => {
-      let myRec;
-      let stockRec;
-      this.myRecipe.subscribe(val => {
-        // console.log('VALUE', val);
-        myRec = val;
-        stockRec = this.stockRecipe;
-        this.showHideStockRecipe(event, myRec, stockRec);
-      });
-    }, 1000);
 
-  }
-
-  showHideStockRecipe(show: boolean, myRec?, stockRec?): void {
-    if (show === true) {
-      const finalRec =  [];
-      myRec.map(rec => {
-        finalRec.push(rec);
-      });
-      stockRec.map(rec => {
-        finalRec.push(rec);
-      });
-      this.activeUserSingletonService.activeUserRecipe.next(finalRec); // feeding singleton
-      this.loggedInUserRecipes.next( finalRec);
-      this.displayingStockRecipes = true;
-    } else {
-      this.activeUserSingletonService.activeUserRecipe.next(myRec); // feeding singleton
-      this.loggedInUserRecipes.next(myRec);
-      this.displayingStockRecipes = false;
-    }
-  }
 
   deleteRecipe(item): void {
     // console.log('deleting', item);
@@ -257,7 +160,7 @@ export class HomeComponent implements OnInit {
         this.recipeServiceService.deleteRecipe(item.recipeId, item.partyId).subscribe(res => {
           // console.log('deleted_successfully', res);
           this.openSnackBar('Deleted successfully', '');
-          this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
+          // this.getAllRecipes(this.activeUserSingletonService.activeUser.getValue());
         }, error => {
           // console.log('delete_failed', error);
           this.openSnackBar('Deleted failed', '');
@@ -315,6 +218,8 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
+  stockDisplayToggled(event) {}
 
 
 
