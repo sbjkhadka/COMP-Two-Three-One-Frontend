@@ -41,15 +41,12 @@ import {AuthGuard} from './shared-services/services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
-import { DashboardVisualizationComponent } from './dashboard-visualization/dashboard-visualization.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
-import { ChartsModule } from 'ng2-charts';
-import { DashboardRecipeBarChartComponent } from './dashboard-visualization/dashboard-recipe-bar-chart/dashboard-recipe-bar-chart.component';
-import { DashboardIngredientPieChartComponent } from './dashboard-visualization/dashboard-ingredient-pie-chart/dashboard-ingredient-pie-chart.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import {CommonModule} from '@angular/common';
 
 const routes: Routes = [
 
@@ -58,7 +55,6 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
   {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
-  {path: 'dashboard', component: DashboardVisualizationComponent, canActivate: [AuthGuard]},
   {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
@@ -78,9 +74,6 @@ const routes: Routes = [
     CalorieCheckerComponent,
     AngularLoginComponent,
     InfoDialogComponent,
-    DashboardVisualizationComponent,
-    DashboardRecipeBarChartComponent,
-    DashboardIngredientPieChartComponent,
     ContactUsComponent,
   ],
   imports: [
@@ -114,7 +107,7 @@ const routes: Routes = [
     MatCardModule,
     MatMenuModule,
     LayoutModule,
-    ChartsModule
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
