@@ -58,7 +58,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
   {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
-  {path: 'dashboard', component: DashboardVisualizationComponent, canActivate: [AuthGuard]}
+  {path: 'dashboard', component: DashboardVisualizationComponent, canActivate: [AuthGuard]},
   {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
