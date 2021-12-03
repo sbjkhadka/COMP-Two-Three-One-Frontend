@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
   @ViewChild('registerAuthComponent') registerAuthComponent: RegisterAuthComponent;
   displayingStockRecipes = true;
   myRecipe = new BehaviorSubject<any[]>([]);
-
   stockRecipe = [];
   users = new BehaviorSubject<any[]>([]);
   currentUser;
