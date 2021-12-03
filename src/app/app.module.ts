@@ -41,6 +41,7 @@ import {AuthGuard} from './shared-services/services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
 
@@ -48,7 +49,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
-  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]}
+  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
+  {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
 @NgModule({
@@ -67,6 +69,7 @@ const routes: Routes = [
     CalorieCheckerComponent,
     AngularLoginComponent,
     InfoDialogComponent,
+    ContactUsComponent,
   ],
   imports: [
     BrowserModule,
