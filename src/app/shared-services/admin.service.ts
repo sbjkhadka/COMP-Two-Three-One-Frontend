@@ -29,4 +29,10 @@ export class AdminService {
       return throwError(error);
     }));
   }
+
+  getAllSupportsAndFeedbacks(): Observable<any> {
+    return this.http.get<any>(`${environmentAngular.base_url}allFeedbacks`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 }
