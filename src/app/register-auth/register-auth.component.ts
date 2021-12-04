@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Form, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {AngularRegistrationService} from '../shared-services/services/angular-registration.service';
+import {AngularRegistrationService} from '../shared-services/angular-registration.service';
 import {User} from '../shared-models/user.model';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';

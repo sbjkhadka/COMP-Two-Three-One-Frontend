@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { ThemeService } from './theme.service';
-import {LocalStorageService} from './services/local-storage.service';
+import {LocalStorageService} from './local-storage.service';
 
 describe('ThemeService', () => {
   let service: ThemeService;
