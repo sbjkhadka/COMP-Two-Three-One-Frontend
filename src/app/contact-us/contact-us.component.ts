@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {LocalStorageService} from '../shared-services/local-storage.service';
 import {ThemeService} from '../shared-services/theme.service';
 import {ContactUsModel} from '../shared-models/contact-us.model';
 import {FormlyFieldConfig} from '@ngx-formly/core';
 import {FormGroup} from '@angular/forms';
+import {AdminService} from '../shared-services/admin.service';
+import {SessionStorageService} from '../shared-services/session-storage.service';
+import {SnackbarService} from '../shared-services/snackbar.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -15,19 +17,19 @@ export class ContactUsComponent implements OnInit {
   contactUsForm = new FormGroup({});
 
   model: ContactUsModel = {
-    request: 'support',
+    type: 'Support',
     message: ''
   };
   contactUsFormField: FormlyFieldConfig[] = [
     {
-      key: 'request',
+      key: 'type',
       type: 'select',
       defaultValue: 'support',
       templateOptions: {
         label: 'Request type',
         options: [
-          {label: 'Support', value: 'support'},
-          {label: 'Feedback', value: 'feedback'}
+          {label: 'Support', value: 'Support'},
+          {label: 'Feedback', value: 'Feedback'}
         ]
       }
     },
@@ -45,18 +47,27 @@ export class ContactUsComponent implements OnInit {
   ];
   currentUser: any;
   theme: string;
-  constructor(private localStorageService: LocalStorageService,
-              private themeService: ThemeService) { }
+  constructor(private sessionStorageService: SessionStorageService,
+              private themeService: ThemeService,
+              private adminService: AdminService,
+              private snackBarService: SnackbarService) { }
 
   ngOnInit(): void {
     this.themeService.theme.subscribe(value => {
       this.theme = value;
     });
-    this.currentUser = JSON.parse(this.localStorageService.getItem('logged_in_user')).user;
+    this.currentUser = JSON.parse(this.sessionStorageService.getItem('logged_in_user')).user;
   }
 
   submitContactUsForm(model: ContactUsModel): void {
-    console.log('model', model);
+    model.user = this.currentUser._id;
+    model.userEmail = this.currentUser.email;
+    this.adminService.sendFeedbackOrRequest(model).subscribe(value => {
+      this.snackBarService.openSnackBar(`${model.type} Added`);
+      window.location.href = '/home';
+    }, error1 => {
+      this.snackBarService.openSnackBar(`Could not add your ${model.type}`);
+    });
   }
 
 }
