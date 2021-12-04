@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {AngularLoginService} from '../shared-services/services/angular-login.service';
-import {LocalStorageService} from '../shared-services/services/local-storage.service';
+import {AngularLoginService} from '../shared-services/angular-login.service';
+import {LocalStorageService} from '../shared-services/local-storage.service';
 import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {MatDialog} from '@angular/material/dialog';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';

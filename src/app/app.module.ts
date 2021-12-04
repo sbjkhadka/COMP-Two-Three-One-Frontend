@@ -37,7 +37,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import { AngularLoginComponent } from './angular-login/angular-login.component';
-import {AuthGuard} from './shared-services/services/auth.guard';
+import {AuthGuard} from './shared-services/auth.guard';
 import {NgxCaptchaModule} from 'ngx-captcha';
 import { InfoDialogComponent } from './home/generic-dialogs/info-dialog/info-dialog.component';
 import {ColorPickerModule} from 'ngx-color-picker';
@@ -47,6 +47,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import {CommonModule} from '@angular/common';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
 const routes: Routes = [
 
@@ -107,7 +109,9 @@ const routes: Routes = [
     MatCardModule,
     MatMenuModule,
     LayoutModule,
-    CommonModule
+    CommonModule,
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyBootstrapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
