@@ -32,7 +32,6 @@ export class UserListComponent implements OnInit {
 
   getUserList(): void {
     this.adminService.getUserList().subscribe(users => {
-      console.log('user_list', users.users);
       this.users = users.users;
       this.dataSource = new BehaviorSubject<MatTableDataSource<any>>(new MatTableDataSource<any>(users.users));
       this.dataSource.value.paginator = this.paginator;
