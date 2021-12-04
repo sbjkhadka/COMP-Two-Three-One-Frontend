@@ -54,6 +54,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { SupportFeedbackComponent } from './support-feedback/support-feedback.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { SupportFeedbackDetailsComponent } from './support-feedback/support-feedback-details/support-feedback-details.component';
 
 const routes: Routes = [
 
@@ -65,7 +66,8 @@ const routes: Routes = [
   {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]},
   {path: 'createUser', component: RegisterComponent, canActivate: [AuthGuard]},
   {path: 'userList', component: UserListComponent, canActivate: [AuthGuard]},
-  {path: 'supportAndFeedback', component: SupportFeedbackComponent, canActivate: [AuthGuard]}
+  {path: 'supportAndFeedback', component: SupportFeedbackComponent, canActivate: [AuthGuard]},
+  {path: 'supportAndFeedback/:id', component: SupportFeedbackDetailsComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
 @NgModule({
@@ -88,6 +90,7 @@ const routes: Routes = [
     RegisterComponent,
     UserListComponent,
     SupportFeedbackComponent,
+    SupportFeedbackDetailsComponent,
   ],
   imports: [
     BrowserModule,
