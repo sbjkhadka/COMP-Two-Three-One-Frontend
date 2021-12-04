@@ -1,4 +1,6 @@
 export class ContactUsModel {
-  request: string;
+  type: string;
   message: string;
+  userEmail?: string;
+  user?: string;
 }
