@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
     this.isSignedIn = localStorage.getItem('user') !== null;
   }
 
-  initializeForm(): void{
+  initializeForm(): void {
     this.registrationForm = this.formBuilder.group({
       emailSignup: new FormControl('', Validators.required),
       passwordSignup: new FormControl('', Validators.required),
