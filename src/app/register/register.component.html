@@ -8,20 +8,20 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" class="form-control" formControlName="firstNameSignup" />
+          <input type="text" id="firstName" class="form-control" formControlName="firstNameSignup" autocomplete="on" />
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" class="form-control" formControlName="lastNameSignup"/>
+          <input type="text" id="lastName" class="form-control" formControlName="lastNameSignup" autocomplete="on"/>
         </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input [class.is-invalid]="registrationForm.get('emailSignup').invalid &&
+      <input autocomplete="on" [class.is-invalid]="registrationForm.get('emailSignup').invalid &&
       registrationForm.get('emailSignup').touched" type="text" id="email" class="form-control" formControlName="emailSignup" />
       <small [class.d-none]="registrationForm.get('emailSignup').valid ||
       registrationForm.get('emailSignup').untouched" class="text-danger">Email is required</small>
@@ -40,7 +40,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" formControlName="passwordSignup" matInput/>
+          <input type="password" id="password" class="form-control" formControlName="passwordSignup" matInput autocomplete="on"/>
           <mat-error *ngIf="registrationForm.hasError('required', 'password')">
             Password is required
           </mat-error>
@@ -49,7 +49,7 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="reTypePassword">Retype Password</label>
-          <input type="password" id="reTypePassword" class="form-control" formControlName="rePasswordSignup" matInput [errorStateMatcher]="matcher"/>
+          <input autocomplete="on" type="password" id="reTypePassword" class="form-control" formControlName="rePasswordSignup" matInput [errorStateMatcher]="matcher"/>
           <mat-error *ngIf="registrationForm.hasError('notSame')">
             Passwords do not match
           </mat-error>
@@ -57,15 +57,14 @@
       </div>
     </div>
 
-
     <div class="form-group">
       <label for="question">Security Question</label>
-      <input type="text" id="question" class="form-control" formControlName="securityQuestionSignup" />
+      <input autocomplete="on" type="text" id="question" class="form-control" formControlName="securityQuestionSignup" />
     </div>
 
     <div class="form-group">
       <label for="answer">Answer</label>
-      <input type="text" id="answer" class="form-control" formControlName="securityAnswerSignup" />
+      <input autocomplete="on" type="text" id="answer" class="form-control" formControlName="securityAnswerSignup" />
     </div>
 
     <div class="form-group">
@@ -80,4 +79,3 @@
   </form>
 
 </div>
-

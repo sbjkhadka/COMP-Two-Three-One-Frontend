@@ -50,7 +50,6 @@ export class SupportFeedbackComponent implements OnInit {
 
   getAllSupportsAndFeedbacks(): void {
     this.adminService.getAllSupportsAndFeedbacks().subscribe(feedbacks => {
-      console.log('feedbacks', feedbacks);
       this.feedbacks = feedbacks.feedbacks;
       this.feedbackTemp = feedbacks.feedbacks;
       this.dataSource = new BehaviorSubject<MatTableDataSource<any>>(new MatTableDataSource<any>(feedbacks.feedbacks));
