@@ -13,7 +13,7 @@ export class DashboardVisualizationComponent {
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Recipe Visualization', cols: 1, rows: 1 },
+          { title: 'Recipe Visualization', cols: 2, rows: 3 },
           { title: 'Card 1', cols: 1, rows: 1 },
 
 
@@ -21,7 +21,7 @@ export class DashboardVisualizationComponent {
       }
 
       return [
-        { title: 'Recipe Visualization', cols: 1, rows: 1 },
+        { title: 'Visualization: Price of Recipes', cols: 1, rows: 1 },
         { title: 'Ingredients Visualization', cols: 1, rows: 1 },
 
       ];

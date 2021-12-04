@@ -1,8 +1,22 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Total Recipes</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+    <h1 class="d-flex flex row justify-content-around display-1 font-weight-bold" style="font-size: xxx-large">{{ 0 }}</h1>
+    <mat-card-content>
+      <p>
+       This represents the total number of recipes in the database.
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-grid-list cols="2" rowHeight="450px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" style="height: 50rem;">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
@@ -27,7 +41,7 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
-  <mat-grid-list cols="2" rowHeight="350px">
+  <mat-grid-list cols="2" rowHeight="450px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
@@ -56,4 +70,5 @@
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
 </div>
