@@ -52,6 +52,8 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { SupportFeedbackComponent } from './support-feedback/support-feedback.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 const routes: Routes = [
 
@@ -119,8 +121,10 @@ const routes: Routes = [
     MatMenuModule,
     LayoutModule,
     CommonModule,
-    FormlyModule.forRoot({ extras: { lazyRender: true } }),
-    FormlyBootstrapModule
+    FormlyModule.forRoot({extras: {lazyRender: true}}),
+    FormlyBootstrapModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

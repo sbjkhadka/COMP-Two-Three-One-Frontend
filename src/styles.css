@@ -93,5 +93,24 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
    --lightGray: #D3D3D3;
  }
 
+/* Related to table styling */
+.mat-header-cell{
+  color: white;
+  justify-content: space-around;
+  font-size: medium;
+}
+
+.mat-row:nth-child(2n){
+  background-color: #B0BEC5;
+}
+
+.icon-color-red {
+  color: red;
+}
+
+.icon-color-gray {
+  color: var(--grayColor);
+}
+
 
 

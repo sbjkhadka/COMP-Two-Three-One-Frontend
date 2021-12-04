@@ -17,4 +17,16 @@ export class AdminService {
       return throwError(error);
     }));
   }
+
+  getUserList(): Observable<any> {
+    return this.http.get<any>(`${environmentAngular.base_url}users`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
+
+  deleteUser(email: string): Observable<any> {
+    return this.http.delete<any>(`${environmentAngular.base_url}users?userEmail=${email}`).pipe(catchError(error => {
+      return throwError(error);
+    }));
+  }
 }
