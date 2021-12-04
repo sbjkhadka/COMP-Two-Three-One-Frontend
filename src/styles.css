@@ -112,5 +112,9 @@ body { margin: 0; font-family: 'Yuji Boku', serif; }
   color: var(--grayColor);
 }
 
+.icon-color-blue {
+  color: blue;
+}
+
 
 
