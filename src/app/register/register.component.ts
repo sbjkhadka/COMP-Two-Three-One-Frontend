@@ -91,7 +91,17 @@ export class RegisterComponent implements OnInit {
         }
       }).afterClosed().subscribe(res => {
         this.info = null;
-        window.location.href = '/home';
+        window.location.href = '/userList';
+      });
+    }, error => {
+      this.dialog.open(InfoDialogComponent, {
+        height: '200px',
+        width: '500px',
+        panelClass: 'no-padding-container',
+        data: {
+          infoName: 'Registration',
+          infoType: 'Failed'
+        }
       });
     });
   }

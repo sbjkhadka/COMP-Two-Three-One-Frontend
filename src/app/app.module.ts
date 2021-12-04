@@ -49,6 +49,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import {CommonModule} from '@angular/common';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
+import { RegisterComponent } from './register/register.component';
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
 
@@ -57,7 +59,9 @@ const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
   {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
-  {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]}
+  {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]},
+  {path: 'createUser', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'userList', component: UserListComponent, canActivate: [AuthGuard]}
 ];
 // @ts-ignore
 @NgModule({
@@ -77,6 +81,8 @@ const routes: Routes = [
     AngularLoginComponent,
     InfoDialogComponent,
     ContactUsComponent,
+    RegisterComponent,
+    UserListComponent,
   ],
   imports: [
     BrowserModule,
