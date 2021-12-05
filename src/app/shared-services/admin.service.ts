@@ -42,4 +42,10 @@ export class AdminService {
      return throwError(error);
    }));
  }
+
+ changeTicketStatus(payload: any): Observable<any> {
+   return this.http.put<any>(`${environmentAngular.base_url}changeTicketStatus`, payload).pipe(catchError(error => {
+     return throwError(error);
+   }));
+ }
 }
