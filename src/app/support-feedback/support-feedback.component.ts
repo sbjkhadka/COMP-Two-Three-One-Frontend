@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AdminService} from '../shared-services/admin.service';
 import {ThemeService} from '../shared-services/theme.service';
 import {MatDialog} from '@angular/material/dialog';
@@ -6,6 +6,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {BehaviorSubject} from 'rxjs';
 import {MatTableDataSource} from '@angular/material/table';
 import {FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-support-feedback',
@@ -19,11 +20,12 @@ export class SupportFeedbackComponent implements OnInit {
   theme: string;
   feedbacks = [];
   feedbackTemp = [];
-  displayedColumns: string[] = ['id', 'type', 'email', 'message', 'action'];
+  displayedColumns: string[] = ['type', 'status', 'email', 'message', 'action'];
   dataSource = new BehaviorSubject<MatTableDataSource<any>>(new MatTableDataSource<any>([]));
 
   constructor(private adminService: AdminService,
-              private themeService: ThemeService) { }
+              private themeService: ThemeService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.themeService.theme.subscribe(value => {
@@ -54,11 +56,12 @@ export class SupportFeedbackComponent implements OnInit {
       this.feedbackTemp = feedbacks.feedbacks;
       this.dataSource = new BehaviorSubject<MatTableDataSource<any>>(new MatTableDataSource<any>(feedbacks.feedbacks));
       this.dataSource.value.paginator = this.paginator;
+      console.log('fe', feedbacks);
     });
   }
 
   navigateToDetailsPage(element: any): void {
-    window.location.href = `/supportAndFeedback/${element._id}`;
+    this.router.navigate([`supportAndFeedback/${element._id}`], { state: element }).then(v => {  });
   }
 
   applyFilter(event: Event): void {
