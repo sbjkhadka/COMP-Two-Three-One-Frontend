@@ -32,6 +32,9 @@ export class SupportFeedbackDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!this.selectedData) {
+      this.backToMainList();
+    }
     this.messageForm = new FormGroup({
       message: new FormControl('')
     });
@@ -76,6 +79,10 @@ export class SupportFeedbackDetailsComponent implements OnInit {
       dd = '0' + dd;
     }
     return [yyyy, mm, dd].join('-');
+  }
+
+  backToMainList(): void {
+    this.router.navigate([`supportAndFeedback`]).then();
   }
 
   applyFilter(event: Event): void {
