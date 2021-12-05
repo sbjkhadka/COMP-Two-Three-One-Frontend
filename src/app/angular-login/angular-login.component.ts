@@ -16,6 +16,7 @@ import {SessionStorageService} from '../shared-services/session-storage.service'
 })
 export class AngularLoginComponent implements OnInit, OnDestroy {
 
+  spinnerShowing = false;
   theme: string;
   constructor(private angularLoginService: AngularLoginService,
               private localStorageService: LocalStorageService,
@@ -59,11 +60,13 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
     );
   }
   onSignIn(): void {
+    this.spinnerShowing = true;
     this.credentials.email =  this.loginForm.value.email;
     this.credentials.password = this.loginForm.value.password;
 
     if (this.loginForm.value.email && this.loginForm.value.password) {
       this.angularLoginService.signIn(this.credentials).subscribe(value => {
+        this.spinnerShowing = false;
         if (value && value.accessToken) {
           this.sessionStorageService.setItem('logged_in_user', JSON.stringify(value));
           this.sessionStorageService.setToken(value.accessToken);
@@ -73,6 +76,8 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
           this.sessionStorageService.setRefreshToken(value.refreshToken);
         }
         window.location.href = '/home';
+      }, error => {
+        this.spinnerShowing = false;
       });
     }
   }
