@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularLoginService} from './shared-services/angular-login.service';
 import {LocalStorageService} from './shared-services/local-storage.service';
 import {ThemeService} from './shared-services/theme.service';
