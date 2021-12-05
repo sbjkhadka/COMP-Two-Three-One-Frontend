@@ -7,6 +7,7 @@ import {BehaviorSubject} from 'rxjs';
 import {MatTableDataSource} from '@angular/material/table';
 import {FormControl} from '@angular/forms';
 import {Router} from '@angular/router';
+import {ContactUsModel} from '../shared-models/contact-us.model';
 
 @Component({
   selector: 'app-support-feedback',
@@ -56,7 +57,6 @@ export class SupportFeedbackComponent implements OnInit {
       this.feedbackTemp = feedbacks.feedbacks;
       this.dataSource = new BehaviorSubject<MatTableDataSource<any>>(new MatTableDataSource<any>(feedbacks.feedbacks));
       this.dataSource.value.paginator = this.paginator;
-      console.log('fe', feedbacks);
     });
   }
 
@@ -67,6 +67,24 @@ export class SupportFeedbackComponent implements OnInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.value.filter = filterValue.trim().toLowerCase();
+  }
+
+  changeTicketStatus(element: any, status: string): void {
+    const payload = {
+      Status: status,
+      ticketId: element._id
+    };
+    this.adminService.changeTicketStatus(payload).subscribe(res => {
+      if (res.status === 200) {
+        const index = this.feedbackTemp.findIndex(fb => fb._id === element._id);
+        if (index >= 0) {
+          element.Status = status;
+          this.feedbackTemp[index] = element;
+          this.dataSource.next(new MatTableDataSource<any>(this.feedbackTemp));
+          this.dataSource.value.paginator = this.paginator;
+        }
+      }
+    });
   }
 
 }
