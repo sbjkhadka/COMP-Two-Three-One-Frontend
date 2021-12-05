@@ -62,6 +62,9 @@ export class ContactUsComponent implements OnInit {
   submitContactUsForm(model: ContactUsModel): void {
     model.user = this.currentUser._id;
     model.userEmail = this.currentUser.email;
+    if (model.type === 'Support') {
+      model.status = 'Open';
+    }
     this.adminService.sendFeedbackOrRequest(model).subscribe(value => {
       this.snackBarService.openSnackBar(`${model.type} Added`);
       window.location.href = '/home';
