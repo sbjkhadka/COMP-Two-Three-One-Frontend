@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {ContactUsModel} from '../shared-models/contact-us.model';
 import {environmentAngular} from '../../environments/environment';
 import {catchError} from 'rxjs/operators';
+import {FeedbackDetailsModel} from '../shared-models/feedback-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,4 +36,10 @@ export class AdminService {
       return throwError(error);
     }));
   }
+
+ addFeedbackMessage(feedbackId: string, message: FeedbackDetailsModel): Observable<any> {
+   return this.http.put<any>(`${environmentAngular.base_url}editFeedback/?id=${feedbackId}`, message).pipe(catchError(error => {
+     return throwError(error);
+   }));
+ }
 }
