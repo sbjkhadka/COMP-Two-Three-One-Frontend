@@ -1,56 +1,64 @@
 <div class="grid-container">
-  <h1 class="mat-h1">Dashboard</h1>
-
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Total Recipes</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <h1 class="d-flex flex row justify-content-around display-1 font-weight-bold" style="font-size: xxx-large">{{ 0 }}</h1>
-    <mat-card-content>
-      <p>
-       This represents the total number of recipes in the database.
-      </p>
-    </mat-card-content>
-  </mat-card>
-  <mat-grid-list cols="2" rowHeight="450px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
-      <mat-card class="dashboard-card" style="height: 50rem;">
+  <h1 class="mat-h1 d-flex flex row justify-content-around">Analytics Dashboard</h1>
+  <div class="card mb-3">
+    <div class="card-body d-flex flex row justify-content-around">
+      <mat-card class="example-card">
         <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-
-
-
-
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>Total Recipes</mat-card-title>
+          <mat-card-subtitle>  </mat-card-subtitle>
         </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
-          <app-dashboard-recipe-bar-chart></app-dashboard-recipe-bar-chart>
+        <h1 class="d-flex flex row justify-content-around display-1 font-weight-bold" style="font-size: xxx-large">{{ this.totallength }}</h1>
+        <mat-card-content>
+          <p>
+            This represents the total number of recipes in the database.
+          </p>
+        </mat-card-content>
 
+      </mat-card>
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image2"></div>
+          <mat-card-title>Low Cost Recipes</mat-card-title>
+          <mat-card-subtitle>  </mat-card-subtitle>
+        </mat-card-header>
+        <h1 class="d-flex flex row justify-content-around display-1 font-weight-bold" style="font-size: xxx-large">
+          <span *ngIf="this.lowCost && this.lowCost.length >= 0">{{ this.lowCost.length }}</span>
+
+
+        </h1>
+        <mat-card-content>
+          <p>
+            This represents the total number of low-cost, affordable recipes in the database.
+          </p>
+        </mat-card-content>
+
+      </mat-card>
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image3"></div>
+          <mat-card-title>Total Ingredients</mat-card-title>
+          <mat-card-subtitle>  </mat-card-subtitle>
+        </mat-card-header>
+        <h1 class="d-flex flex row justify-content-around display-1 font-weight-bold" style="font-size: xxx-large">
+          <span *ngIf="this.ingredients && this.ingredients.length >= 0">{{ this.ingredients.length }}</span>
+        </h1>
+        <mat-card-content>
+          <p>
+            This represents the total number of Ingredients in the database.
+          </p>
         </mat-card-content>
       </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-  <mat-grid-list cols="2" rowHeight="450px">
-    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+
+    </div>
+  </div>
+
+  <mat-grid-list cols="2" rowHeight="500px">
+    <mat-grid-tile *ngFor="let card of cards | async" [colspan]="2" [rowspan]="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
-
-
-
-
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -62,7 +70,6 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <app-dashboard-ingredient-pie-chart></app-dashboard-ingredient-pie-chart>
-<!--          <app-dashboard-ingredient-pie-chart></app-dashboard-ingredient-pie-chart>-->
           <app-card title="Product Sales">
 
           </app-card>

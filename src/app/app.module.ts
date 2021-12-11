@@ -47,7 +47,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ChartsModule } from 'ng2-charts';
-import { DashboardRecipeBarChartComponent } from './dashboard-visualization/dashboard-recipe-bar-chart/dashboard-recipe-bar-chart.component';
 import { DashboardIngredientPieChartComponent } from './dashboard-visualization/dashboard-ingredient-pie-chart/dashboard-ingredient-pie-chart.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 
@@ -79,7 +78,7 @@ const routes: Routes = [
     AngularLoginComponent,
     InfoDialogComponent,
     DashboardVisualizationComponent,
-    DashboardRecipeBarChartComponent,
+
     DashboardIngredientPieChartComponent,
     ContactUsComponent,
   ],

@@ -1,10 +1,8 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { ChartOptions, ChartType } from 'chart.js';
+import {Component, OnInit} from '@angular/core';
+import {ChartOptions, ChartType} from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
 import {ThemeService} from '../../shared-services/theme.service';
 import {RecipeService} from '../../shared-services/recipe.service';
-import {SessionStorageService} from '../../shared-services/session-storage.service';
-import {LocalStorageService} from '../../shared-services/services/local-storage.service';
 
 @Component({
   selector: 'app-dashboard-ingredient-pie-chart',
@@ -12,25 +10,56 @@ import {LocalStorageService} from '../../shared-services/services/local-storage.
   styleUrls: ['./dashboard-ingredient-pie-chart.component.css']
 })
 export class DashboardIngredientPieChartComponent implements OnInit {
-
+  totalRecipes = 0;
   public pieChartOptions: ChartOptions = {
     responsive: true,
   };
-  public pieChartLabels: Label[] = ['Ingredient Visualization', 'In-Store Sales', 'Mail Sales'];
-  public pieChartData: SingleDataSet = [300, 500, 100];
+   public pieChartData: SingleDataSet = [0, 3, 5, 6, 7];
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
+  currentUser;
+  price = [];
+  public pieChartLabels: Label[] = ['0-$3', '$4-$9', '$10-$12', '$13-$15', '$15+'];
+  priceRange = [0, 0, 0, 0, 0];
 
   constructor(   private themeService: ThemeService,
-                 private recipeService: RecipeService,
-                 private sessionStorageService: SessionStorageService,
-                 private cdRef: ChangeDetectorRef,
-                 private localStorageService: LocalStorageService) { }
+                 private recipeService: RecipeService) { }
 
-  ngOnInit() {
-
-
+  ngOnInit(): void {
+    this.getAllRecipes();
   }
 
+
+  getAllRecipes(): void {
+    this.recipeService.getAllRecipes().subscribe(value => {
+      if (value.status === 200) {
+        value.recipes.forEach(recipe => {
+          this.price.push(recipe.price);
+        });
+        this.preparePriceRangebarGraph();
+      }
+    });
+  }
+
+  preparePriceRangebarGraph(): void {
+    if (this.price && this.price.length > 0) {
+      this.price.forEach(p => {
+        const pValue = Number(p) || 0;
+        this.totalRecipes += pValue;
+        if (pValue <= 3) {
+          this.priceRange[0]++;
+        } else if (pValue > 3 && pValue <= 9) {
+          this.priceRange[1]++;
+        }else if (pValue > 9 && pValue <= 12) {
+          this.priceRange[2]++;
+        }else if (pValue > 12 && pValue <= 15) {
+          this.priceRange[3]++;
+        }else if (pValue > 15) {
+          this.priceRange[4]++;
+        }
+      });
+      this.pieChartData = this.priceRange;
+    }
+  }
 }

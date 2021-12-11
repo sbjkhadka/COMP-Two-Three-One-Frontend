@@ -26,6 +26,16 @@
 }
 
 .example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Strawberry_gariguette_DSC03063.JPG/220px-Strawberry_gariguette_DSC03063.JPG');
+  background-size: cover;
+}
+
+.example-header-image2 {
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9b/Cavendish_Banana_DS.jpg');
+  background-size: cover;
+}
+
+.example-header-image3 {
+  background-image: url('https://www.wikijuices.com/wp-content/uploads/2017/11/pineapple-fruit.jpg');
   background-size: cover;
 }
