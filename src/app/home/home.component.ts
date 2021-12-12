@@ -9,7 +9,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {RecipeService} from '../shared-services/recipe.service';
 import {ThemeService} from '../shared-services/theme.service';
 import {SessionStorageService} from '../shared-services/session-storage.service';
-import {LocalStorageService} from '../shared-services/services/local-storage.service';
+import {LocalStorageService} from '../shared-services/local-storage.service';
 
 @Component({
   selector: 'app-home',

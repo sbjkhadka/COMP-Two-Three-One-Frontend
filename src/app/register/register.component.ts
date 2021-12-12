@@ -1,23 +1,22 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Form, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {AngularRegistrationService} from '../shared-services/angular-registration.service';
-import {User} from '../shared-models/user.model';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
-import {InfoDialog} from '../shared-models/info-dialog.model';
+import {MatDialog} from '@angular/material/dialog';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ThemeService} from '../shared-services/theme.service';
-
+import {InfoDialog} from '../shared-models/info-dialog.model';
+import {User} from '../shared-models/user.model';
+import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 @Component({
-  selector: 'app-register-auth',
-  templateUrl: './register-auth.component.html',
-  styleUrls: ['./register-auth.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class RegisterAuthComponent implements OnInit {
+export class RegisterComponent implements OnInit {
+
   theme: string;
   constructor(private angularRegistrationService: AngularRegistrationService,
-              public dialogRef: MatDialogRef<RegisterAuthComponent>,
               private formBuilder: FormBuilder,
               public dialog: MatDialog,
               private themeService: ThemeService) {
@@ -38,6 +37,7 @@ export class RegisterAuthComponent implements OnInit {
     infoName: '',
     infoType: ''
   };
+
   ngOnInit(): void {
     this.themeService.theme.subscribe(value => {
       this.theme = value;
@@ -45,7 +45,7 @@ export class RegisterAuthComponent implements OnInit {
     this.isSignedIn = localStorage.getItem('user') !== null;
   }
 
-  initializeForm(): void{
+  initializeForm(): void {
     this.registrationForm = this.formBuilder.group({
       emailSignup: new FormControl('', Validators.required),
       passwordSignup: new FormControl('', Validators.required),
@@ -91,13 +91,19 @@ export class RegisterAuthComponent implements OnInit {
         }
       }).afterClosed().subscribe(res => {
         this.info = null;
-        this.close();
+        window.location.href = '/userList';
+      });
+    }, error => {
+      this.dialog.open(InfoDialogComponent, {
+        height: '200px',
+        width: '500px',
+        panelClass: 'no-padding-container',
+        data: {
+          infoName: 'Registration',
+          infoType: 'Failed'
+        }
       });
     });
-  }
-
-  close(): void {
-    this.dialogRef.close();
   }
 
   checkPasswords(group: FormGroup): any{
@@ -119,7 +125,5 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 
     return (invalidCtrl || invalidParent);
   }
+
 }
-
-
-

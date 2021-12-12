@@ -1,6 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {AngularLoginService} from './shared-services/services/angular-login.service';
-import {LocalStorageService} from './shared-services/services/local-storage.service';
+import {Component, OnInit} from '@angular/core';
+import {AngularLoginService} from './shared-services/angular-login.service';
+import {LocalStorageService} from './shared-services/local-storage.service';
 import {ThemeService} from './shared-services/theme.service';
 import {FormGroup} from '@angular/forms';
 import {SessionStorageService} from './shared-services/session-storage.service';

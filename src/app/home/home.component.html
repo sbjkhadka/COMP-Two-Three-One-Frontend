@@ -40,7 +40,7 @@
         <div class="card-img-overlay h-25 w-100 d-flex justify-content-between align-self-start pt-3 pr-3">
           <img src="../../assets/icons/price-tag.png" [ngClass]="theme==='color'?'image-color':'image-dark'"/>
           <span></span>
-          <mat-checkbox [checked]="shouldICheck(item)" (change)="recipeAdded($event, item)"></mat-checkbox>
+          <mat-checkbox [checked]="shouldICheck(item)" (change)="recipeAdded($event, item)" matTooltip="Select this recipe"></mat-checkbox>
         </div>
 
       </div>
@@ -54,6 +54,7 @@
       <mat-icon class="pr-5 pb-5 font-weight-bold theme-font"
                 style="cursor: pointer;transform: scale(4);"
                 (click)="openAddNewRecipeDialog()"
+                matTooltip="Add Recipe"
                 [ngClass]="theme==='color'?'add-recipe-color':'add-recipe-dark-color'">add_circle</mat-icon>
     </div>
   </div>
