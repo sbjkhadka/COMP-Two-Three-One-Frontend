@@ -30,7 +30,7 @@ export class DashboardIngredientPieChartComponent implements OnInit {
     this.getAllRecipes();
   }
 
-
+// this method will get all recipes for the pie chart specifically
   getAllRecipes(): void {
     this.recipeService.getAllRecipes().subscribe(value => {
       if (value.status === 200) {
@@ -41,6 +41,7 @@ export class DashboardIngredientPieChartComponent implements OnInit {
       }
     });
   }
+// this method will use if/else for the pie chart
 
   preparePriceRangebarGraph(): void {
     if (this.price && this.price.length > 0) {

@@ -44,7 +44,7 @@ export class DashboardVisualizationComponent  implements OnInit {
     this.getAllRecipes();
     this.getTotalIngredientsByUserEmail();
   }
-
+// this method will get all recipes for the dashboard specifically
   getAllRecipes(): void {
     this.recipeService.getAllRecipes().subscribe(value => {
       if (value.status === 200) {
@@ -58,7 +58,7 @@ export class DashboardVisualizationComponent  implements OnInit {
       }
     });
   }
-
+// this method will get the total ingredients by user email
   getTotalIngredientsByUserEmail(): void {
     this.recipeService.getAllIngredients(this.currentUserEmail).subscribe(ingredients => {
       ingredients.ingredients[0].forEach(ing => {
