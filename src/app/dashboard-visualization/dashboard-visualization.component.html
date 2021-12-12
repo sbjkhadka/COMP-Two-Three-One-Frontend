@@ -1,4 +1,4 @@
-<div class="grid-container">
+<div class="grid-container" style="height: 80vh;overflow: hidden;">
   <h1 class="mat-h1 d-flex flex row justify-content-around">Analytics Dashboard</h1>
   <div class="card mb-3">
     <div class="card-body d-flex flex row justify-content-around">
@@ -53,9 +53,10 @@
     </div>
   </div>
 
-  <mat-grid-list cols="2" rowHeight="500px">
+
+  <mat-grid-list cols="2">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="2" [rowspan]="1">
-      <mat-card class="dashboard-card">
+      <mat-card class="dashboard-card" style="height: 450px">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
@@ -70,9 +71,6 @@
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <app-dashboard-ingredient-pie-chart></app-dashboard-ingredient-pie-chart>
-          <app-card title="Product Sales">
-
-          </app-card>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

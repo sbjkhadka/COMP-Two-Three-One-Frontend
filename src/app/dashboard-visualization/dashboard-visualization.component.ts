@@ -21,12 +21,6 @@ export class DashboardVisualizationComponent  implements OnInit {
   totallength;
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({matches}) => {
-      if (matches) {
-        return [
-          {title: 'Recipe Visualization', cols: 2, rows: 1},
-          {title: 'Pie Chart:  Recipes', cols: 2, rows: 1},
-        ];
-      }
       return [
         {title: 'Visualization: Price of Recipes', cols: 1, rows: 1},
       ];
