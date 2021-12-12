@@ -71,6 +71,7 @@ export class RegisterComponent implements OnInit {
       securityQuestion: this.registrationForm.value.securityQuestionSignup,
       securityAnswer: this.registrationForm.value.securityAnswerSignup,
     };
+    console.log('user_on_reg', user);
     this.angularRegistrationService.register(user).subscribe(value => {
       // tslint:disable-next-line:prefer-const
       if (value.status === 200) {
