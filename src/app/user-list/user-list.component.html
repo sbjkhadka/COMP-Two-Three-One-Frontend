@@ -35,6 +35,7 @@
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element">
           <mat-icon
+            *ngIf="element.role != 'admin'"
             [ngClass]="(theme==='color')?'icon-color-red':'icon-color-gray'"
             class="cursor-pointer"
             matTooltip="Delete user"
