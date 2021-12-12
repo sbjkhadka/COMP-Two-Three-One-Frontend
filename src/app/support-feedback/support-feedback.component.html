@@ -48,8 +48,8 @@
             (click)="navigateToDetailsPage(element)"
             matTooltip="View correspondences"
             >open_in_new</mat-icon>
-          <mat-icon matTooltip="Reopen ticket" *ngIf="element.Status === 'Closed'" (click)="changeTicketStatus(element, 'Open')">lock_open</mat-icon>
-          <mat-icon matTooltip="Close ticket" *ngIf="element.Status === 'Open'" (click)="changeTicketStatus(element, 'Closed')">lock</mat-icon>
+          <mat-icon class="cursor-pointer" matTooltip="Reopen ticket" *ngIf="element.Status === 'Closed'" (click)="changeTicketStatus(element, 'Open')">lock_open</mat-icon>
+          <mat-icon class="cursor-pointer" matTooltip="Close ticket" *ngIf="element.Status === 'Open'" (click)="changeTicketStatus(element, 'Closed')">lock</mat-icon>
         </td>
 
       </ng-container>

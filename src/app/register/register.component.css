@@ -12,3 +12,8 @@
   margin-right: 25px;
   cursor: pointer;
 }
+/* Font color */
+input.mat-input-element {
+  color: black !important;
+  border: 1px solid silver !important;
+}

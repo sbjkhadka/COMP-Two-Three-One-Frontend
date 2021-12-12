@@ -60,6 +60,7 @@ export class AddNewRecipeComponent implements OnInit {
     this.prepareRow();
   }
 
+  // Prepares row for add/edit
   public prepareRow(): void {
     if (!this.isEditing) {
       this.recipeForm = this.formBuilder.group({
@@ -97,11 +98,13 @@ export class AddNewRecipeComponent implements OnInit {
     this.initializeAutoComplete();
   }
 
+  // Gives ingredient details by id
   private getIngredientDetails(id: any): any {
     const index = this.ingredientNameList.value.findIndex(ing => ing._id == id);
     return this.ingredientNameList.value[index];
   }
 
+  // Creates a row for form
   public createFormRow(): FormGroup {
     return new FormGroup({
       ingredientName: new FormControl({value: null, disabled: false}),
@@ -111,10 +114,12 @@ export class AddNewRecipeComponent implements OnInit {
     });
   }
 
+  // Adds group form
   public addRecipeFormGroup(): void {
     (this.recipeForm.get('recipes') as FormArray).push(this.createFormRow());
   }
 
+  // Deletes recipe
   public removeOrClearRecipe(i: number): void {
     const recipes = this.recipeForm.get('recipes') as FormArray;
     if (recipes.length > 1) {
@@ -124,10 +129,12 @@ export class AddNewRecipeComponent implements OnInit {
     }
   }
 
+  // Gives status if user is editing or adding recipe
   getIsEditing(): boolean {
     return this.isEditing;
   }
 
+  // Recipe edit function
   editRecipe(): void {
     const obj = {
       recipeId: this.recipeItem._id,
@@ -152,6 +159,7 @@ export class AddNewRecipeComponent implements OnInit {
     });
   }
 
+  // Recipe save
   saveRecipe(): void {
     const obj = {
       user: this.currentUser._id,
@@ -176,8 +184,7 @@ export class AddNewRecipeComponent implements OnInit {
     });
   }
 
-
-
+  // Autocomplete initializer
   initializeAutoComplete(): void {
     this.filteredOptionsIngredientName = this.ingredientNameInputChange$.pipe(
       startWith(''),
@@ -187,6 +194,7 @@ export class AddNewRecipeComponent implements OnInit {
     );
   }
 
+  // Gives ingredient name to be displayed
   getIngredientDisplayName = (ingredientId) => {
     const index = this.ingredientNameList.value.findIndex(item => item._id === ingredientId);
     return index >= 0 && this.ingredientNameList && this.ingredientNameList.value && this.ingredientNameList.value.length > 0 ?
@@ -194,6 +202,7 @@ export class AddNewRecipeComponent implements OnInit {
         .ingredientName : '';
   }
 
+  // When ingredient is selected
   ingredientSelected(event, i): void {
     const formArray = this.recipeForm.get('recipes') as FormArray;
     const currentFormGroup = formArray.at(i);
@@ -211,6 +220,7 @@ export class AddNewRecipeComponent implements OnInit {
     }
   }
 
+  // When ingredient quantity is changed
   quantityChanged(event, i): void {
     const formArray = this.recipeForm.get('recipes') as FormArray;
     const currentFormGroup = formArray.at(i);
@@ -223,20 +233,24 @@ export class AddNewRecipeComponent implements OnInit {
     });
   }
 
+  // Updates image when image is available
   updateImageSource(event): void {
     this.imgSrc = event.target.value;
     this.imageValidFlag = true;
   }
 
+  // Handles when image link is not working
   brokenLink(): void {
     this.imgSrc = this.errorImage;
     this.imageValidFlag = false;
   }
 
+  // Increases the price by $0.5
   increasePrice(): void {
     this.price.setValue(Number(this.price.value) + 0.5);
   }
 
+  // Reduces the price by $0.5
   decreasePrice(): void {
     if (this.price.value <= 0) {
       this.price.setValue(0);
@@ -245,10 +259,12 @@ export class AddNewRecipeComponent implements OnInit {
     }
   }
 
+  // Closes the dialog box
   close(): void {
     this.dialogRef.close(false);
   }
 
+  // Open new ingredient
   openAddNewIngredientDialog(): void {
     const dialogRef = this.dialog.open(AddNewIngredientComponent,
       {
@@ -271,12 +287,14 @@ export class AddNewRecipeComponent implements OnInit {
     });
   }
 
+  // Handler for snackbar
   openSnackBar(message: string, action: string): void {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
 
+  // Gives the list of ingredient
   getIngredientList(): void {
     this.searching = true;
     if (this.currentUser && this.currentUser.email) {
