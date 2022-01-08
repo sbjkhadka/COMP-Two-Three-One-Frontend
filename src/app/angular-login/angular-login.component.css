@@ -81,6 +81,7 @@ a{color:inherit;text-decoration:none}
   color:#fff;
   border-color:var(--grayColor);
 }
+
 .login-form{
   margin-top:30px;
   min-height:345px;
@@ -118,7 +119,6 @@ a{color:inherit;text-decoration:none}
   font-size:18px;
 }
 .login-form .group .button{
-  /*background:#F58634;*/
   background-color: var(--mainColor);
   font-size:18px;
 }

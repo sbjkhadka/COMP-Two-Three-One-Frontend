@@ -55,6 +55,7 @@ import { SupportFeedbackComponent } from './support-feedback/support-feedback.co
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { SupportFeedbackDetailsComponent } from './support-feedback/support-feedback-details/support-feedback-details.component';
+import { ThemeDirective } from './directives/theme.directive';
 
 const routes: Routes = [
 
@@ -91,6 +92,7 @@ const routes: Routes = [
     UserListComponent,
     SupportFeedbackComponent,
     SupportFeedbackDetailsComponent,
+    ThemeDirective,
   ],
   imports: [
     BrowserModule,

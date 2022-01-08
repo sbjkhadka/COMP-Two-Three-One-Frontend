@@ -57,11 +57,11 @@
 
 <div class="row fixed-bottom bg-transparent text-dark">
   <div class="col-md-12 d-flex justify-content-start">
-    <mat-icon class="pl-3 pb-5 font-weight-bold theme-font"
+              <mat-icon class="pl-3 pb-5 font-weight-bold theme-font"
               style="cursor: pointer;transform: scale(4);"
               (click)="switchTheme()"
               matTooltip="switch theme"
-              [ngClass]="theme==='color'?'add-recipe-dark-color':'add-recipe-color'">color_lens</mat-icon>
+              appTheme [where]="'addRecipe'">color_lens</mat-icon>
   </div>
 </div>
 <router-outlet></router-outlet>

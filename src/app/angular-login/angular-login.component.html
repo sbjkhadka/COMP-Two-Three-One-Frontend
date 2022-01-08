@@ -1,8 +1,11 @@
-<div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" [ngClass]="theme==='color'?'main-container':'main-container-dark'">
+ <div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" appTheme [where]="'mainContainer'">
   <div class="login-wrap opacity-50">
     <div class="login-html">
       <input id="tab-1" type="radio" class="sign-in" name="tab"  checked [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
       <input id="tab-2" type="radio" class="for-pwd" name="tab" [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-2" class="tab cheat" >Forgot Password</label>
+      <!-- Going to upgrade this after css issue is resolved -->
+      <!-- <input id="tab-1" type="radio" class="sign-in" name="tab"  checked appTheme [where]="'border'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
+      <input id="tab-2" type="radio" class="for-pwd" name="tab" appTheme [where]="'border'"><label for="tab-2" class="tab cheat" >Forgot Password</label> -->
       <div class="login-form">
 
         <form class="sign-in-htm" [formGroup]="loginForm">
@@ -17,6 +20,8 @@
           <div class="hr"></div>
           <div class="group">
             <button type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
+            <!-- Going to upgrade this after css issue is resolved -->
+            <!-- <button type="submit" value="Sign In" (click)="onSignIn()" appTheme [where]="'button'">Sign In</button> -->
           </div>
         </form>
 
