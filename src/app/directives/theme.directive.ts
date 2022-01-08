@@ -33,6 +33,9 @@ export class ThemeDirective implements AfterViewInit {
     } else if (this.where === 'addRecipe') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('add-recipe-color', 'add-recipe-dark-color') : this.toggleClass('add-recipe-dark-color', 'add-recipe-color');
+    } else if (this.where === 'addRecipeColored') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('add-recipe-dark-color', 'add-recipe-color') : this.toggleClass('add-recipe-color', 'add-recipe-dark-color');
     } else if (this.where === 'themeBg') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('theme-dark-bg', 'theme-bg') : this.toggleClass('theme-bg', 'theme-dark-bg');
