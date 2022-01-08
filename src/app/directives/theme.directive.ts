@@ -51,6 +51,10 @@ export class ThemeDirective implements AfterViewInit {
     } else if (this.where === 'btnDark') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('btn-dark', 'btn-primary') : this.toggleClass('btn-primary', 'btn-dark');
+    } else if (this.where === 'lavenderGrayBg') {
+      // only used in register-auth. Remove it later
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('theme-bg-light-gray', 'theme-bg-lavender') : this.toggleClass('theme-bg-lavender', 'theme-bg-light-gray');
     }
   }
 

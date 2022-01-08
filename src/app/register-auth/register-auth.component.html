@@ -1,11 +1,11 @@
-<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'">
+<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center" appTheme [where]="'themeBg'">
   <div class="d-flex justify-content-between w-100 pr-10">
     <span></span>
     <h2 >Sign Up </h2>
-    <span class="cross-style" (click)="close()" [ngClass]="theme==='color'?'theme-bg':'theme-dark-font'">&#10006;</span>
+    <span class="cross-style" (click)="close()" appTheme [where]="'themeFont'">&#10006;</span>
   </div>
 
-  <form class="form-style w-75 mr-5 ml-5" [formGroup]="registrationForm" [ngClass]="theme==='color'?'theme-bg-lavender':'theme-bg-light-gray'">
+  <form class="form-style w-75 mr-5 ml-5" [formGroup]="registrationForm" appTheme [where]="'lavenderGrayBg'">
     <div class="row">
       <div class="col-md-6">
         <div class="form-group">
@@ -77,7 +77,7 @@
         formControlName="recaptcha">
       </ngx-recaptcha2>
     </div>
-    <button class="btn form-control" (click)="onSignUp()" [disabled]="!botCheckPass" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Signup</button>
+    <button class="btn form-control" (click)="onSignUp()" [disabled]="!botCheckPass" appTheme [where]="'btnThemeDarkBg'">Signup</button>
     <small *ngIf="userRegistered === false">{{registrationFailure}}</small>
   </form>
 
