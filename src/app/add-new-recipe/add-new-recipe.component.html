@@ -1,20 +1,20 @@
 <div class="container-fluid d-flex flex-column justify-content-around " style="height: 100%;background-color: whitesmoke">
   <div class="row" style="height: 100px">
-    <div class="col-md-12 d-flex justify-content-between align-items-center" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'">
+    <div class="col-md-12 d-flex justify-content-between align-items-center" appTheme [where]="'themeBg'">
       <span></span>
-      <h1 class="myClass" [hidden]="getIsEditing()" [ngClass]="theme==='color'?'theme-bg':'theme-font'">{{"New Recipe" | uppercase}}</h1>
-      <h1 class="myClass" [hidden]="!getIsEditing()" [ngClass]="theme==='color'?'theme-bg':'theme-dark-font'">{{"Edit Recipe" | uppercase}}</h1>
+      <h1 class="myClass" [hidden]="getIsEditing()" appTheme [where]="'themeFont'">{{"New Recipe" | uppercase}}</h1>
+      <h1 class="myClass" [hidden]="!getIsEditing()" appTheme [where]="'themeFont'">{{"Edit Recipe" | uppercase}}</h1>
       <a id="close-btn" class="cursor-pointer align-self-start mt-3">
-        <mat-icon matSuffix (click)="close()" [ngClass]="theme==='color'?'theme-bg':'theme-dark-font'">close</mat-icon>
+        <mat-icon matSuffix (click)="close()" appTheme [where]="'themeFont'">close</mat-icon>
       </a>
     </div>
   </div>
 
   <div class="row" style="height: 400px;overflow: auto;">
     <div class="col-md-3 d-flex flex-column justify-content-between align-items-center pt-2">
-      <img src="{{imgSrc}}" (error)="brokenLink()" [ngClass]="theme==='color'?'image-color':'image-dark'">
+      <img src="{{imgSrc}}" (error)="brokenLink()" appTheme [where]="'image'">
       <div style="width: 50%;align-self: flex-start">
-        <mat-label [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">Price: </mat-label>
+        <mat-label appTheme [where]="'themeBgInverse'">Price: </mat-label>
         <div class="d-flex flex-row price border border-2 border-secondary rounded">
           <mat-icon class="cursor-pointer mr-1 border-right border-2 border-secondary" (click)="increasePrice()">add</mat-icon>
           <input matInput type="number" min="0.5" step="0.5" [formControl]="price" style="text-align:center;"/>
@@ -33,9 +33,9 @@
           </mat-form-field>
 
           <div class="col-md-12 pl-0 d-flex justify-content-between align-items-center">
-            <span [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">Add Ingredients</span>
+            <span appTheme [where]="'themeBgInverse'">Add Ingredients</span>
             <span class="icon cursor-pointer" matTooltip="Create New Ingredient" (click)="openAddNewIngredientDialog()">
-              <mat-icon [inline]="true" [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">fiber_new</mat-icon></span>
+              <mat-icon [inline]="true" appTheme [where]="'themeBgInverse'">fiber_new</mat-icon></span>
           </div>
 
           <div formArrayName="recipes" class="m-0 p-0">
@@ -88,11 +88,11 @@
               <div class="col-md-2">
                 <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
                  (click)="removeOrClearRecipe(i)"       matTooltip="Remove">
-                  <mat-icon [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">highlight_off</mat-icon>
+                  <mat-icon appTheme [where]="'themeBgInverse'">highlight_off</mat-icon>
                 </button>
                 <button class="float-left" mat-icon-button color="primary" aria-label="Add"
                         (click)="addRecipeFormGroup()" matTooltip="Add">
-                  <mat-icon [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">add_circle_outline</mat-icon>
+                  <mat-icon appTheme [where]="'themeBgInverse'">add_circle_outline</mat-icon>
                 </button>
               </div>
             </div>
@@ -104,15 +104,15 @@
     <div class="col-md-12 d-flex flex-column justify-content-around align-items-end">
 
       <div style="width:100%;height: 15%;" matTooltip="Past/Type image link">
-        <mat-label [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">Image Link</mat-label>
+        <mat-label appTheme [where]="'themeBgInverse'">Image Link</mat-label>
         <input type="text" [formControl]="imageLink" class="border-box-text-field" (blur)="updateImageSource($event)"/>
       </div>
       <div style="width: 100%;height: 40%;" matTooltip="Past/Type cooking instructions">
-        <mat-label [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">Instructions</mat-label>
+        <mat-label appTheme [where]="'themeBgInverse'">Instructions</mat-label>
       <textarea [formControl]="recipeInstruction" class="border-box-text-field"></textarea>
       </div>
-      <button class="btn form-control" id="saveButton" [hidden]="getIsEditing()" (click)="saveRecipe()" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Add Recipe</button>
-      <button class="btn form-control" id="editButton" [hidden]="!getIsEditing()" (click)="editRecipe()" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Edit Recipe</button>
+      <button class="btn form-control" id="saveButton" [hidden]="getIsEditing()" (click)="saveRecipe()" appTheme [where]="'btnThemeDarkBg'">Add Recipe</button>
+      <button class="btn form-control" id="editButton" [hidden]="!getIsEditing()" (click)="editRecipe()" appTheme [where]="'btnThemeDarkBg'">Edit Recipe</button>
     </div>
   </div>
 </div>

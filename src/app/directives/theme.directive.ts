@@ -24,12 +24,10 @@ export class ThemeDirective implements AfterViewInit {
       this.toggleClass('main-container-dark', 'main-container') : this.toggleClass('main-container', 'main-container-dark');
     } else if (this.where === 'border') {
       // Login component: CSS issue
-      console.log('VAL', value);
       value.toLowerCase() === 'color' ?
         this.toggleClass('border-colored', 'border-dark') : this.toggleClass('border-dark', 'border-colored');
     } else if (this.where === 'button') {
       // Login component: CSS issue
-      console.log('where', this.where);
       value.toLowerCase() === 'color' ?
         this.toggleClass('button', 'button-dark') : this.toggleClass('button-dark', 'button');
     } else if (this.where === 'addRecipe') {
@@ -38,6 +36,18 @@ export class ThemeDirective implements AfterViewInit {
     } else if (this.where === 'themeBg') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('theme-dark-bg', 'theme-bg') : this.toggleClass('theme-bg', 'theme-dark-bg');
+    } else if (this.where === 'themeFont') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('theme-font', 'theme-bg') : this.toggleClass('theme-bg', 'theme-font');
+    } else if (this.where === 'image') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('image-dark', 'image-color') : this.toggleClass('image-color', 'image-dark');
+    } else if (this.where === 'themeBgInverse') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('theme-dark-bg-inverse', 'theme-bg-inverse') : this.toggleClass('theme-bg-inverse', 'theme-dark-bg-inverse');
+    } else if (this.where === 'btnThemeDarkBg') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('theme-dark-bg', 'btn-primary') : this.toggleClass('btn-primary', 'theme-dark-bg');
     }
   }
 
