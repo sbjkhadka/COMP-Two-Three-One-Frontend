@@ -74,7 +74,7 @@
         formControlName="recaptcha">
       </ngx-recaptcha2>
     </div>
-    <button class="btn form-control" (click)="onSignUp()" [disabled]="!botCheckPass" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Signup</button>
+    <button class="btn form-control" (click)="onSignUp()" [disabled]="!botCheckPass" appTheme [where]="'btnThemeDarkBg'">Signup</button>
     <small *ngIf="userRegistered === false">{{registrationFailure}}</small>
   </form>
 
