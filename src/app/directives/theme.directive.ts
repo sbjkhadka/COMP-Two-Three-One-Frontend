@@ -55,9 +55,12 @@ export class ThemeDirective implements AfterViewInit {
       // only used in register-auth. Remove it later
       value.toLowerCase() === 'color' ?
         this.toggleClass('theme-bg-light-gray', 'theme-bg-lavender') : this.toggleClass('theme-bg-lavender', 'theme-bg-light-gray');
-    } else if (this.where === 'iconColor') {
+    } else if (this.where === 'iconColorRed') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('icon-color-gray', 'icon-color-red') : this.toggleClass('icon-color-red', 'icon-color-gray');
+    } else if (this.where === 'iconColorBlue') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('icon-color-gray', 'icon-color-blue') : this.toggleClass('icon-color-blue', 'icon-color-gray');
     }
   }
 

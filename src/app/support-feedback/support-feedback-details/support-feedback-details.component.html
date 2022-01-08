@@ -19,7 +19,7 @@
       <div class="col-md-2 d-flex flex-column justify-content-center">
         <div class="form-group">
           <label for="firstName">&nbsp;</label>
-          <button matTooltip="Add Correspondence" class="btn form-control" (click)="addMessage()" [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'">Add</button>
+          <button matTooltip="Add Correspondence" class="btn form-control" (click)="addMessage()" appTheme [where]="'btnThemeDarkBg'">Add</button>
         </div>
       </div>
     </div>
@@ -48,7 +48,7 @@
       </ng-container>
 
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns" [ngClass]="(theme==='color')?'theme-bg':'theme-dark-bg'"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" appTheme [where]="'themeBg'"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       <!-- Row shown when there is no matching data. -->
