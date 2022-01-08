@@ -48,6 +48,9 @@ export class ThemeDirective implements AfterViewInit {
     } else if (this.where === 'btnThemeDarkBg') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('theme-dark-bg', 'btn-primary') : this.toggleClass('btn-primary', 'theme-dark-bg');
+    } else if (this.where === 'btnDark') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('btn-dark', 'btn-primary') : this.toggleClass('btn-primary', 'btn-dark');
     }
   }
 
