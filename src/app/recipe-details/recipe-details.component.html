@@ -1,10 +1,10 @@
 <div class="container-fluid dialog-wrapper">
   <div class="row dialog-header">
 
-    <mat-toolbar class="d-flex justify-content-between" [ngClass]="theme==='color'?'theme-bg':'theme-dark-bg'">
+    <mat-toolbar class="d-flex justify-content-between" appTheme [where]="'themeBg'">
       <span *ngIf="recipeDetail && recipeDetail.recipeName">{{recipeDetail.recipeName}}</span>
       <a id="close-btn" class="cursor-pointer">
-        <mat-icon matSuffix (click)="close()" [ngClass]="theme==='color'?'theme-bg':'theme-dark-font'">close</mat-icon>
+        <mat-icon matSuffix (click)="close()" appTheme [where]="'themeFont'">close</mat-icon>
       </a>
     </mat-toolbar>
 
@@ -13,7 +13,7 @@
   </div>
   <div class="row dialog-main">
     <div class="col-md-7 d-flex justify-content-around align-items-center">
-      <img *ngIf="recipeDetail &&recipeDetail.recipePhoto" src="{{recipeDetail.recipePhoto}}" height="100%" [ngClass]="theme==='color'?'image-color':'image-dark'">
+      <img *ngIf="recipeDetail &&recipeDetail.recipePhoto" src="{{recipeDetail.recipePhoto}}" height="100%" appTheme [where]="'image'">
     </div>
 
     <div class="col-md-5 d-flex flex-column justify-content-around align-items-start"  *ngIf="recipeDetail" style="height: 440px;max-height: 440px; overflow: auto;">
@@ -38,7 +38,7 @@
     <div *ngIf="recipeDetail && recipeDetail.description"
          class="col-md-12 d-flex justify-content-around align-items-center"
          style="font-family:Arial,monospace;font-size: large;font-weight: bold;padding: 20px 40px;text-align: justify"
-         [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">
+         appTheme [where]="'themeBgInverse'">
 
       {{recipeDetail.description}}
 
