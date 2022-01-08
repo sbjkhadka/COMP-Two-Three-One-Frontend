@@ -70,6 +70,9 @@ export class ThemeDirective implements AfterViewInit {
     } else if (this.where === 'iconColorBlue') {
       value.toLowerCase() === 'color' ?
         this.toggleClass('icon-color-gray', 'icon-color-blue') : this.toggleClass('icon-color-blue', 'icon-color-gray');
+    } else if (this.where === 'redUnderline') {
+      value.toLowerCase() === 'color' ?
+        this.toggleClass('gray-underline', 'red-underline') : this.toggleClass('red-underline', 'gray-underline');
     }
   }
 
