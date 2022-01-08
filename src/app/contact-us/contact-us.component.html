@@ -1,14 +1,14 @@
 <div class="h-75 w-100 overflow-auto pb-5 pl-0 d-flex flex-column justify-content-around align-items-center">
   <div class="w-75 d-flex flex-column justify-content-around align-items-center">
     <h1 class="w-75 d-flex justify-content-around app-name"
-        [ngClass]="theme==='color'?'theme-bg-inverse':'theme-dark-bg-inverse'">Feedback</h1>
+        appTheme [where]="'themeBgInverse'">Feedback</h1>
     <div class="w-50">
       <form [formGroup]="contactUsForm" (ngSubmit)="submitContactUsForm(model)">
         <formly-form [form]="contactUsForm" [fields]="contactUsFormField" [model]="model"></formly-form>
         <button
           type="submit"
           class="btn btn-primary"
-          [ngClass]="theme==='color'?'btn-primary':'theme-dark-bg'"
+          appTheme [where]="'btnThemeDarkBg'"
           [disabled]="!contactUsForm.valid">Submit</button>
       </form>
   </div>
