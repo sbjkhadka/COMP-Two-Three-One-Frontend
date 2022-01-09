@@ -1,85 +1,130 @@
-<div class="h-100 w-100 d-flex flex-column justify-content-around align-items-center" appTheme [where]="'themeBg'">
-  <div class="d-flex justify-content-between w-100 pr-10">
-    <span></span>
-    <h2 >Sign Up </h2>
-    <span class="cross-style" (click)="close()" appTheme [where]="'themeFont'">&#10006;</span>
+<div class="container-fluid h-100 w-100 mh-100 mw-100 overflow-hidden">
+  <div class="row h-100">
+    <div class="col-md-9 col-sm-12 bg-light d-flex flex-column justify-content-between align-items-center">
+      <div>&nbsp;</div>
+      <div
+        class="h-75 w-100 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center border rounded shadow-sm p-3">
+        <h1 class="main-heading">{{page===1 ? 'Tell me about yourself':'Account Setup'}}</h1>
+        <div class="w-50 d-flex align-items-center justify-content-around">
+          <img src="assets/icons/social/insta.png" alt="insta" class="social" />
+          <img src="assets/icons/social/twitter.png" alt="twitter" class="social" />
+          <img src="assets/icons/social/linkedin.png" alt="linkedin" class="social" />
+          <img src="assets/icons/social/github.png" alt="github" class="social" />
+        </div>
+        <small class="text-secondary my-2">or create an account with us</small>
+        <form class="w-75 my-3" [formGroup]="registrationForm">
+          <div class="row" *ngIf="page === 1">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="firstName" class="text-secondary">First Name</label>
+                <input type="text" id="firstName" class="form-control" formControlName="firstNameSignup" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="lastName" class="text-secondary">Last Name</label>
+                <input type="text" id="lastName" class="form-control" formControlName="lastNameSignup" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="page === 1">
+            <label for="email" class="text-secondary">Email</label>
+            <input [class.is-invalid]="
+                registrationForm.get('emailSignup').invalid &&
+                registrationForm.get('emailSignup').touched
+              " type="text" id="email" class="form-control" formControlName="emailSignup" />
+            <small [class.d-none]="
+                registrationForm.get('emailSignup').valid ||
+                registrationForm.get('emailSignup').untouched
+              " class="text-danger">Email is required</small>
+          </div>
+
+          <div class="form-group" *ngIf="page === 1">
+            <label for="role" class="text-secondary">Role</label>
+            <select class="form-control" formControlName="roleSignup" id="role">
+              <option value="admin">Admin</option>
+              <option value="pseudo_admin">Pseudo Admin</option>
+              <option value="user">User</option>
+            </select>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-dark" (click)="switchPage(2)" appTheme [where]="'btnThemeDarkBg'" *ngIf="page === 1">
+              NEXT
+            </button>
+          </div>
+
+          <div class="row" *ngIf="page === 2">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="password" class="text-secondary">Password</label>
+                <input type="password" id="password" class="form-control" formControlName="passwordSignup" matInput />
+                <mat-error *ngIf="registrationForm.hasError('required', 'password')">
+                  Password is required
+                </mat-error>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="reTypePassword" class="text-secondary">Retype Password</label>
+                <input type="password" id="reTypePassword" class="form-control" formControlName="rePasswordSignup"
+                  matInput [errorStateMatcher]="matcher" />
+                <mat-error *ngIf="registrationForm.hasError('notSame')">
+                  Passwords do not match
+                </mat-error>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="page === 2">
+            <label for="question" class="text-secondary">Security Question</label>
+            <input type="text" id="question" class="form-control" formControlName="securityQuestionSignup" />
+          </div>
+
+          <div class="form-group" *ngIf="page === 2">
+            <label for="answer" class="text-secondary">Answer</label>
+            <input type="text" id="answer" class="form-control" formControlName="securityAnswerSignup" />
+          </div>
+
+          <div class="form-group" *ngIf="page === 2">
+            <ngx-recaptcha2 [siteKey]="siteKey" (success)="captchaSuccess($event)" formControlName="recaptcha">
+            </ngx-recaptcha2>
+          </div>
+          <div class="d-flex justify-content-between" *ngIf="page == 2">
+            <button class="btn btn-dark" (click)="switchPage(1)">
+              PREVIOUS
+            </button>
+            <div>
+              <button class="btn form-control" (click)="onSignUp()" [disabled]="!botCheckPass" appTheme
+                [where]="'btnThemeDarkBg'" *ngIf="page === 2">
+                SIGNUP
+              </button>
+              <small *ngIf="userRegistered === false && page == 2">{{
+                registrationFailure
+                }}</small>
+            </div>
+          </div>
+        </form>
+        <small class="text-secondary my-1 d-block d-sm-block d-md-none">Already have an account? 
+          <strong routerLink="/login" class="cursor-pointer">Sign in here</strong>
+        </small>
+      </div>
+      <div class="d-flex my-2 w-75 justify-content-center">
+        <small class="text-secondary">Privacy Policy</small>
+        <small class="mx-3 text-secondary">&#9679;</small>
+        <small class="text-secondary">Terms & Conditions</small>
+      </div>
+    </div>
+
+      <div class="col-md-3 d-none d-sm-none d-md-block bg-dark text-white">
+      <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="main-heading">Hello, Shopper</h1>
+        <small class="text-secondary">Already have an account?</small>
+        <button type="button" class="btn btn-block w-50 btn-light my-5 rounded-button" routerLink="/login">
+          Sign In
+        </button>
+      </div>
+    </div>
   </div>
-
-  <form class="form-style w-75 mr-5 ml-5" [formGroup]="registrationForm" appTheme [where]="'lavenderGrayBg'">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input type="text" id="firstName" class="form-control" formControlName="firstNameSignup" />
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" class="form-control" formControlName="lastNameSignup"/>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input [class.is-invalid]="registrationForm.get('emailSignup').invalid &&
-      registrationForm.get('emailSignup').touched" type="text" id="email" class="form-control" formControlName="emailSignup" />
-      <small [class.d-none]="registrationForm.get('emailSignup').valid ||
-      registrationForm.get('emailSignup').untouched" class="text-danger">Email is required</small>
-    </div>
-
-    <div class="form-group">
-      <label for="role">Role</label>
-      <select class="form-control" formControlName="roleSignup" id="role">
-        <option value="admin">Admin</option>
-        <option value="pseudo_admin">Pseudo Admin</option>
-        <option value="user">User</option>
-      </select>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" class="form-control" formControlName="passwordSignup" matInput/>
-          <mat-error *ngIf="registrationForm.hasError('required', 'password')">
-            Password is required
-          </mat-error>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="reTypePassword">Retype Password</label>
-          <input type="password" id="reTypePassword" class="form-control" formControlName="rePasswordSignup" matInput [errorStateMatcher]="matcher"/>
-          <mat-error *ngIf="registrationForm.hasError('notSame')">
-            Passwords do not match
-          </mat-error>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="form-group">
-      <label for="question">Security Question</label>
-      <input type="text" id="question" class="form-control" formControlName="securityQuestionSignup" />
-    </div>
-
-    <div class="form-group">
-      <label for="answer">Answer</label>
-      <input type="text" id="answer" class="form-control" formControlName="securityAnswerSignup" />
-    </div>
-
-    <div class="form-group">
-      <ngx-recaptcha2
-        [siteKey]=siteKey
-        (success)="captchaSuccess($event)"
-        formControlName="recaptcha">
-      </ngx-recaptcha2>
-    </div>
-    <button class="btn form-control" (click)="onSignUp()" [disabled]="!botCheckPass" appTheme [where]="'btnThemeDarkBg'">Signup</button>
-    <small *ngIf="userRegistered === false">{{registrationFailure}}</small>
-  </form>
-
 </div>
-

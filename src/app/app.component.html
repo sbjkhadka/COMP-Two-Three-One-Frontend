@@ -60,7 +60,8 @@
               style="cursor: pointer;transform: scale(4);"
               (click)="switchTheme()"
               matTooltip="switch theme"
-              appTheme [where]="'addRecipe'">color_lens</mat-icon>
+              appTheme [where]="'addRecipe'"
+              *ngIf="loggedInUser">color_lens</mat-icon>
   </div>
 </div>
 <router-outlet></router-outlet>

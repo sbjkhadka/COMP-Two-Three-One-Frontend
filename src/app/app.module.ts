@@ -59,16 +59,17 @@ import { ThemeDirective } from './directives/theme.directive';
 
 const routes: Routes = [
 
-  {path: 'login', component: AngularLoginComponent, pathMatch: 'full'},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
-  {path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard]},
-  {path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard]},
-  {path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard]},
-  {path: 'createUser', component: RegisterComponent, canActivate: [AuthGuard]},
-  {path: 'userList', component: UserListComponent, canActivate: [AuthGuard]},
-  {path: 'supportAndFeedback', component: SupportFeedbackComponent, canActivate: [AuthGuard]},
-  {path: 'supportAndFeedback/:id', component: SupportFeedbackDetailsComponent, canActivate: [AuthGuard]}
+  { path: 'login', component: AngularLoginComponent },
+  { path: 'register', component: RegisterAuthComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'myRecipe', component: MyRecipeListComponent, canActivate: [AuthGuard] },
+  { path: 'calorieChecker', component: CalorieCheckerComponent, canActivate: [AuthGuard] },
+  { path: 'contactUs', component: ContactUsComponent, canActivate: [AuthGuard] },
+  { path: 'createUser', component: RegisterComponent, canActivate: [AuthGuard] },
+  { path: 'userList', component: UserListComponent, canActivate: [AuthGuard] },
+  { path: 'supportAndFeedback', component: SupportFeedbackComponent, canActivate: [AuthGuard] },
+  { path: 'supportAndFeedback/:id', component: SupportFeedbackDetailsComponent, canActivate: [AuthGuard] }
 ];
 // @ts-ignore
 @NgModule({

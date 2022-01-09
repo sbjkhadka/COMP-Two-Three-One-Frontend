@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AngularLoginService} from '../shared-services/angular-login.service';
 import {LocalStorageService} from '../shared-services/local-storage.service';
-import {RegisterAuthComponent} from '../register-auth/register-auth.component';
 import {MatDialog} from '@angular/material/dialog';
 import {InfoDialogComponent} from '../home/generic-dialogs/info-dialog/info-dialog.component';
 import {InfoDialog} from '../shared-models/info-dialog.model';
@@ -50,15 +49,6 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
     this.initializeForm();
   }
 
-  openRegistrationDialog(): void {
-    this.dialog.open(RegisterAuthComponent,
-      {
-        height: '820px',
-        width: '600px',
-        panelClass: 'no-padding-container'
-      }
-    );
-  }
   onSignIn(): void {
     this.spinnerShowing = true;
     this.credentials.email =  this.loginForm.value.email;

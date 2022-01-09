@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {Form, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {AngularRegistrationService} from '../shared-services/angular-registration.service';
 import {User} from '../shared-models/user.model';
 import {ErrorStateMatcher} from '@angular/material/core';
@@ -15,9 +15,9 @@ import {ThemeService} from '../shared-services/theme.service';
   styleUrls: ['./register-auth.component.css']
 })
 export class RegisterAuthComponent implements OnInit {
+  page = 1;
   theme: string;
   constructor(private angularRegistrationService: AngularRegistrationService,
-              public dialogRef: MatDialogRef<RegisterAuthComponent>,
               private formBuilder: FormBuilder,
               public dialog: MatDialog,
               private themeService: ThemeService) {
@@ -91,13 +91,8 @@ export class RegisterAuthComponent implements OnInit {
         }
       }).afterClosed().subscribe(res => {
         this.info = null;
-        this.close();
       });
     });
-  }
-
-  close(): void {
-    this.dialogRef.close();
   }
 
   checkPasswords(group: FormGroup): any{
@@ -109,6 +104,10 @@ export class RegisterAuthComponent implements OnInit {
 
   captchaSuccess(event): void {
     this.botCheckPass = true;
+  }
+
+  switchPage(pageNo: number): void {
+    this.page = pageNo;
   }
 }
 

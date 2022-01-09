@@ -5,7 +5,7 @@
        <div class="h-100 d-flex flex-column justify-content-center align-items-center">
          <h1 class="main-heading">Hello, Shopper</h1>
          <small class="text-secondary">Create your account with us!</small>
-         <button type="button" class="btn btn-block w-50 btn-light my-5 rounded-button" (click)="openRegistrationDialog()">Sign Up</button>
+         <button type="button" class="btn btn-block w-50 btn-light my-5 rounded-button" routerLink="/register">Sign Up</button>
        </div>
      </div>
 
@@ -42,6 +42,9 @@
             <button class="btn btn-block btn-primary rounded-button" type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
           </div>
         </form>
+        <small class="text-secondary my-1 d-block d-sm-block d-md-none">Don't have an account? 
+          <strong routerLink="/register" class="cursor-pointer">Sign up here</strong>
+        </small>
 </div>
 <div class="d-flex my-2 w-75 justify-content-center">
   <small class="text-secondary">Privacy Policy</small>

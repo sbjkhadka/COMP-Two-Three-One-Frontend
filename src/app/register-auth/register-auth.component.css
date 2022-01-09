@@ -1,16 +1,19 @@
-.dialog-container {
-  height: 100%;
-  border-radius: 5px;
-  margin: 0;
+.social {
+  height: 60%; 
+  width: auto;
+  opacity: 0.5;
 }
-.form-style {
-  border: 1px solid transparent;
-  padding: 20px;
-  border-radius: 5px;
+.social:hover {
+  opacity: 1;
 }
-.cross-style {
-  margin-right: 25px;
-  cursor: pointer;
+.main-heading {
+font-family: 'Open Sans', sans-serif;
 }
-
-
+.gradient-bg {
+  background-image: radial-gradient(whitesmoke, rgba(0,255,0,0.3)), url("https://preview.pixlr.com/images/800wm/1084/1/1084104514.jpg");
+  background-repeat: repeat;
+  background-position: center;
+}
+.rounded-button {
+  border-radius: 20px;
+}
