@@ -1,11 +1,62 @@
- <div class="h-100 overflow-hidden w-100 d-flex flex-column justify-content-around align-items-center" appTheme [where]="'mainContainer'">
-  <div class="login-wrap opacity-50">
+ <!-- <div class="h-100 w-100 overflow-hidden  d-flex flex-column justify-content-around align-items-center bg-warning" appTheme [where]="'mainContainer'"> -->
+ <div class="container-fluid h-100 w-100 mh-100 mw-100 overflow-hidden">  
+   <div class="row h-100">
+     <div class="col-md-3 d-none d-sm-none d-md-block bg-dark text-white">
+       <div class="h-100 d-flex flex-column justify-content-center align-items-center">
+         <h1 class="main-heading">Hello, Shopper</h1>
+         <small class="text-secondary">Create your account with us!</small>
+         <button type="button" class="btn btn-block w-50 btn-light my-5 rounded-button" (click)="openRegistrationDialog()">Sign Up</button>
+       </div>
+     </div>
+
+     <div class="col-md-9 col-sm-12 bg-light d-flex flex-column justify-content-between align-items-center">
+       <div>&nbsp;</div>
+       <div class="h-75 w-100 col-12 col-md-6 d-flex flex-column justify-content-center align-items-center border rounded shadow-sm p-3">
+       <h1 class="main-heading">Sign in to Account</h1>
+       <div class="w-50 d-flex align-items-center justify-content-around">
+         <img src="assets/icons/social/insta.png" alt="insta" class="social" />
+         <img src="assets/icons/social/twitter.png" alt="twitter" class="social" />
+         <img src="assets/icons/social/linkedin.png" alt="linkedin" class="social" />
+         <img src="assets/icons/social/github.png" alt="github" class="social"/>
+       </div>
+       <small class="text-secondary my-2">or use your email account</small>
+        <form class="w-75 my-3" [formGroup]="loginForm">
+          <div class="form-group">
+            <label for="email" class="text-secondary">Username or Email</label>
+            <input type="text" id="email" #email class="form-control" formControlName="email"/>
+          </div>
+          <div class="form-group">
+            <label for="password" class="text-secondary">Password</label>
+            <input type="password" id="password" class="form-control" formControlName="password"/>
+          </div>
+          <div class="form-group d-flex justify-content-between">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="remember">
+              <label class="form-check-label font-weight-bold" for="remember">
+                <small class="text-secondary">Remember me</small>
+              </label>
+            </div>
+            <span class="font-weight-bold"><small class="text-secondary">Forgot Password?</small></span>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-block btn-primary rounded-button" type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
+          </div>
+        </form>
+</div>
+<div class="d-flex my-2 w-75 justify-content-center">
+  <small class="text-secondary">Privacy Policy</small>
+  <small class="mx-3 text-secondary">&#9679;</small>
+  <small class="text-secondary">Terms & Conditions</small>
+</div>
+     </div>
+     
+   </div>
+  
+    
+  <!-- <div class="login-wrap opacity-50">
     <div class="login-html">
       <input id="tab-1" type="radio" class="sign-in" name="tab"  checked [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
       <input id="tab-2" type="radio" class="for-pwd" name="tab" [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-2" class="tab cheat" >Forgot Password</label>
-      <!-- Going to upgrade this after css issue is resolved -->
-      <!-- <input id="tab-1" type="radio" class="sign-in" name="tab"  checked appTheme [where]="'border'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;
-      <input id="tab-2" type="radio" class="for-pwd" name="tab" appTheme [where]="'border'"><label for="tab-2" class="tab cheat" >Forgot Password</label> -->
       <div class="login-form">
 
         <form class="sign-in-htm" [formGroup]="loginForm">
@@ -20,8 +71,6 @@
           <div class="hr"></div>
           <div class="group">
             <button type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
-            <!-- Going to upgrade this after css issue is resolved -->
-            <!-- <button type="submit" value="Sign In" (click)="onSignIn()" appTheme [where]="'button'">Sign In</button> -->
           </div>
         </form>
 
@@ -83,8 +132,7 @@
       </div>
 
     </div>
-  </div>
-  <mat-spinner *ngIf="spinnerShowing"></mat-spinner>
+  </div> -->
 </div>
 
 
