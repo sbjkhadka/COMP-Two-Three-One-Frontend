@@ -1,5 +1,5 @@
  <!-- <div class="h-100 w-100 overflow-hidden  d-flex flex-column justify-content-around align-items-center bg-warning" appTheme [where]="'mainContainer'"> -->
- <div class="container-fluid h-100 w-100 mh-100 mw-100 overflow-hidden">  
+ <div class="container-fluid h-100 w-100 mh-100 mw-100 overflow-hidden">
    <div class="row h-100">
      <div class="col-md-3 d-none d-sm-none d-md-block bg-dark text-white">
        <div class="h-100 d-flex flex-column justify-content-center align-items-center">
@@ -22,12 +22,19 @@
        <small class="text-secondary my-2">or use your email account</small>
         <form class="w-75 my-3" [formGroup]="loginForm">
           <div class="form-group">
-            <label for="email" class="text-secondary">Username or Email</label>
-            <input type="text" id="email" #email class="form-control" formControlName="email"/>
+<!--            <label for="email" class="text-secondary">Username or Email</label>-->
+            <app-controls-wrapper icon="envelope">
+              <input type="text" id="email" #email formControlName="email"/>
+            </app-controls-wrapper>
+
+
           </div>
           <div class="form-group">
-            <label for="password" class="text-secondary">Password</label>
-            <input type="password" id="password" class="form-control" formControlName="password"/>
+<!--            <label for="password" class="text-secondary">Password</label>-->
+            <app-controls-wrapper icon="lock">
+              <input type="password" id="password" formControlName="password"/>
+            </app-controls-wrapper>
+
           </div>
           <div class="form-group d-flex justify-content-between">
             <div class="form-check">
@@ -42,7 +49,7 @@
             <button class="btn btn-block btn-primary rounded-button" type="submit" value="Sign In" (click)="onSignIn()" [ngClass]="theme==='color'?'button':'button-dark'">Sign In</button>
           </div>
         </form>
-        <small class="text-secondary my-1 d-block d-sm-block d-md-none">Don't have an account? 
+        <small class="text-secondary my-1 d-block d-sm-block d-md-none">Don't have an account?
           <strong routerLink="/register" class="cursor-pointer">Sign up here</strong>
         </small>
 </div>
@@ -52,10 +59,10 @@
   <small class="text-secondary">Terms & Conditions</small>
 </div>
      </div>
-     
+
    </div>
-  
-    
+
+
   <!-- <div class="login-wrap opacity-50">
     <div class="login-html">
       <input id="tab-1" type="radio" class="sign-in" name="tab"  checked [ngClass]="theme==='color'?'border-colored':'border-dark'"><label for="tab-1" class="tab cheat" >Sign In</label>&nbsp;&nbsp;&nbsp;&nbsp;

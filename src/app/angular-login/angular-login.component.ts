@@ -56,6 +56,7 @@ export class AngularLoginComponent implements OnInit, OnDestroy {
 
     if (this.loginForm.value.email && this.loginForm.value.password) {
       this.angularLoginService.signIn(this.credentials).subscribe(value => {
+        console.log(value);
         this.spinnerShowing = false;
         if (value && value.accessToken) {
           this.sessionStorageService.setItem('logged_in_user', JSON.stringify(value));

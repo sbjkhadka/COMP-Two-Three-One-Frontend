@@ -13,7 +13,7 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { AddNewRecipeComponent } from './add-new-recipe/add-new-recipe.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -56,6 +56,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { SupportFeedbackDetailsComponent } from './support-feedback/support-feedback-details/support-feedback-details.component';
 import { ThemeDirective } from './directives/theme.directive';
+import { ControlsWrapperComponent } from './lib/controls-wrapper/controls-wrapper.component';
+import { InputRefDirective } from './lib/controls-wrapper/common/input-ref.directive';
 
 const routes: Routes = [
 
@@ -94,6 +96,8 @@ const routes: Routes = [
     SupportFeedbackComponent,
     SupportFeedbackDetailsComponent,
     ThemeDirective,
+    ControlsWrapperComponent,
+    InputRefDirective,
   ],
   imports: [
     BrowserModule,
@@ -130,7 +134,7 @@ const routes: Routes = [
     FormlyModule.forRoot({extras: {lazyRender: true}}),
     FormlyBootstrapModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
