@@ -60,6 +60,7 @@ import { ControlsWrapperComponent } from './lib/controls-wrapper/controls-wrappe
 import { InputRefDirective } from './lib/controls-wrapper/common/input-ref.directive';
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { ThemeSwitcherComponent } from './home/theme_switcher/theme_switcher.component';
+import { RecipeDisplayComponent } from './home/recipe-display/recipe-display.component';
 
 const routes: Routes = [
 
@@ -101,7 +102,8 @@ const routes: Routes = [
     ControlsWrapperComponent,
     InputRefDirective,
     NavbarComponent,
-    ThemeSwitcherComponent
+    ThemeSwitcherComponent,
+    RecipeDisplayComponent
   ],
   imports: [
     BrowserModule,
