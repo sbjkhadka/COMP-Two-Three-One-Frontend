@@ -1,11 +1,3 @@
-<div class="row fixed-bottom bg-transparent text-dark d-none d-sm-none d-md-block">
-  <div class="col-md-12 d-flex justify-content-start">
-              <mat-icon class="pl-3 pb-5 font-weight-bold theme-font"
-              style="cursor: pointer;transform: scale(4);"
-              (click)="switchTheme()"
-              matTooltip="switch theme"
-              appTheme [where]="'addRecipe'"
-              *ngIf="loggedInUser">color_lens</mat-icon>
-  </div>
-</div>
 <router-outlet></router-outlet>
+<!-- this is a fixed content -->
+<app-theme-switcher></app-theme-switcher>
