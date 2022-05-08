@@ -14,8 +14,7 @@
 
   <div class="row">
 
-    <div class="col-md-12 cards-container d-flex justify-content-around align-items-center flex-wrap align-self-center"
-         style="max-height: 800px;overflow: auto" *ngIf="recipeInDisplay">
+    <div class="col-md-12 cards-container d-flex justify-content-around align-items-center flex-wrap align-self-center" *ngIf="recipeInDisplay">
 
       <div class="card" appTheme [where]="'themeBg'" style="width: 18rem;margin: 20px;" *ngFor="let item of recipeInDisplay">
 
