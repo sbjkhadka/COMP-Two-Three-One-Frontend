@@ -6,7 +6,7 @@ import { ThemeService } from '../shared-services/theme.service';
 })
 export class ThemeDirective implements AfterViewInit {
 
-  @Input() where;
+  @Input() where: string;
 
   constructor(private element: ElementRef,
               private themeService: ThemeService) {
@@ -21,7 +21,7 @@ export class ThemeDirective implements AfterViewInit {
   private applyTheme(value: string): void {
     if (this.where === 'mainContainer') {
       value.toLowerCase() === 'color' ?
-      this.toggleClass('main-container-dark', 'main-container') : this.toggleClass('main-container', 'main-container-dark');
+        this.toggleClass('main-container-dark', 'main-container') : this.toggleClass('main-container', 'main-container-dark');
     } else if (this.where === 'border') {
       // Login component: CSS issue
       value.toLowerCase() === 'color' ?

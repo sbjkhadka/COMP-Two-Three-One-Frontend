@@ -58,6 +58,7 @@ import { SupportFeedbackDetailsComponent } from './support-feedback/support-feed
 import { ThemeDirective } from './directives/theme.directive';
 import { ControlsWrapperComponent } from './lib/controls-wrapper/controls-wrapper.component';
 import { InputRefDirective } from './lib/controls-wrapper/common/input-ref.directive';
+import { NavbarComponent } from './home/navbar/navbar.component';
 
 const routes: Routes = [
 
@@ -98,6 +99,7 @@ const routes: Routes = [
     ThemeDirective,
     ControlsWrapperComponent,
     InputRefDirective,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
